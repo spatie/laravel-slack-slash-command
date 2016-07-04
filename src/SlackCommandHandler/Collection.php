@@ -22,14 +22,8 @@ class Collection extends IlluminateCollection
         $this->request = $request;
         
         $commandHandlers = collect($commandHandlers)
-            ->each(function ($className) {
-                if (!class_exists($className)) {
-                    throw InvalidSlashCommandHandler::handlerDoesNotExist($className);
-                }
-
-                if (!$className instanceof BaseHandler) {
-                    throw InvalidSlashCommandHandler::handlerDoesNotExendFromBaseHandler($className);
-                }
+            ->each(function (string $className) {
+                $this->guardAgainstInvalidHandlerClassName($className);
             })
             ->map(function (string $className) {
                 return new $className($this->request);
@@ -37,6 +31,17 @@ class Collection extends IlluminateCollection
             ->toArray();
 
         parent::__construct($commandHandlers);
+    }
+
+    protected function guardAgainstInvalidHandlerClassName(string $className)
+    {
+        if (!class_exists($className)) {
+            throw InvalidSlashCommandHandler::handlerDoesNotExist($className);
+        }
+
+        if (!$className instanceof BaseHandler) {
+            throw InvalidSlashCommandHandler::handlerDoesNotExendFromBaseHandler($className);
+        }
     }
 
     public function getResponse(): SlashCommandResponse
@@ -50,7 +55,7 @@ class Collection extends IlluminateCollection
             throw RequestCouldNotBeProcessed::noHandlerFound($this->request);
         }
 
-        $response = $handler->handle($slashCommandRequest);
+        $response = $handler->handle($this->slashCommandRequest);
 
         return $response;
 
