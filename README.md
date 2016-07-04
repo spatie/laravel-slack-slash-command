@@ -1,4 +1,4 @@
-# Very short description of the package
+# Handle Slack Slash commands in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-slack.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-slack)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -6,8 +6,6 @@
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/xxxxxxxxx.svg?style=flat-square)](https://insight.sensiolabs.com/projects/xxxxxxxxx)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-slack.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-slack)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-slack.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-slack)
-
-**Note:** Replace ```Freek Van der Herten``` ```freekmurze``` ```https://spatie.be``` ```freek@spatie.be``` ```laravel-slack``` ```Integrate Slack in a Laravel app``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
