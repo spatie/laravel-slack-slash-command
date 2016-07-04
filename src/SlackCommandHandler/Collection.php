@@ -11,7 +11,7 @@ class Collection extends IlluminateCollection
 {
     /** @var  \Spatie\LaravelSlack\SlashCommandRequest */
     protected $request;
-    
+
     public static function createForClasses(array $commandHandlers)
     {
         return new static($commandHandlers);
@@ -20,7 +20,7 @@ class Collection extends IlluminateCollection
     public function __construct(array $commandHandlers, SlashCommandRequest $request)
     {
         $this->request = $request;
-        
+
         $commandHandlers = collect($commandHandlers)
             ->each(function (string $className) {
                 $this->guardAgainstInvalidHandlerClassName($className);
@@ -51,13 +51,12 @@ class Collection extends IlluminateCollection
                 return $commandHandler->canHandle($this->request);
             });
 
-        if (! $handler) {
+        if (!$handler) {
             throw RequestCouldNotBeProcessed::noHandlerFound($this->request);
         }
 
         $response = $handler->handle($this->slashCommandRequest);
 
         return $response;
-
     }
 }

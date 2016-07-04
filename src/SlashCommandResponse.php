@@ -55,7 +55,6 @@ class SlashCommandResponse extends Response
 
     /**
      * Prepares the payload to be sent to the reponse.
-     *
      */
     public function __toString()
     {

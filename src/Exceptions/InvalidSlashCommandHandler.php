@@ -14,7 +14,7 @@ class InvalidSlashCommandHandler extends \Exception
     public static function handlerDoesNotExendFromBaseHandler($handler)
     {
         $baseHandlerClass = BaseHandler::class;
-        
+
         return new static("The handler `{$handler}` does not extend the base handler `{$baseHandlerClass}`.");
     }
 }

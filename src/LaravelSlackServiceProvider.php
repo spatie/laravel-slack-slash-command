@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\LaravelSlack\SlashCommandHandler\Collection;
 use Spatie\LaravelSlack\SlashCommandRequest;
 
-class SkeletonServiceProvider extends ServiceProvider
+class LaravelSlackServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,7 +14,7 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/laravel-slack.php' => config_path('laravel-slack.php'),
+            __DIR__.'/../config/laravel-slack.php' => config_path('laravel-slack.php'),
         ], 'config');
 
         $this->app['router']->get(config('laravel-slack.slash_command_url'), function () {
@@ -32,6 +32,6 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-slack.php', 'laravel-slack');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-slack.php', 'laravel-slack');
     }
 }
