@@ -29,6 +29,17 @@ class SkeletonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'skeleton');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-slack.php', 'laravel-slack');
+
+        $this->registerMiddleware();
     }
+
+    /**
+     * @return void
+     */
+    private function registerMiddleware()
+    {
+        $this->app['router']->middleware('VerifySlackToken', 'Spatie\Skeleton\Http\Middleware\VerifySlackToken');
+    }
+
 }
