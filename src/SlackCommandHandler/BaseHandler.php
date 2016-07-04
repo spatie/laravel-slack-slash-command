@@ -19,8 +19,8 @@ abstract class BaseHandler
 
     abstract public function canHandle(SlashCommandRequest $slashCommandRequest): bool;
 
-    public function respond(string $text)
+    public function respond(string $text): SlashCommandResponse
     {
-        
+        return SlashCommandResponse::createForRequest($this->request)->setText($text);
     }
 }

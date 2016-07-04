@@ -7,10 +7,9 @@ use Spatie\LaravelSlack\SlashCommandResponse;
 
 class CatchAll extends BaseHandler
 {
-
     public function handle(SlashCommandRequest $slashCommandRequest): SlashCommandResponse
     {
-        return 'handle';
+        return $this->respond('This is a catch all reponse');
     }
 
     public function canHandle(SlashCommandRequest $slashCommandRequest): bool

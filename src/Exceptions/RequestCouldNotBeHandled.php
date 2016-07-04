@@ -6,7 +6,7 @@ use Spatie\LaravelSlack\SlashCommandHandler\BaseHandler;
 
 class RequestCouldNotBeHandled extends \Exception
 {
-    public static function handlerDoesNotExist()
+    public static function handlerDoesNotExist($handler)
     {
         return new static("There is no class named `{$handler}`.");
     }
