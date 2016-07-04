@@ -12,7 +12,10 @@ return [
      */
     'verification_token' => '',
 
+    /**
+     * The handlers that should process the slash command.
+     */
     'slash_command_handlers' => [
-        CatchAl
+        Spatie\LaravelSlack\SlashCommandHandler\CatchAll::class
     ]
 ];
