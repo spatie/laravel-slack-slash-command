@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\LaravelSlack;
 
 use Illuminate\Support\ServiceProvider;
 use Spatie\LaravelSlack\SlashCommandHandler\Collection;
