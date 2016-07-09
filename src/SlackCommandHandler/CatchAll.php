@@ -2,17 +2,17 @@
 
 namespace Spatie\SlashCommand\SlashCommandHandler;
 
-use Spatie\SlashCommand\SlashCommandRequest;
 use Spatie\SlashCommand\SlashCommandResponse;
 
 class CatchAll extends BaseHandler
 {
-    public function handle(SlashCommandRequest $slashCommandRequest): SlashCommandResponse
+    public function handleCurrentRequest(): SlashCommandResponse
     {
-        return $this->respond('This is a catch all reponse');
+        return $this
+            ->respond("This is a catch all response. You typed `{$this->getCommandText()}`");
     }
 
-    public function canHandle(SlashCommandRequest $slashCommandRequest): bool
+    public function canHandleCurrentRequest(): bool
     {
         return true;
     }

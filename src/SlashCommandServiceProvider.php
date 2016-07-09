@@ -3,8 +3,8 @@
 namespace Spatie\SlashCommand;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 use Spatie\SlashCommand\SlashCommandHandler\Collection;
-use Spatie\SlashCommand\SlashCommandRequest;
 
 class SlashCommandServiceProvider extends ServiceProvider
 {
@@ -19,13 +19,31 @@ class SlashCommandServiceProvider extends ServiceProvider
 
         collect(config('laravel-slack-slash-command.commands'))->each(function (array $commandConfig) {
             
-            $this->app['router']->get($commandConfig['url'], function () use ($commandConfig) {
+            $this->app['router']->post($commandConfig['url'], function () use ($commandConfig) {
+                
+                if (!request()->has('token')) {
+                    throw InvalidSlashCommandRequest::tokenNotFound();
+                }
 
-                $slashCommandRequest = SlashCommandRequest::createForRequest(request());
+                if (request()->get('token') != $commandConfig['verification_token']) {
+                    throw InvalidSlashCommandRequest::invalidToken(request()->get('token'));
+                }
 
-                $slashCommandHandlers = collect($commandConfig['handlers'], $slashCommandRequest);
+                $handler = collect($commandConfig['handlers'])
+                    ->map(function(string $handlerClassName) {
+                       return new $handlerClassName(request());
+                    })
+                    ->filter(function(BaseHandler $handler) {
+                        return $handler->canHandleCurrentRequest();
+                    })->first();
 
-                return $slashCommandHandlers->getResponse();
+                if (!$handler) {
+                    throw RequestCouldNotBeProcessed::noHandlerFound(request());
+                }
+
+                $response = $handler->handleCurrentRequest();
+
+                return $response->finalize();
             });
         });
     }

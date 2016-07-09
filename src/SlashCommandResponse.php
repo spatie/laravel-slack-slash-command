@@ -2,7 +2,8 @@
 
 namespace Spatie\SlashCommand;
 
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use \Symfony\Component\HttpFoundation\Response;
 
 class SlashCommandResponse extends Response
 {
@@ -18,14 +19,14 @@ class SlashCommandResponse extends Response
     /** @var string */
     protected $attachments = '';
 
-    public static function createForRequest(SlashCommandRequest $request)
+    public static function createForRequest(Request $request)
     {
         return (new static())
             ->setRequest($request)
             ->displayResponseOnlyToUserWhoTypedCommand();
     }
 
-    public function setRequest(SlashCommandRequest $request)
+    public function setRequest(Request $request)
     {
         $this->responseType = $request;
 
@@ -48,18 +49,18 @@ class SlashCommandResponse extends Response
 
     public function displayResponseToEveryoneOnChannel()
     {
-        $this->type = 'in_channel';
+        $this->responseType = 'in_channel';
 
         return $this;
     }
 
     /**
-     * Prepares the payload to be sent to the reponse.
+     * Prepares the payload to be sent to the response.
      */
-    public function __toString()
+    public function finalize()
     {
         $payload = [
-            'text' => $this->getText(),
+            'text' => $this->text,
             'link_names' => true,
             'unfurl_links' => true,
             'unfurl_media' => true,
@@ -69,8 +70,10 @@ class SlashCommandResponse extends Response
 
         $payload['attachments'] = $this->attachments;
 
-        $this->setContent($payload);
+        $this->headers->set('Content-Type', 'application/json');
 
-        return parent::__toString();
+        $this->setContent(json_encode($payload));
+
+        return $this;
     }
 }

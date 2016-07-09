@@ -2,7 +2,7 @@
 
 namespace Spatie\SlashCommand\SlashCommandHandler;
 
-use Spatie\SlashCommand\SlashCommandRequest;
+use Illuminate\Http\Request;
 use Spatie\SlashCommand\SlashCommandResponse;
 
 abstract class BaseHandler
@@ -10,14 +10,18 @@ abstract class BaseHandler
     /** @var \Spatie\SlashCommand\SlashCommandRequest */
     protected $request;
 
-    public function __construct(SlashCommandRequest $request)
-    {
+    public function __construct(Request $request) {
         $this->request = $request;
     }
+    
+    abstract public function handleCurrentRequest(): SlashCommandResponse;
 
-    abstract public function handle(SlashCommandRequest $slashCommandRequest): SlashCommandResponse;
+    abstract public function canHandleCurrentRequest(): bool;
 
-    abstract public function canHandle(SlashCommandRequest $slashCommandRequest): bool;
+    public function getCommandText()
+    {
+        return $this->request->get('text');
+    }
 
     public function respond(string $text): SlashCommandResponse
     {
