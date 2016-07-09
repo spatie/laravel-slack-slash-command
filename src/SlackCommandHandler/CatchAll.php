@@ -16,6 +16,8 @@ class CatchAll extends BaseHandler
             ->send();
         */
 
+        dd(serialize($this->request));
+
         return $this->respond("This is a catch all response. You typed `{$this->getCommandText()}`");
     }
 
