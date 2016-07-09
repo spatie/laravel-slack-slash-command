@@ -20,30 +20,9 @@ class SlashCommandServiceProvider extends ServiceProvider
         collect(config('laravel-slack-slash-command.commands'))->each(function (array $commandConfig) {
             
             $this->app['router']->post($commandConfig['url'], function () use ($commandConfig) {
+
+                return (new SlackCommandResponder($commandConfig, request()))->getResponse();
                 
-                if (!request()->has('token')) {
-                    throw InvalidSlashCommandRequest::tokenNotFound();
-                }
-
-                if (request()->get('token') != $commandConfig['verification_token']) {
-                    throw InvalidSlashCommandRequest::invalidToken(request()->get('token'));
-                }
-
-                $handler = collect($commandConfig['handlers'])
-                    ->map(function(string $handlerClassName) {
-                       return new $handlerClassName(request());
-                    })
-                    ->filter(function(BaseHandler $handler) {
-                        return $handler->canHandleCurrentRequest();
-                    })->first();
-
-                if (!$handler) {
-                    throw RequestCouldNotBeProcessed::noHandlerFound(request());
-                }
-
-                $response = $handler->handleCurrentRequest();
-
-                return $response->finalize();
             });
         });
     }
