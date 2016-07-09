@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Slashcommand;
+namespace Spatie\SlashCommand;
 
 use Illuminate\Http\Response;
 

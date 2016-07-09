@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Slashcommand\SlashCommandHandler;
+namespace Spatie\SlashCommand\SlashCommandHandler;
 
-use Spatie\Slashcommand\SlashCommandRequest;
-use Spatie\Slashcommand\SlashCommandResponse;
+use Spatie\SlashCommand\SlashCommandRequest;
+use Spatie\SlashCommand\SlashCommandResponse;
 
 abstract class BaseHandler
 {
-    /** @var \Spatie\Slashcommand\SlashCommandRequest */
+    /** @var \Spatie\SlashCommand\SlashCommandRequest */
     protected $request;
 
     public function __construct(SlashCommandRequest $request)

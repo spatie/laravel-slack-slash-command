@@ -1,15 +1,15 @@
 <?php
 
-namespace Spatie\Slashcommand\SlashCommandHandler;
+namespace Spatie\SlashCommand\SlashCommandHandler;
 
 use Illuminate\Support\Collection as IlluminateCollection;
-use Spatie\Slashcommand\InvalidSlashCommandHandler;
-use Spatie\Slashcommand\SlashCommandRequest;
-use Spatie\Slashcommand\SlashCommandResponse;
+use Spatie\SlashCommand\InvalidSlashCommandHandler;
+use Spatie\SlashCommand\SlashCommandRequest;
+use Spatie\SlashCommand\SlashCommandResponse;
 
 class Collection extends IlluminateCollection
 {
-    /** @var  \Spatie\Slashcommand\SlashCommandRequest */
+    /** @var  \Spatie\SlashCommand\SlashCommandRequest */
     protected $request;
 
     public static function createForClasses(array $commandHandlers)

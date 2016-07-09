@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Slashcommand\SlashCommandHandler;
+namespace Spatie\SlashCommand\SlashCommandHandler;
 
-use Spatie\Slashcommand\SlashCommandRequest;
-use Spatie\Slashcommand\SlashCommandResponse;
+use Spatie\SlashCommand\SlashCommandRequest;
+use Spatie\SlashCommand\SlashCommandResponse;
 
 class CatchAll extends BaseHandler
 {

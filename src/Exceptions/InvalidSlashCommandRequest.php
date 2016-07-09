@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Slashcommand;
+namespace Spatie\SlashCommand;
 
 class InvalidSlashCommandRequest extends \Exception
 {

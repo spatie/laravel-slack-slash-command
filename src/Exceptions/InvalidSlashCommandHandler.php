@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Slashcommand;
+namespace Spatie\SlashCommand;
 
-use Spatie\Slashcommand\SlashCommandHandler\BaseHandler;
+use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 
 class InvalidSlashCommandHandler extends \Exception
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Slashcommand;
+namespace Spatie\SlashCommand;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Slashcommand\SlashCommandHandler\Collection;
-use Spatie\Slashcommand\SlashCommandRequest;
+use Spatie\SlashCommand\SlashCommandHandler\Collection;
+use Spatie\SlashCommand\SlashCommandRequest;
 
 class SlashCommandServiceProvider extends ServiceProvider
 {
