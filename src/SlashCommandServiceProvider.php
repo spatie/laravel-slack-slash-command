@@ -16,7 +16,7 @@ class SlashCommandServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
-        
+
         collect(config('laravel-slack-slash-command.commands'))->each(function (array $commandConfig) {
             
             $this->app['router']->get($commandConfig['url'], function () use ($commandConfig) {
