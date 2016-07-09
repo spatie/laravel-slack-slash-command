@@ -26,6 +26,27 @@ You can install the package via composer:
 composer require spatie/laravel-slack-slash-command
 ```
 
+This service provider must be installed.
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    Spatie\SlashCommand\SlashCommandServiceProvider::class,
+];
+```
+
+You can publish the config-file with:
+
+php artisan vendor:publish --provider="Spatie\SlashCommand\SlashCommandServiceProvider"
+
+This is the contents of the published file:
+
+```php
+coming soon...
+```
+
+
 ## Usage
 
 ``` php
