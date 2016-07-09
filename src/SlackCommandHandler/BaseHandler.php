@@ -18,6 +18,9 @@ abstract class BaseHandler
 
     abstract public function canHandleCurrentRequest(): bool;
 
+    /**
+     * @return mixed
+     */
     public function getCommandText()
     {
         return $this->request->get('text');

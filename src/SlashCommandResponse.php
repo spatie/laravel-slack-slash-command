@@ -26,6 +26,10 @@ class SlashCommandResponse extends Response
             ->displayResponseOnlyToUserWhoTypedCommand();
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return $this
+     */
     public function setRequest(Request $request)
     {
         $this->responseType = $request;
@@ -33,6 +37,10 @@ class SlashCommandResponse extends Response
         return $this;
     }
 
+    /**
+     * @param string $text
+     * @return $this
+     */
     public function setText(string $text)
     {
         $this->text = $text;
@@ -40,6 +48,9 @@ class SlashCommandResponse extends Response
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function displayResponseOnlyToUserWhoTypedCommand()
     {
         $this->responseType = 'ephemeral';
@@ -47,6 +58,9 @@ class SlashCommandResponse extends Response
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function displayResponseToEveryoneOnChannel()
     {
         $this->responseType = 'in_channel';
@@ -55,7 +69,7 @@ class SlashCommandResponse extends Response
     }
 
     /**
-     * Prepares the payload to be sent to the response.
+     * @return $this
      */
     public function finalize()
     {

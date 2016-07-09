@@ -2,20 +2,16 @@
 
 namespace Spatie\SlashCommand;
 
-
 use Illuminate\Http\Request;
 use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 
 class SlackCommandResponder
 {
-    /**
-     * @var array
-     */
-    private $commandConfig;
-    /**
-     * @var Request
-     */
-    private $request;
+    /** @var array */
+    protected $commandConfig;
+    
+    /** @var \Illuminate\Http\Request */
+    protected $request;
 
     public function __construct(array $commandConfig, Request $request)
     {
@@ -24,7 +20,7 @@ class SlackCommandResponder
         $this->request = $request;
     }
 
-    public function getResponse() {
+    public function getResponse(): SlashCommandResponse {
 
         $this->guardAgainstInvalidRequest();
 
@@ -45,11 +41,8 @@ class SlackCommandResponder
             throw InvalidSlashCommandRequest::invalidToken(request()->get('token'));
         }
     }
-
-    /**
-     * @return mixed
-     */
-    protected function determineResponseHandler()
+    
+    protected function determineResponseHandler(): BaseHandler
     {
         $handler = collect($this->commandConfig['handlers'])
             ->map(function (string $handlerClassName) {
