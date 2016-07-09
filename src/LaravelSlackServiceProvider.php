@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\LaravelSlack;
+namespace Spatie\Slashcommand;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\LaravelSlack\SlashCommandHandler\Collection;
-use Spatie\LaravelSlack\SlashCommandRequest;
+use Spatie\Slashcommand\SlashCommandHandler\Collection;
+use Spatie\Slashcommand\SlashCommandRequest;
 
 class LaravelSlackServiceProvider extends ServiceProvider
 {

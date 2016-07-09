@@ -16,6 +16,6 @@ return [
      * The handlers that should process the slash command.
      */
     'slash_command_handlers' => [
-        Spatie\LaravelSlack\SlashCommandHandler\CatchAll::class
+        Spatie\Slashcommand\SlashCommandHandler\CatchAll::class
     ]
 ];

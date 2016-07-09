@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelSlack;
+namespace Spatie\Slashcommand;
 
 use Illuminate\Http\Request;
 

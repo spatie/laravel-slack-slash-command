@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\LaravelSlack;
+namespace Spatie\Slashcommand;
 
-use Spatie\LaravelSlack\SlashCommandHandler\BaseHandler;
+use Spatie\Slashcommand\SlashCommandHandler\BaseHandler;
 
 class InvalidSlashCommandHandler extends \Exception
 {

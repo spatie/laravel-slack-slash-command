@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\LaravelSlack\SlashCommandHandler;
+namespace Spatie\Slashcommand\SlashCommandHandler;
 
-use Spatie\LaravelSlack\SlashCommandRequest;
-use Spatie\LaravelSlack\SlashCommandResponse;
+use Spatie\Slashcommand\SlashCommandRequest;
+use Spatie\Slashcommand\SlashCommandResponse;
 
 abstract class BaseHandler
 {
-    /** @var \Spatie\LaravelSlack\SlashCommandRequest */
+    /** @var \Spatie\Slashcommand\SlashCommandRequest */
     protected $request;
 
     public function __construct(SlashCommandRequest $request)

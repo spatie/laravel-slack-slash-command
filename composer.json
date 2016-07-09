@@ -1,6 +1,6 @@
 {
-    "name": "spatie/laravel-slack",
-    "description": "Integrate Slack in a Laravel app",
+    "name": "spatie/laravel-slack-slash-command",
+    "description": "Make a Laravel app respond to a slash command from Slack",
     "keywords": [
         "spatie",
         "laravel-slack"
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\LaravelSlack\\": "src"
+            "Spatie\\SlashCommand\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\LaravelSlack\\Test\\": "tests"
+            "Spatie\\SlashCommand\\Test\\": "tests"
         }
     },
     "scripts": {

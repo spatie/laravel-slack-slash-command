@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\LaravelSlack\SlashCommandHandler;
+namespace Spatie\Slashcommand\SlashCommandHandler;
 
-use Spatie\LaravelSlack\SlashCommandRequest;
-use Spatie\LaravelSlack\SlashCommandResponse;
+use Spatie\Slashcommand\SlashCommandRequest;
+use Spatie\Slashcommand\SlashCommandResponse;
 
 class CatchAll extends BaseHandler
 {
