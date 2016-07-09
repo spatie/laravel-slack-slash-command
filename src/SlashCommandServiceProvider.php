@@ -16,14 +16,17 @@ class SlashCommandServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
+        
+        collect(config('laravel-slack-slash-command.commands'))->each(function (array $commandConfig) {
+            
+            $this->app['router']->get($commandConfig['url'], function () use ($commandConfig) {
 
-        $this->app['router']->get(config('laravel-slack-slash-command.url'), function () {
+                $slashCommandRequest = SlashCommandRequest::createForRequest(request());
 
-            $slashCommandRequest = SlashCommandRequest::createForRequest(request());
+                $slashCommandHandlers = collect($commandConfig['handlers'], $slashCommandRequest);
 
-            $slashCommandHandlers = new Collection(config('laravel-slack-slash-command.handlers'), $slashCommandRequest);
-
-            return $slashCommandHandlers->getResponse();
+                return $slashCommandHandlers->getResponse();
+            });
         });
     }
 

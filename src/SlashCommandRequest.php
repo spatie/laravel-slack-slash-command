@@ -9,20 +9,20 @@ class SlashCommandRequest
     /** Illuminate\Http\Request */
     public $request;
 
-    public static function createForRequest(Request $request)
+    public static function createForRequest(Request $request, array $commandConfig)
     {
-        self::guardAgainstInvalidSlashCommandRequest($request);
+        self::guardAgainstInvalidSlashCommandRequest($request, $commandConfig);
 
         return new static($request);
     }
 
-    protected static function guardAgainstInvalidSlashCommandRequest($request)
+    protected static function guardAgainstInvalidSlashCommandRequest($request, array $commandConfig)
     {
         if (!$request->has('token')) {
             throw InvalidSlashCommandRequest::tokenNotFound();
         }
 
-        if ($request->get('token') != config('laravel-slack.verification_token')) {
+        if ($request->get('token') != $commandConfig['token']) {
             throw InvalidSlashCommandRequest::invalidToken($request->get('token'));
         }
     }
