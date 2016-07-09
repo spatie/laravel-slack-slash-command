@@ -1,11 +1,11 @@
 {
-    "name": "spatie/laravel-slack-slash-command",
+    "name": "spatie/laravel-slack-slash-command-slash-command",
     "description": "Make a Laravel app respond to a slash command from Slack",
     "keywords": [
         "spatie",
         "laravel-slack"
     ],
-    "homepage": "https://github.com/spatie/laravel-slack",
+    "homepage": "https://github.com/spatie/laravel-slack-slash-command",
     "license": "MIT",
     "authors": [
         {
