@@ -3,7 +3,6 @@
 namespace Spatie\SlashCommand;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 use Spatie\SlashCommand\SlashCommandHandler\Collection;
 
 class SlashCommandServiceProvider extends ServiceProvider

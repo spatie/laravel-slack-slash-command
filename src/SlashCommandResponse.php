@@ -4,9 +4,9 @@ namespace Spatie\SlashCommand;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
-class SlashCommandResponse extends Response
+class SlashCommandResponse
 {
     /** @var SlashCommandRequest */
     protected $request;
@@ -19,11 +19,11 @@ class SlashCommandResponse extends Response
 
     /** @var string */
     protected $attachments = '';
-    
-    /** @var \GuzzleHttp\Client  */
-    protected  $client;
 
-    public static function createForRequest(Request $request)
+    /** @var \GuzzleHttp\Client */
+    protected $client;
+
+    public static function createForRequest(Request $request): SlashCommandResponse
     {
         return app(SlashCommandResponse::class)
             ->setRequest($request)
@@ -41,14 +41,9 @@ class SlashCommandResponse extends Response
      */
     public function setRequest(Request $request)
     {
-        $this->responseType = $request;
+        $this->request = $request;
 
         return $this;
-    }
-
-    public function getResponseUrl()
-    {
-        return $this->request->get('response_url');
     }
 
     /**
@@ -60,6 +55,11 @@ class SlashCommandResponse extends Response
         $this->text = $text;
 
         return $this;
+    }
+
+    public function getResponseUrl()
+    {
+        return $this->request->get('response_url');
     }
 
     /**
@@ -90,16 +90,12 @@ class SlashCommandResponse extends Response
         $this->client->post($this->getResponseUrl(), ['json' => $this->getPayload()]);
     }
 
-    /**
-     * @return $this
+    /*
+     * Get the http response
      */
-    public function finalize()
+    public function getHttpResponse(): Response
     {
-        $this->headers->set('Content-Type', 'application/json');
-
-        $this->setContent(json_encode($this->getPayload()));
-
-        return $this;
+        return new Response($this->getPayload());
     }
 
     protected function getPayload(): array

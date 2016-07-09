@@ -3,6 +3,7 @@
 namespace Spatie\SlashCommand;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 
 class SlackCommandResponder
@@ -20,7 +21,7 @@ class SlackCommandResponder
         $this->request = $request;
     }
 
-    public function getResponse(): SlashCommandResponse {
+    public function getResponse(): Response {
 
         $this->guardAgainstInvalidRequest();
 
@@ -28,7 +29,7 @@ class SlackCommandResponder
 
         $response = $handler->handleCurrentRequest();
 
-        return $response->finalize();
+        return $response->getHttpResponse();
     }
 
     protected function guardAgainstInvalidRequest()
