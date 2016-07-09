@@ -38,7 +38,9 @@ This service provider must be installed.
 
 You can publish the config-file with:
 
+```bash
 php artisan vendor:publish --provider="Spatie\SlashCommand\SlashCommandServiceProvider"
+```
 
 This is the contents of the published file:
 
