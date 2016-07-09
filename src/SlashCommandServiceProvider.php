@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Slashcommand\SlashCommandHandler\Collection;
 use Spatie\Slashcommand\SlashCommandRequest;
 
-class LaravelSlackServiceProvider extends ServiceProvider
+class SlashCommandServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
