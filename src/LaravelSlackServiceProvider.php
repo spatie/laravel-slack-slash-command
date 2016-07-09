@@ -14,14 +14,14 @@ class LaravelSlackServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/laravel-slack.php' => config_path('laravel-slack.php'),
+            __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
 
-        $this->app['router']->get(config('laravel-slack.slash_command_url'), function () {
+        $this->app['router']->get(config('laravel-slack-slash-command.url'), function () {
 
             $slashCommandRequest = SlashCommandRequest::createForRequest(request());
 
-            $slashCommandHandlers = new Collection(config('laravel-slack.slash_command_handlers'), $slashCommandRequest);
+            $slashCommandHandlers = new Collection(config('laravel-slack-slash-command.handlers'), $slashCommandRequest);
 
             return $slashCommandHandlers->getResponse();
         });
