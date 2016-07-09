@@ -19,7 +19,7 @@ abstract class BaseHandler
     abstract public function canHandleCurrentRequest(): bool;
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getCommandText()
     {

@@ -2,8 +2,9 @@
 
 namespace Spatie\SlashCommand;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class SlashCommandResponse extends Response
 {
@@ -18,12 +19,20 @@ class SlashCommandResponse extends Response
 
     /** @var string */
     protected $attachments = '';
+    
+    /** @var \GuzzleHttp\Client  */
+    protected  $client;
 
     public static function createForRequest(Request $request)
     {
-        return (new static())
+        return app(SlashCommandResponse::class)
             ->setRequest($request)
             ->displayResponseOnlyToUserWhoTypedCommand();
+    }
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
     }
 
     /**
@@ -35,6 +44,11 @@ class SlashCommandResponse extends Response
         $this->responseType = $request;
 
         return $this;
+    }
+
+    public function getResponseUrl()
+    {
+        return $this->request->get('response_url');
     }
 
     /**
@@ -69,25 +83,35 @@ class SlashCommandResponse extends Response
     }
 
     /**
+     * Send the response to Slack
+     */
+    public function send()
+    {
+        $this->client->post($this->getResponseUrl(), ['json' => $this->getPayload()]);
+    }
+
+    /**
      * @return $this
      */
     public function finalize()
     {
-        $payload = [
+        $this->headers->set('Content-Type', 'application/json');
+
+        $this->setContent(json_encode($this->getPayload()));
+
+        return $this;
+    }
+
+    protected function getPayload(): array
+    {
+        return [
             'text' => $this->text,
             'link_names' => true,
             'unfurl_links' => true,
             'unfurl_media' => true,
             'mrkdwn' => true,
             'response_type' => $this->responseType,
+            'attachments' => $this->attachments,
         ];
-
-        $payload['attachments'] = $this->attachments;
-
-        $this->headers->set('Content-Type', 'application/json');
-
-        $this->setContent(json_encode($payload));
-
-        return $this;
     }
 }
