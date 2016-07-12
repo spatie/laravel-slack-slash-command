@@ -8,17 +8,7 @@ class CatchAll extends BaseHandler
 {
     public function handleCurrentRequest(): SlashCommandResponse
     {
-        /*
-         * Example of how delayed responses can be sent
-         *
-        SlashCommandResponse::createForRequest($this->request)
-            ->setText('yow yow delayed')
-            ->send();
-        */
-
-        dd(serialize($this->request));
-
-        return $this->respond("This is a catch all response. You typed `{$this->getCommandText()}`");
+        return $this->respondToSlack("Received this message `{$this->slashCommandData->text}`");
     }
 
     public function canHandleCurrentRequest(): bool

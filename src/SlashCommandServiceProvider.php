@@ -20,7 +20,7 @@ class SlashCommandServiceProvider extends ServiceProvider
             
             $this->app['router']->post($commandConfig['url'], function () use ($commandConfig) {
 
-                return (new SlackCommandResponder($commandConfig, request()))->getResponse();
+                return (new SlackCommandController($commandConfig, request()))->getResponse();
                 
             });
         });

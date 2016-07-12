@@ -3,13 +3,12 @@
 namespace Spatie\SlashCommand;
 
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SlashCommandResponse
 {
-    /** @var SlashCommandRequest */
-    protected $request;
+    /** @var \Spatie\SlashCommand\SlashCommandData */
+    protected $slashCommandData;
 
     /** @var string */
     protected $text;
@@ -23,29 +22,21 @@ class SlashCommandResponse
     /** @var \GuzzleHttp\Client */
     protected $client;
 
-    public static function createForRequest(Request $request): SlashCommandResponse
+    public static function create(SlashCommandData $slashCommandData): SlashCommandResponse
     {
-        return app(SlashCommandResponse::class)
-            ->setRequest($request)
+        $client = app(Client::class);
+        
+        return (new static($client, $slashCommandData))
             ->displayResponseOnlyToUserWhoTypedCommand();
     }
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, SlashCommandData $slashCommandData)
     {
         $this->client = $client;
+        
+        $this->slashCommandData = $slashCommandData;
     }
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return $this
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
+    
     /**
      * @param string $text
      * @return $this
@@ -56,12 +47,7 @@ class SlashCommandResponse
 
         return $this;
     }
-
-    public function getResponseUrl()
-    {
-        return $this->request->get('response_url');
-    }
-
+    
     /**
      * @return $this
      */
@@ -87,7 +73,7 @@ class SlashCommandResponse
      */
     public function send()
     {
-        $this->client->post($this->getResponseUrl(), ['json' => $this->getPayload()]);
+        $this->client->post($this->slashCommandData->reponseUrl, ['json' => $this->getPayload()]);
     }
 
     /*
