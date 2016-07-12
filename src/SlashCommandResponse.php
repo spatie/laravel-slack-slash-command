@@ -17,6 +17,9 @@ class SlashCommandResponse
     protected $responseType = 'ephemeral';
 
     /** @var string */
+    protected $channel;
+
+    /** @var string */
     protected $attachments = '';
 
     /** @var \GuzzleHttp\Client */
@@ -35,6 +38,8 @@ class SlashCommandResponse
         $this->client = $client;
 
         $this->slashCommandData = $slashCommandData;
+
+        $this->channel = $slashCommandData->channelName;
     }
 
     /**
@@ -45,6 +50,13 @@ class SlashCommandResponse
     public function setText(string $text)
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function onChannel(string $channelName)
+    {
+        $this->channel = $channelName;
 
         return $this;
     }
@@ -89,6 +101,7 @@ class SlashCommandResponse
     {
         return [
             'text' => $this->text,
+            'channel' => $this->channel,
             'link_names' => true,
             'unfurl_links' => true,
             'unfurl_media' => true,
