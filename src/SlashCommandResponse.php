@@ -25,7 +25,7 @@ class SlashCommandResponse
     public static function create(SlashCommandData $slashCommandData): SlashCommandResponse
     {
         $client = app(Client::class);
-        
+
         return (new static($client, $slashCommandData))
             ->displayResponseOnlyToUserWhoTypedCommand();
     }
@@ -33,10 +33,10 @@ class SlashCommandResponse
     public function __construct(Client $client, SlashCommandData $slashCommandData)
     {
         $this->client = $client;
-        
+
         $this->slashCommandData = $slashCommandData;
     }
-    
+
     /**
      * @param string $text
      * @return $this
@@ -47,7 +47,7 @@ class SlashCommandResponse
 
         return $this;
     }
-    
+
     /**
      * @return $this
      */
@@ -73,7 +73,7 @@ class SlashCommandResponse
      */
     public function send()
     {
-        $this->client->post($this->slashCommandData->reponseUrl, ['json' => $this->getPayload()]);
+        $this->client->post($this->slashCommandData->responseUrl, ['json' => $this->getPayload()]);
     }
 
     /*

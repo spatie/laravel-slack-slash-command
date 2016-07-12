@@ -31,7 +31,7 @@ class SlashCommandData
     public $text;
 
     /** @var string */
-    public $reponseUrl;
+    public $responseUrl;
 
     public static function createForRequest(Request $request): SlashCommandData
     {
@@ -45,7 +45,7 @@ class SlashCommandData
             'user_name',
             'command',
             'text',
-            'reponse_url'
+            'response_url'
         ])->reduce(function (SlashCommandData $slashCommandData, string $slackFieldName) use ($request) {
             $propertyName = camel_case($slackFieldName);
 
