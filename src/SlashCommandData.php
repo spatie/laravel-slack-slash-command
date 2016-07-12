@@ -45,12 +45,12 @@ class SlashCommandData
             'user_name',
             'command',
             'text',
-            'response_url'
+            'response_url',
         ])->reduce(function (SlashCommandData $slashCommandData, string $slackFieldName) use ($request) {
             $propertyName = camel_case($slackFieldName);
 
             $slashCommandData->$propertyName = $request->get($slackFieldName);
-            
+
             return $slashCommandData;
         }, new static());
     }

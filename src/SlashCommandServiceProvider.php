@@ -3,7 +3,6 @@
 namespace Spatie\SlashCommand;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\SlashCommand\SlashCommandHandler\Collection;
 
 class SlashCommandServiceProvider extends ServiceProvider
 {
@@ -17,11 +16,11 @@ class SlashCommandServiceProvider extends ServiceProvider
         ], 'config');
 
         collect(config('laravel-slack-slash-command.commands'))->each(function (array $commandConfig) {
-            
+
             $this->app['router']->post($commandConfig['url'], function () use ($commandConfig) {
 
                 return (new SlackCommandController($commandConfig, request()))->getResponse();
-                
+
             });
         });
     }

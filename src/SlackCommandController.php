@@ -10,7 +10,7 @@ class SlackCommandController
 {
     /** @var array */
     protected $commandConfig;
-    
+
     /** @var \Illuminate\Http\Request */
     protected $request;
 
@@ -21,8 +21,8 @@ class SlackCommandController
         $this->request = $request;
     }
 
-    public function getResponse(): Response {
-
+    public function getResponse(): Response
+    {
         $this->guardAgainstInvalidRequest();
 
         $handler = $this->determineResponseHandler();
@@ -42,7 +42,7 @@ class SlackCommandController
             throw InvalidSlashCommandRequest::invalidToken(request()->get('token'));
         }
     }
-    
+
     protected function determineResponseHandler(): BaseHandler
     {
         $handler = collect($this->commandConfig['handlers'])
@@ -56,6 +56,7 @@ class SlackCommandController
         if (!$handler) {
             throw RequestCouldNotBeProcessed::noHandlerFound(request());
         }
+
         return $handler;
     }
 }

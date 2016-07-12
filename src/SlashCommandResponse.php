@@ -39,6 +39,7 @@ class SlashCommandResponse
 
     /**
      * @param string $text
+     *
      * @return $this
      */
     public function setText(string $text)
@@ -69,7 +70,7 @@ class SlashCommandResponse
     }
 
     /**
-     * Send the response to Slack
+     * Send the response to Slack.
      */
     public function send()
     {
