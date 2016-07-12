@@ -11,7 +11,6 @@ class CatchAll extends BaseHandler
     {
         $this->dispatch(new TestJob());
 
-
         return $this->respondToSlack("Received this message `{$this->slashCommandData->text}`");
     }
 
