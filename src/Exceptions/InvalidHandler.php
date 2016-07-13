@@ -19,7 +19,7 @@ class InvalidHandler extends Exception
         return new static("The handler `{$handler}` must extend the base handler `{$baseHandlerClass}`.");
     }
 
-    public static function noSignatureSet($handler)
+    public static function signatureIsRequired($handler)
     {
         return new static("You must set a signature property on the `{$handler}`-class.");
     }

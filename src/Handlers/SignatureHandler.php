@@ -21,7 +21,7 @@ abstract class SignatureHandler extends BaseHandler
         parent::__construct($request);
 
         if (empty($this->signature)) {
-            throw InvalidHandler::noSignatureSet(static::class);
+            throw InvalidHandler::signatureIsRequired(static::class);
         }
 
         $this->parseSignature();

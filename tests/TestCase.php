@@ -3,7 +3,9 @@
 namespace Spatie\SlashCommand\Test;
 
 use Illuminate\Contracts\Console\Kernel;
+use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
+use \Illuminate\Http\Request as IlluminateRequest;
 
 abstract class TestCase extends Orchestra
 {
@@ -26,15 +28,24 @@ abstract class TestCase extends Orchestra
     {
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-        $commandConfig = [
-            'name' => 'test-name',
-            'url' => 'test-url',
+        $app['config']->set('laravel-slack-slash-command', [
             'token' => 'test-token',
+            'url' => 'test-url',
             'handlers' => [
-                \Spatie\SlashCommand\SlashCommandHandler\CatchAll::class
+                \Spatie\SlashCommand\Handlers\CatchAll::class
             ],
-        ];
+        ]);
+    }
 
-        $app['config']->set('laravel-slack-slash-command.commands', [$commandConfig]);
+    public function getIlluminateRequest($values): IlluminateRequest
+    {
+        $mock = Mockery::mock(IlluminateRequest::class);
+
+        foreach($values as $name=> $value) {
+            $mock->shouldReceive('get')->withArgs([$name])->andReturn($value);
+        }
+
+
+        return $mock;
     }
 }
