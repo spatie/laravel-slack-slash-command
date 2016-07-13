@@ -37,20 +37,17 @@ class SlashCommandData
     {
         return collect([
             'token',
-            'team_id',
-            'team_domain',
-            'channel_id',
-            'channel_name',
-            'user_id',
-            'user_name',
+            'teamId',
+            'teamDomain',
+            'channelId',
+            'channelName',
+            'userId',
+            'userName',
             'command',
             'text',
-            'response_url',
-        ])->reduce(function (SlashCommandData $slashCommandData, string $slackFieldName) use ($request) {
-            $propertyName = camel_case($slackFieldName);
-
-            $slashCommandData->$propertyName = $request->get($slackFieldName);
-
+            'responseUrl',
+        ])->reduce(function (SlashCommandData $slashCommandData, string $propertyName) use ($request) {
+            $slashCommandData->$propertyName = $request->get(snake_case($propertyName));
             return $slashCommandData;
         }, new static());
     }
