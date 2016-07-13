@@ -89,9 +89,6 @@ class Response
         $this->client->post($this->request->responseUrl, ['json' => $this->getPayload()]);
     }
 
-    /*
-     * Get the http response
-     */
     public function getIlluminateResponse(): IlluminateResponse
     {
         return new IlluminateResponse($this->getPayload());

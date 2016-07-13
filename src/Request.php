@@ -52,9 +52,9 @@ class Request
         }, new static());
     }
 
-    public function get(string $propertyName)
+    public function get(string $propertyName): string
     {
-        return $this->$propertyName;
+        return $this->$propertyName ?? '';
     }
 
     public function all(): array
