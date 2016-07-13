@@ -2,10 +2,9 @@
 
 namespace Spatie\SlashCommand\Test;
 
-use Illuminate\Contracts\Console\Kernel;
 use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
-use \Illuminate\Http\Request as IlluminateRequest;
+use Illuminate\Http\Request as IlluminateRequest;
 
 abstract class TestCase extends Orchestra
 {
@@ -32,7 +31,7 @@ abstract class TestCase extends Orchestra
             'token' => 'test-token',
             'url' => 'test-url',
             'handlers' => [
-                \Spatie\SlashCommand\Handlers\CatchAll::class
+                \Spatie\SlashCommand\Handlers\CatchAll::class,
             ],
         ]);
     }
@@ -41,10 +40,9 @@ abstract class TestCase extends Orchestra
     {
         $mock = Mockery::mock(IlluminateRequest::class);
 
-        foreach($values as $name=> $value) {
+        foreach ($values as $name => $value) {
             $mock->shouldReceive('get')->withArgs([$name])->andReturn($value);
         }
-
 
         return $mock;
     }

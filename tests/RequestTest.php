@@ -54,7 +54,7 @@ class RequestTest extends TestCase
             'user_name' => 'Bob',
             'command' => 'my-command',
             'text' => 'this is the text',
-            'response_url' => 'https://slack.com/respond'
+            'response_url' => 'https://slack.com/respond',
         ];
     }
 }
