@@ -49,9 +49,9 @@ class SlackCommandController
             ->map(function (string $handlerClassName) {
                 return new $handlerClassName(request());
             })
-            ->filter(function (BaseHandler $handler) {
+            ->first(function (BaseHandler $handler) {
                 return $handler->canHandleCurrentRequest();
-            })->first();
+            });
 
         if (!$handler) {
             throw RequestCouldNotBeProcessed::noHandlerFound(request());
