@@ -4,7 +4,6 @@ namespace Spatie\SlashCommand;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
 
 class SlackCommandController
 {
@@ -49,7 +48,7 @@ class SlackCommandController
             ->map(function (string $handlerClassName) {
                 return new $handlerClassName(request());
             })
-            ->first(function (BaseHandler $handler) {
+            ->first(function (HandlesSlashCommand $handler) {
                 return $handler->canHandleCurrentRequest();
             });
 
