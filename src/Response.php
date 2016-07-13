@@ -3,12 +3,12 @@
 namespace Spatie\SlashCommand;
 
 use GuzzleHttp\Client;
-use Illuminate\Http\Response;
+use Illuminate\Http\Response as IlluminateResponse;
 
-class SlashCommandResponse
+class Response
 {
-    /** @var \Spatie\SlashCommand\SlashCommandData */
-    protected $slashCommandData;
+    /** @var \Spatie\SlashCommand\Request */
+    protected $request;
 
     /** @var string */
     protected $text;
@@ -25,21 +25,21 @@ class SlashCommandResponse
     /** @var \GuzzleHttp\Client */
     protected $client;
 
-    public static function create(SlashCommandData $slashCommandData): SlashCommandResponse
+    public static function create(Request $request): Response
     {
         $client = app(Client::class);
 
-        return (new static($client, $slashCommandData))
-            ->displayResponseOnlyToUserWhoTypedCommand();
+        return (new static($client, $request))
+            ->displayResponseToUserWhoTypedCommand();
     }
 
-    public function __construct(Client $client, SlashCommandData $slashCommandData)
+    public function __construct(Client $client, Request $request)
     {
         $this->client = $client;
 
-        $this->slashCommandData = $slashCommandData;
+        $this->request = $request;
 
-        $this->channel = $slashCommandData->channelName;
+        $this->channel = $request->channelName;
     }
 
     /**
@@ -64,7 +64,7 @@ class SlashCommandResponse
     /**
      * @return $this
      */
-    public function displayResponseOnlyToUserWhoTypedCommand()
+    public function displayResponseToUserWhoTypedCommand()
     {
         $this->responseType = 'ephemeral';
 
@@ -86,15 +86,15 @@ class SlashCommandResponse
      */
     public function send()
     {
-        $this->client->post($this->slashCommandData->responseUrl, ['json' => $this->getPayload()]);
+        $this->client->post($this->request->responseUrl, ['json' => $this->getPayload()]);
     }
 
     /*
      * Get the http response
      */
-    public function getHttpResponse(): Response
+    public function getIlluminateResponse(): IlluminateResponse
     {
-        return new Response($this->getPayload());
+        return new IlluminateResponse($this->getPayload());
     }
 
     protected function getPayload(): array

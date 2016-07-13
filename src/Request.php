@@ -2,9 +2,9 @@
 
 namespace Spatie\SlashCommand;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as IlluminateRequest;
 
-class SlashCommandData
+class Request
 {
     /** @var string */
     public $token;
@@ -33,7 +33,7 @@ class SlashCommandData
     /** @var string */
     public $responseUrl;
 
-    public static function createForRequest(Request $request): SlashCommandData
+    public static function createFromIlluminateRequest(IlluminateRequest $illuminateRequest): Request
     {
         return collect([
             'token',
@@ -46,9 +46,19 @@ class SlashCommandData
             'command',
             'text',
             'responseUrl',
-        ])->reduce(function (SlashCommandData $slashCommandData, string $propertyName) use ($request) {
-            $slashCommandData->$propertyName = $request->get(snake_case($propertyName));
-            return $slashCommandData;
+        ])->reduce(function (Request $request, string $propertyName) use ($illuminateRequest) {
+            $request->$propertyName = $illuminateRequest->get(snake_case($propertyName));
+            return $request;
         }, new static());
+    }
+
+    public function get(string $propertyName)
+    {
+        return $this->$propertyName;
+    }
+
+    public function all(): array
+    {
+        return get_object_vars($this);
     }
 }

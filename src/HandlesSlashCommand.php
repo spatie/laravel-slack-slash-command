@@ -4,7 +4,7 @@ namespace Spatie\SlashCommand;
 
 interface HandlesSlashCommand
 {
-    public function getSlashCommandData(): SlashCommandData;
+    public function getRequest(): Request;
 
-    public function respondToSlack(string $text): SlashCommandResponse;
+    public function respondToSlack(string $text): Response;
 }

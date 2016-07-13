@@ -4,34 +4,34 @@ namespace Spatie\SlashCommand\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\SlashCommand\HandlesSlashCommand;
-use Spatie\SlashCommand\SlashCommandData;
-use Spatie\SlashCommand\SlashCommandResponse;
+use Spatie\SlashCommand\Request;
+use Spatie\SlashCommand\Response;
 
-abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashCommand
+abstract class ResponseJob implements ShouldQueue, HandlesSlashCommand
 {
-    /** @var \Spatie\SlashCommand\SlashCommandData */
-    public $slashCommandData;
+    /** @var \Spatie\SlashCommand\Request */
+    public $request;
 
-    public function getSlashCommandResponse(): SlashCommandResponse
+    public function getResponse(): Response
     {
-        return SlashCommandResponse::create($this->slashCommandData);
+        return Response::create($this->request);
     }
 
-    public function setSlashCommandResponse(SlashCommandData $slashCommandData)
+    public function setResponse(Request $request)
     {
-        $this->slashCommandData = $slashCommandData;
+        $this->request = $request;
 
         return $this;
     }
 
-    public function respondToSlack(string $text): SlashCommandResponse
+    public function respondToSlack(string $text): Response
     {
-        return $this->getSlashCommandResponse()->setText($text);
+        return $this->getResponse()->setText($text);
     }
 
-    public function getSlashCommandData(): SlashCommandData
+    public function getRequest(): Request
     {
-        return $this->slashCommandData;
+        return $this->request;
     }
 
     abstract public function handle();

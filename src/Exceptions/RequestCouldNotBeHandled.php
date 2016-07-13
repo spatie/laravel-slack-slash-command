@@ -1,20 +1,15 @@
 <?php
 
-namespace Spatie\SlashCommand;
+namespace Spatie\SlashCommand\Exceptions;
 
-use Spatie\SlashCommand\SlashCommandHandler\BaseHandler;
+use Exception;
+use Spatie\SlashCommand\Handlers\BaseHandler;
+use Spatie\SlashCommand\Request;
 
-class RequestCouldNotBeHandled extends \Exception
+class RequestCouldNotBeHandled extends Exception
 {
-    public static function handlerDoesNotExist($handler)
+    public static function noHandlerFound(Request $request)
     {
-        return new static("There is no class named `{$handler}`.");
-    }
-
-    public static function handlerDoesNotExendFromBaseHandler($handler)
-    {
-        $baseHandlerClass = BaseHandler::class;
-
-        return new static("The handler `{$handler}` does not extend the base handler `{$baseHandlerClass}`.");
+        return new static("There is no handler found that can handle request " . print_r($request->all(), true));
     }
 }

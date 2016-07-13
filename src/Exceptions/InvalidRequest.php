@@ -1,8 +1,10 @@
 <?php
 
-namespace Spatie\SlashCommand;
+namespace Spatie\SlashCommand\Exceptions;
 
-class InvalidSlashCommandRequest extends \Exception
+use Exception;
+
+class InvalidRequest extends Exception
 {
     public static function tokenNotFound()
     {
