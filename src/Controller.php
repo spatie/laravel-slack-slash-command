@@ -57,7 +57,7 @@ class Controller extends IlluminateController
         $handler = collect($this->config->get('handlers'))
             ->map(function (string $handlerClassName) {
 
-                if (! class_exists($handlerClassName)) {
+                if (!class_exists($handlerClassName)) {
                     throw InvalidHandler::handlerDoesNotExist($handlerClassName);
                 }
 

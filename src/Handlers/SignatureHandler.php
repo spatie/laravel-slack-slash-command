@@ -39,7 +39,7 @@ abstract class SignatureHandler extends BaseHandler
             $inputDefinition->addArgument($argument);
         }
 
-        foreach($options as $option) {
+        foreach ($options as $option) {
             $inputDefinition->addOption($option);
         }
 
@@ -47,7 +47,6 @@ abstract class SignatureHandler extends BaseHandler
 
         $this->input->bind($inputDefinition);
     }
-
 
     protected function getArgument($foo)
     {

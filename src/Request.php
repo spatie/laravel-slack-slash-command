@@ -48,6 +48,7 @@ class Request
             'responseUrl',
         ])->reduce(function (Request $request, string $propertyName) use ($illuminateRequest) {
             $request->$propertyName = $illuminateRequest->get(snake_case($propertyName));
+
             return $request;
         }, new static());
     }

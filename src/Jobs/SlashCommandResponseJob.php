@@ -7,7 +7,7 @@ use Spatie\SlashCommand\HandlesSlashCommand;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 
-abstract class ResponseJob implements ShouldQueue, HandlesSlashCommand
+abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashCommand
 {
     /** @var \Spatie\SlashCommand\Request */
     public $request;

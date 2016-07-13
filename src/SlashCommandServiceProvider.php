@@ -12,12 +12,10 @@ class SlashCommandServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
+            __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
 
-        
-        
-        $this->app['router']->post(config('laravel-slack-slash-command')['url'], Controller::class . '@getResponse');
+        $this->app['router']->post(config('laravel-slack-slash-command')['url'], Controller::class.'@getResponse');
     }
 
     /**
@@ -25,6 +23,6 @@ class SlashCommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-slack-slash-command.php', 'laravel-slack-slash-command');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-slack-slash-command.php', 'laravel-slack-slash-command');
     }
 }

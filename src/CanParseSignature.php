@@ -17,11 +17,11 @@ trait CanParseSignature
 
         $inputDefinition = new InputDefinition();
 
-        foreach($arguments as $argument) {
+        foreach ($arguments as $argument) {
             $inputDefinition->addArgument($argument);
         }
 
-        foreach($options as $option) {
+        foreach ($options as $option) {
             $inputDefinition->addOption($option);
         }
 

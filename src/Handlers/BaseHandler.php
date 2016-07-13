@@ -40,7 +40,7 @@ abstract class BaseHandler implements HandlesSlashCommand
 
     abstract public function handle(Request $request): Response;
 
-    public function canHandle(Request $request): bool {
-
+    public function canHandle(Request $request): bool
+    {
     }
 }

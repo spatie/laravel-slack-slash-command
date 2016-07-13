@@ -19,6 +19,4 @@ class CatchAll extends BaseHandler
     {
         return true;
     }
-
-
 }
