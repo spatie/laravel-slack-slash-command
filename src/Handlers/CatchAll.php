@@ -12,7 +12,7 @@ class CatchAll extends BaseHandler
     {
         //$this->dispatch(new TestJob());
 
-        return $this->respondToSlack("Received this message: `{$request->text}`");
+        return $this->respondToSlack("I do not recognize this command: `{$request->command} {$request->text}`");
     }
 
     public function canHandle(Request $request): bool

@@ -3,10 +3,10 @@
 namespace Spatie\SlashCommand\Test;
 
 use Mockery;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Http\Request as IlluminateRequest;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app
