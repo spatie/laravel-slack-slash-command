@@ -1,6 +1,7 @@
 <?php
 
 namespace Spatie\SlashCommand\Test\Handlers;
+
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
 use Spatie\SlashCommand\Request;
@@ -23,9 +24,8 @@ class SignatureHandlerTest extends TestCase
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
 
-
-        $this->signatureHandler = new class($this->request) extends SignatureHandler {
-
+        $this->signatureHandler = new class($this->request) extends SignatureHandler
+        {
             public $signature = 'command {argument} {--option} {--another-option}';
 
             public function handle(Request $request): Response
@@ -40,8 +40,8 @@ class SignatureHandlerTest extends TestCase
     {
         $this->expectException(InvalidHandler::class);
 
-        new class($this->request) extends SignatureHandler {
-
+        new class($this->request) extends SignatureHandler
+        {
             public function handle(Request $request): Response
             {
                 return true;
@@ -52,8 +52,8 @@ class SignatureHandlerTest extends TestCase
     /** @test */
     public function it_cannot_handle_requests_with_a_command_that_does_not_match_the_signature()
     {
-        $signatureHandler = new class($this->request) extends SignatureHandler {
-
+        $signatureHandler = new class($this->request) extends SignatureHandler
+        {
             public $signature = 'another';
 
             public function handle(Request $request): Response

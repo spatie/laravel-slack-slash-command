@@ -34,7 +34,7 @@ class ResponseTest extends TestCase
             'user_name' => 'Bob',
             'command' => 'my-command',
             'text' => 'this is the text',
-            'response_url' => $this->responseUrl
+            'response_url' => $this->responseUrl,
         ]);
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
@@ -95,7 +95,7 @@ class ResponseTest extends TestCase
         $expectedPayload = $this->getPayload([
             'text' => 'hello',
             'channel' => 'yetAnotherChannel',
-            'response_type' => 'in_channel'
+            'response_type' => 'in_channel',
         ]);
 
         $this->client
