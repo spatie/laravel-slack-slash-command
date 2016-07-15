@@ -6,7 +6,7 @@ use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
 
-class SlashCommandControllerTest extends TestCase
+class ControllerTest extends TestCase
 {
     /** @test */
     public function it_throws_an_exception_when_receiving_a_request_without_a_token()

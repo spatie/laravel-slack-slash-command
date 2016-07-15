@@ -14,7 +14,7 @@ class Response
     protected $text;
 
     /** @var string */
-    protected $responseType = 'ephemeral';
+    protected $responseType;
 
     /** @var string */
     protected $channel;
@@ -29,8 +29,7 @@ class Response
     {
         $client = app(Client::class);
 
-        return (new static($client, $request))
-            ->displayResponseToUserWhoTypedCommand();
+        return (new static($client, $request));
     }
 
     public function __construct(Client $client, Request $request)
@@ -40,6 +39,8 @@ class Response
         $this->request = $request;
 
         $this->channel = $request->channelName;
+
+        $this->displayResponseToUserWhoTypedCommand();
     }
 
     /**
@@ -47,7 +48,7 @@ class Response
      *
      * @return $this
      */
-    public function setText(string $text)
+    public function withText(string $text)
     {
         $this->text = $text;
 
@@ -72,11 +73,17 @@ class Response
     }
 
     /**
+     * @param string $channelName
+     *
      * @return $this
      */
-    public function displayResponseToEveryoneOnChannel()
+    public function displayResponseToEveryoneOnChannel(string $channelName = '')
     {
         $this->responseType = 'in_channel';
+
+        if ($channelName !== '') {
+            $this->onChannel($channelName);
+        }
 
         return $this;
     }

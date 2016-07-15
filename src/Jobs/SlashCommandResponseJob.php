@@ -26,7 +26,7 @@ abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashComma
 
     public function respondToSlack(string $text): Response
     {
-        return $this->getResponse()->setText($text);
+        return $this->getResponse()->withText($text);
     }
 
     public function getRequest(): Request

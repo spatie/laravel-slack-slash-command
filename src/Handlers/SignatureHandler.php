@@ -5,6 +5,7 @@ namespace Spatie\SlashCommand\Handlers;
 use Illuminate\Console\Parser;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Request;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\StringInput;
 
@@ -15,6 +16,9 @@ abstract class SignatureHandler extends BaseHandler
 
     /** @var \Symfony\Component\Console\Input\StringInput */
     protected $input;
+
+    /** @var bool */
+    protected $couldBindSignature = false;
 
     public function __construct(Request $request)
     {
@@ -27,7 +31,7 @@ abstract class SignatureHandler extends BaseHandler
         $this->parseSignature();
     }
 
-    protected function parseInput()
+    protected function parseSignature()
     {
         list($name, $arguments, $options) = Parser::parse($this->signature);
 
@@ -45,16 +49,44 @@ abstract class SignatureHandler extends BaseHandler
 
         $this->input = new StringInput($this->request->text);
 
-        $this->input->bind($inputDefinition);
+        try {
+            $this->input->bind($inputDefinition);
+            $this->couldBindSignature = true;
+        }
+        catch(RuntimeException $exception)
+        {
+
+        }
     }
 
-    protected function getArgument($foo)
+    public function getArgument($foo)
     {
         return $this->input->getArgument($foo);
     }
 
-    protected function getOption($foo)
+    public function getOption($foo)
     {
         return $this->input->getOption($foo);
+    }
+
+    public function getArguments(): array
+    {
+        return $this->input->getArguments();
+    }
+
+    public function getOptions(): array
+    {
+        return $this->input->getOptions();
+    }
+
+    public function canHandle(Request $request): bool
+    {
+        if (! $this->couldBindSignature) {
+            return false;
+        }
+
+        $commandName = explode(' ', $this->signature)[0];
+
+        return strtolower($request->command) === strtolower($commandName);
     }
 }

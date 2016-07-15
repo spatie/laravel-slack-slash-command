@@ -23,7 +23,7 @@ abstract class BaseHandler implements HandlesSlashCommand
 
     public function respondToSlack(string $text): Response
     {
-        return Response::create($this->request)->setText($text);
+        return Response::create($this->request)->withText($text);
     }
 
     protected function dispatch(ResponseJob $job)
@@ -39,8 +39,4 @@ abstract class BaseHandler implements HandlesSlashCommand
     }
 
     abstract public function handle(Request $request): Response;
-
-    public function canHandle(Request $request): bool
-    {
-    }
 }

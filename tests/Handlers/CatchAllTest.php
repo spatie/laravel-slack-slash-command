@@ -23,8 +23,8 @@ class CatchAllTest extends TestCase
 
         $this->assertSame(200, $response->getStatusCode());
 
-        $reponseContent = json_decode($response->getContent(), true);
+        $responseContent = json_decode($response->getContent(), true);
 
-        $this->assertSame("I do not recognize this command: `{$command} {$text}`", $reponseContent['text']);
+        $this->assertSame("I do not recognize this command: `{$command} {$text}`", $responseContent['text']);
     }
 }
