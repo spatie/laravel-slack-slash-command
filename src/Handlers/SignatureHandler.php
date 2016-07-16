@@ -52,10 +52,7 @@ abstract class SignatureHandler extends BaseHandler
         try {
             $this->input->bind($inputDefinition);
             $this->couldBindSignature = true;
-        }
-        catch(RuntimeException $exception)
-        {
-
+        } catch (RuntimeException $exception) {
         }
     }
 
@@ -81,7 +78,7 @@ abstract class SignatureHandler extends BaseHandler
 
     public function canHandle(Request $request): bool
     {
-        if (! $this->couldBindSignature) {
+        if (!$this->couldBindSignature) {
             return false;
         }
 

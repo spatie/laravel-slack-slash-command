@@ -29,7 +29,7 @@ class Response
     {
         $client = app(Client::class);
 
-        return (new static($client, $request));
+        return new static($client, $request);
     }
 
     public function __construct(Client $client, Request $request)

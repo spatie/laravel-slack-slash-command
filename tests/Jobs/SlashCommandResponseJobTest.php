@@ -2,8 +2,6 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
-use Spatie\SlashCommand\Exceptions\InvalidHandler;
-use Spatie\SlashCommand\Handlers\SignatureHandler;
 use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
@@ -25,11 +23,10 @@ class SlashCommandResponseJobTest extends TestCase
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
 
-        $this->job = new class extends SlashCommandResponseJob
+        $this->job = new class() extends SlashCommandResponseJob
         {
             public function handle()
             {
-
             }
         };
 
