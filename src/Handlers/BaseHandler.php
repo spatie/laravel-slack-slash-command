@@ -5,7 +5,7 @@ namespace Spatie\SlashCommand\Handlers;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Spatie\SlashCommand\HandlesSlashCommand;
-use Spatie\SlashCommand\Jobs\ResponseJob;
+use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 
@@ -26,9 +26,9 @@ abstract class BaseHandler implements HandlesSlashCommand
         return Response::create($this->request)->withText($text);
     }
 
-    protected function dispatch(ResponseJob $job)
+    protected function dispatch(SlashCommandResponseJob $job)
     {
-        $job->setResponse($this->request);
+        $job->setRequest($this->request);
 
         return app(Dispatcher::class)->dispatch($job);
     }

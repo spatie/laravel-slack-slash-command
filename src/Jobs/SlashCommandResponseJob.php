@@ -17,7 +17,7 @@ abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashComma
         return Response::create($this->request);
     }
 
-    public function setResponse(Request $request)
+    public function setRequest(Request $request)
     {
         $this->request = $request;
 
