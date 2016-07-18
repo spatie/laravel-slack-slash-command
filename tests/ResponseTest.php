@@ -113,7 +113,7 @@ class ResponseTest extends TestCase
             'unfurl_media' => true,
             'mrkdwn' => true,
             'response_type' => 'ephemeral',
-            'attachments' => '',
+            'attachments' => [],
         ], $mergeVariables);
     }
 }

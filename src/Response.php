@@ -19,8 +19,8 @@ class Response
     /** @var string */
     protected $channel;
 
-    /** @var string */
-    protected $attachments = '';
+    /** @var \Illuminate\Support\Collection */
+    protected $attachments;
 
     /** @var \GuzzleHttp\Client */
     protected $client;
@@ -41,6 +41,8 @@ class Response
         $this->channel = $request->channelName;
 
         $this->displayResponseToUserWhoTypedCommand();
+
+        $this->attachments = new \Illuminate\Support\Collection();
     }
 
     /**
@@ -111,7 +113,9 @@ class Response
             'unfurl_media' => true,
             'mrkdwn' => true,
             'response_type' => $this->responseType,
-            'attachments' => $this->attachments,
+            'attachments' => $this->attachments->map(function(Attachment $attachment) {
+                return $attachment->toArray();
+            })->toArray(),
         ];
     }
 }
