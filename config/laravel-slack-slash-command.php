@@ -16,6 +16,7 @@ return [
      * The handlers that should process the slash command.
      */
     'handlers' => [
-        Spatie\SlashCommand\Handlers\CatchAll::class
+        Spatie\SlashCommand\Handlers\Artisan::class,
+        Spatie\SlashCommand\Handlers\CatchAll::class,
     ],
 ];

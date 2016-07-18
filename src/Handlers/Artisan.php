@@ -3,18 +3,21 @@
 namespace Spatie\SlashCommand\Handlers;
 
 use App\Jobs\TestJob;
+use Spatie\SlashCommand\Jobs\ArtisanJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 
-class CatchAll extends BaseHandler
+class Artisan extends BaseHandler
 {
     public function handle(Request $request): Response
     {
-        return $this->respondToSlack("I do not recognize this command: `/{$request->command} {$request->text}`");
+        $this->dispatch(new ArtisanJob());
+
+        return $this->respondToSlack("Performing Artisan command...");
     }
 
     public function canHandle(Request $request): bool
     {
-        return true;
+        return starts_with($request->text, 'artisan');
     }
 }

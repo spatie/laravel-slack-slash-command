@@ -47,8 +47,15 @@ class Request
             'text',
             'responseUrl',
         ])->reduce(function (Request $request, string $propertyName) use ($illuminateRequest) {
+
+
             $request->$propertyName = $illuminateRequest->get(snake_case($propertyName));
 
+            if ($propertyName == 'command') {
+
+                //remove slash
+                $request->command = substr($request->command, 1);
+            }
             return $request;
         }, new static());
     }

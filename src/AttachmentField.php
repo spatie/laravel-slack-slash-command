@@ -26,27 +26,16 @@ class AttachmentField
      */
     protected $short = false;
 
-    public static function create(array $attributes)
+    public static function create($title, $value)
     {
-        return new static($attributes);
+        return new static($title, $value);
     }
 
-    /**
-     * @param array $attributes
-     */
-    public function __construct(array $attributes)
+
+    public function __construct(string $title, string $value)
     {
-        if (isset($attributes['title'])) {
-            $this->setTitle($attributes['title']);
-        }
-
-        if (isset($attributes['value'])) {
-            $this->setValue($attributes['value']);
-        }
-
-        if (isset($attributes['short'])) {
-            $this->setShort($attributes['short']);
-        }
+            $this->title = $title;
+            $this->value = $value;
     }
 
     /**
