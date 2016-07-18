@@ -163,5 +163,7 @@ class Response
         if (!empty($this->icon)) {
             $payload[$this->getIconType()] = $this->icon;
         }
+
+        return $payload;
     }
 }
