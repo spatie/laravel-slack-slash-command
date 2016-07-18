@@ -19,6 +19,9 @@ class Response
     /** @var string */
     protected $channel;
 
+    /** @var string */
+    protected $icon = '';
+
     /** @var \Illuminate\Support\Collection */
     protected $attachments;
 
@@ -75,6 +78,18 @@ class Response
     }
 
     /**
+     * @param \Spatie\SlashCommand\Attachment $attachment
+     *
+     * @return $this
+     */
+    public function withAttachment(Attachment $attachment)
+    {
+        $this->attachments->push($attachment);
+
+        return $this;
+    }
+
+    /**
      * @param string $channelName
      *
      * @return $this
@@ -88,6 +103,33 @@ class Response
         }
 
         return $this;
+    }
+
+    /**
+     * Set the icon (either URL or emoji) we will post as.
+     *
+     * @param string $icon
+     *
+     * @return this
+     */
+    public function useIcon(string $icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getIconType(): string
+    {
+        if (empty($this->icon)) {
+            return '';
+        }
+
+        if (starts_with($this->icon, ':') && ends_with($this->icon, ':')) {
+            return 'icon_emoji';
+        }
+
+        return 'icon_url';
     }
 
     /**
@@ -105,7 +147,7 @@ class Response
 
     protected function getPayload(): array
     {
-        return [
+        $payload = [
             'text' => $this->text,
             'channel' => $this->channel,
             'link_names' => true,
@@ -113,9 +155,13 @@ class Response
             'unfurl_media' => true,
             'mrkdwn' => true,
             'response_type' => $this->responseType,
-            'attachments' => $this->attachments->map(function(Attachment $attachment) {
+            'attachments' => $this->attachments->map(function (Attachment $attachment) {
                 return $attachment->toArray();
             })->toArray(),
         ];
+
+        if (!empty($this->icon)) {
+            $payload[$this->getIconType()] = $this->icon;
+        }
     }
 }

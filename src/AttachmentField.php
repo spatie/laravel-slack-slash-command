@@ -50,16 +50,6 @@ class AttachmentField
     }
 
     /**
-     * Get the title of the field.
-     *
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
      * Set the title of the field.
      *
      * @param string $title
@@ -74,19 +64,10 @@ class AttachmentField
     }
 
     /**
-     * Get the value of the field.
-     *
-     * @return string
-     */
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    /**
      * Set the value of the field.
      *
      * @param string $value
+     *
      * @return $this
      */
     public function setValue(string $value)
@@ -96,28 +77,16 @@ class AttachmentField
         return $this;
     }
 
-    /**
-     * Get whether this field is short enough for displaying
-     * side-by-side with other fields.
-     *
-     * @return bool
-     */
-    public function getShort(): bool
+    public function displaySideBySide()
     {
-        return $this->short;
+        $this->short = true;
+
+        return $this;
     }
 
-    /**
-     * Set whether this field is short enough for displaying
-     * side-by-side with other fields.
-     *
-     * @param bool $value
-     *
-     * @return $this
-     */
-    public function setShort(bool $value)
+    public function doNotDisplaySideBySide()
     {
-        $this->short = $value;
+        $this->short = false;
 
         return $this;
     }
@@ -130,9 +99,9 @@ class AttachmentField
     public function toArray(): array
     {
         return [
-            'title' => $this->getTitle(),
-            'value' => $this->getValue(),
-            'short' => $this->getShort(),
+            'title' => $this->title,
+            'value' => $this->value,
+            'short' => $this->short,
         ];
     }
 }

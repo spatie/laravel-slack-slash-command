@@ -117,25 +117,14 @@ class Attachment
      */
     protected $fields;
 
-
     public static function create()
     {
-        return new static;
+        return new static();
     }
 
     public function __construct()
     {
         $this->fields = new Collection();
-    }
-
-    /**
-     * Get the fallback text.
-     *
-     * @return string
-     */
-    public function getFallback()
-    {
-        return $this->fallback;
     }
 
     /**
@@ -153,16 +142,6 @@ class Attachment
     }
 
     /**
-     * Get the optional text to appear within the attachment.
-     *
-     * @return string
-     */
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    /**
      * Set the optional text to appear within the attachment.
      *
      * @param string $text
@@ -174,16 +153,6 @@ class Attachment
         $this->text = $text;
 
         return $this;
-    }
-
-    /**
-     * Get the optional image to appear within the attachment.
-     *
-     * @return string
-     */
-    public function getImageUrl(): string
-    {
-        return $this->imageUrl;
     }
 
     /**
@@ -201,16 +170,6 @@ class Attachment
     }
 
     /**
-     * Get the optional thumbnail to appear within the attachment.
-     *
-     * @return string
-     */
-    public function getThumbUrl(): string
-    {
-        return $this->thumbUrl;
-    }
-
-    /**
      * Set the optional thumbnail to appear within the attachment.
      *
      * @param string $thumbUrl
@@ -222,16 +181,6 @@ class Attachment
         $this->thumbUrl = $thumbUrl;
 
         return $this;
-    }
-
-    /**
-     * Get the text that should appear above the formatted data.
-     *
-     * @return string
-     */
-    public function getPreText(): string
-    {
-        return $this->preText;
     }
 
     /**
@@ -249,16 +198,6 @@ class Attachment
     }
 
     /**
-     * Get the color to use for the attachment.
-     *
-     * @return string
-     */
-    public function getColor(): string
-    {
-        return $this->color;
-    }
-
-    /**
      * Set the color to use for the attachment.
      *
      * @param string $color
@@ -273,19 +212,10 @@ class Attachment
     }
 
     /**
-     * Get the footer to use for the attachment.
-     *
-     * @return string
-     */
-    public function getFooter(): string
-    {
-        return $this->footer;
-    }
-
-    /**
      * Set the footer text to use for the attachment.
      *
      * @param string $footer
+     *
      * @return $this
      */
     public function setFooter(string $footer)
@@ -293,16 +223,6 @@ class Attachment
         $this->footer = $footer;
 
         return $this;
-    }
-
-    /**
-     * Get the footer icon to use for the attachment.
-     *
-     * @return string
-     */
-    public function getFooterIcon(): string
-    {
-        return $this->footerIcon;
     }
 
     /**
@@ -320,19 +240,10 @@ class Attachment
     }
 
     /**
-     * Get the timestamp to use for the attachment.
-     *
-     * @return \DateTime
-     */
-    public function getTimestamp(): DateTime
-    {
-        return $this->timestamp;
-    }
-
-    /**
      * Set the timestamp to use for the attachment.
      *
      * @param \DateTime $timestamp
+     *
      * @return $this
      */
     public function setTimestamp(DateTime $timestamp)
@@ -343,19 +254,10 @@ class Attachment
     }
 
     /**
-     * Get the title to use for the attachment.
-     *
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
      * Set the title to use for the attachment.
      *
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle(string $title)
@@ -366,19 +268,10 @@ class Attachment
     }
 
     /**
-     * Get the title link to use for the attachment.
-     *
-     * @return string
-     */
-    public function getTitleLink(): string
-    {
-        return $this->titleLink;
-    }
-
-    /**
      * Set the title link to use for the attachment.
      *
      * @param string $titleLink
+     *
      * @return $this
      */
     public function setTitleLink(string $titleLink)
@@ -389,19 +282,10 @@ class Attachment
     }
 
     /**
-     * Get the author name to use for the attachment.
-     *
-     * @return string
-     */
-    public function getAuthorName(): string
-    {
-        return $this->authorName;
-    }
-
-    /**
      * Set the author name to use for the attachment.
      *
      * @param string $authorName
+     *
      * @return $this
      */
     public function setAuthorName(string $authorName)
@@ -412,19 +296,10 @@ class Attachment
     }
 
     /**
-     * Get the author link to use for the attachment.
-     *
-     * @return string
-     */
-    public function getAuthorLink(): string
-    {
-        return $this->authorLink;
-    }
-
-    /**
      * Set the auhtor link to use for the attachment.
      *
      * @param string $authorLink
+     *
      * @return $this
      */
     public function setAuthorLink(string $authorLink)
@@ -435,19 +310,10 @@ class Attachment
     }
 
     /**
-     * Get the author icon to use for the attachment.
-     *
-     * @return string
-     */
-    public function getAuthorIcon(): string
-    {
-        return $this->authorIcon;
-    }
-
-    /**
      * Set the author icon to use for the attachment.
      *
      * @param string $authorIcon
+     *
      * @return $this
      */
     public function setAuthorIcon(string $authorIcon)
@@ -458,19 +324,10 @@ class Attachment
     }
 
     /**
-     * Get the fields for the attachment.
-     *
-     * @return array
-     */
-    public function getFields(): array
-    {
-        return $this->fields;
-    }
-
-    /**
      * Set the fields for the attachment.
      *
      * @param array $fields
+     *
      * @return $this
      */
     public function setFields(array $fields)
@@ -490,6 +347,7 @@ class Attachment
      * @param \Spatie\SlashCommand\AttachmentField|array $field
      *
      * @return $this
+     *
      * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
      */
     public function addField($field)
@@ -527,21 +385,21 @@ class Attachment
     public function toArray()
     {
         return [
-            'fallback' => $this->getFallback(),
-            'text' => $this->getText(),
-            'pretext' => $this->getPreText(),
-            'color' => $this->getColor(),
-            'footer' => $this->getFooter(),
-            'footer_icon' => $this->getFooterIcon(),
-            'ts' => $this->getTimestamp() ? $this->getTimestamp()->getTimestamp() : null,
-            'image_url' => $this->getImageUrl(),
-            'thumb_url' => $this->getThumbUrl(),
-            'title' => $this->getTitle(),
-            'title_link' => $this->getTitleLink(),
-            'author_name' => $this->getAuthorName(),
-            'author_link' => $this->getAuthorLink(),
-            'author_icon' => $this->getAuthorIcon(),
-            'fields' => $this->fields->map(function(AttachmentField $field) {
+            'fallback' => $this->fallback,
+            'text' => $this->text,
+            'pretext' => $this->preText,
+            'color' => $this->color,
+            'footer' => $this->footer,
+            'footer_icon' => $this->footer,
+            'ts' => $this->timestamp ? $this->timestamp->getTimestamp() : null,
+            'image_url' => $this->imageUrl,
+            'thumb_url' => $this->thumbUrl,
+            'title' => $this->title,
+            'title_link' => $this->titleLink,
+            'author_name' => $this->authorName,
+            'author_link' => $this->authorLink,
+            'author_icon' => $this->authorIcon,
+            'fields' => $this->fields->map(function (AttachmentField $field) {
                 return $field->toArray();
             })->toArray(),
         ];
