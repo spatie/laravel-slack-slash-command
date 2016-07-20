@@ -31,11 +31,10 @@ class AttachmentField
         return new static($title, $value);
     }
 
-
     public function __construct(string $title, string $value)
     {
-            $this->title = $title;
-            $this->value = $value;
+        $this->title = $title;
+        $this->value = $value;
     }
 
     /**

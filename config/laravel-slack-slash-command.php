@@ -3,7 +3,8 @@
 return [
 
     /**
-     * The url to which Slack will send Slack commands.
+     * Over at Slack you can configure to which url the slack commands must be send.
+     * url here. You must specify that. Be sure to leave of the domain name.
      */
     'url' => 'slack',
 
@@ -13,10 +14,14 @@ return [
     'token' => env('SLACK_SLASH_COMMAND_VERIFICATION_TOKEN'),
 
     /**
-     * The handlers that should process the slash command.
+     * The handlers that will process the slash command. We'll call handlers from top to bottom
+     * until the first one whose `canHandle` method returns true.
      */
     'handlers' => [
-        Spatie\SlashCommand\Handlers\Artisan::class,
+        //add your own handlers here
+
+
+        //this handler will respond with a `Could not handle command` message.
         Spatie\SlashCommand\Handlers\CatchAll::class,
     ],
 ];

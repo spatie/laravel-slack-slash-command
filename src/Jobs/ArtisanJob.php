@@ -17,15 +17,12 @@ class ArtisanJob extends SlashCommandResponseJob
 
             $this->respondToSlack(Artisan::output())->send();
         } catch (CommandNotFoundException $exception) {
-            $this->respondToSlack("Whoops... something went wrong!")
+            $this->respondToSlack('Whoops... something went wrong!')
                 ->withAttachment(Attachment::create()
                     ->setColor('danger')
                     ->setText("The Artisan command `{$artisanCommand}` does not exist.")
                 )
                 ->send();
-
         }
-
-
     }
 }

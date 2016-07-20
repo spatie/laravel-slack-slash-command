@@ -109,7 +109,7 @@ class SignatureHandlerTest extends TestCase
             'channel_name' => 'General',
             'user_id' => 'U123',
             'user_name' => 'Bob',
-            'command' => 'command',
+            'command' => '/command',
             'text' => 'my-argument --option',
             'response_url' => 'https://slack.com/respond',
         ], $mergeVariables);
