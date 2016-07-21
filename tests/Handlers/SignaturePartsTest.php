@@ -42,7 +42,6 @@ class SignaturePartsTest extends TestCase
         $this->assertSame('{argument} {--option}', $this->signatureParts->getArgumentsAndOptions());
     }
 
-
     /** @test */
     public function it_will_throw_an_exception_if_a_signature_does_not_contain_a_space()
     {

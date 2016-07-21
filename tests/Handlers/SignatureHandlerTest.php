@@ -63,6 +63,18 @@ class SignatureHandlerTest extends TestCase
         };
 
         $this->assertFalse($signatureHandler->canHandle($this->request));
+
+        $signatureHandler = new class($this->request) extends SignatureHandler
+        {
+            public $signature = '/another handlerName';
+
+            public function handle(Request $request): Response
+            {
+                return true;
+            }
+        };
+
+        $this->assertFalse($signatureHandler->canHandle($this->request));
     }
 
     /** @test */

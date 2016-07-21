@@ -31,7 +31,6 @@ abstract class SignatureHandler extends BaseHandler
         $this->signatureIsBound = $this->bindSignature($this->signature);
     }
 
-
     public function getArgument($foo)
     {
         return $this->input->getArgument($foo);
@@ -68,7 +67,6 @@ abstract class SignatureHandler extends BaseHandler
             return false;
         }
 
-
         return true;
     }
 
@@ -98,7 +96,6 @@ abstract class SignatureHandler extends BaseHandler
 
         try {
             $this->input->bind($inputDefinition);
-
         } catch (RuntimeException $exception) {
             return false;
         }
