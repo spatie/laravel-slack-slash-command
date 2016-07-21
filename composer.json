@@ -21,7 +21,7 @@
         "illuminate/routing": "^5.2",
         "illuminate/config": "^5.2",
         "illuminate/queue": "^5.2",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2.1"
 
     },
     "require-dev": {
