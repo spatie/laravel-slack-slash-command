@@ -30,6 +30,6 @@ class CatchAll extends BaseHandler
      */
     public function handle(Request $request): Response
     {
-        return $this->respondToSlack("I do not recognize this command: `/{$request->command} {$request->text}`");
+        return $this->respondToSlack("I did not recognize this command: `/{$request->command} {$request->text}`");
     }
 }
