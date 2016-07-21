@@ -25,6 +25,6 @@ class CatchAllTest extends TestCase
 
         $responseContent = json_decode($response->getContent(), true);
 
-        $this->assertSame("I do not recognize this command: `{$command} {$text}`", $responseContent['text']);
+        $this->assertSame("I did not recognize this command: `{$command} {$text}`", $responseContent['text']);
     }
 }
