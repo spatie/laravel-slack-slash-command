@@ -63,7 +63,7 @@ abstract class SignatureHandler extends BaseHandler
         if ($request->command != $signatureParts->getSlashCommandName()) {
             return false;
         }
-        
+
         if (explode(' ', $request->text)[0] != $signatureParts->getHandlerName()) {
             return false;
         }
@@ -92,10 +92,9 @@ abstract class SignatureHandler extends BaseHandler
             $inputDefinition->addOption($option);
         }
 
-        $inputWithoutHandlerName = explode(' ', $this->request->text)[1] ?? '';
+        $inputWithoutHandlerName = explode(' ', $this->request->text, 2)[1] ?? '';
 
         $this->input = new StringInput($inputWithoutHandlerName);
-
 
         try {
             $this->input->bind($inputDefinition);

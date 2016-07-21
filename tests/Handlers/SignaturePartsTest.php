@@ -33,7 +33,7 @@ class SignaturePartsTest extends TestCase
     /** @test */
     public function it_can_determine_the_signature_without_the_commandName()
     {
-        $this->assertSame('handlerName {argument}', $this->signatureParts->getSignatureWithoutCommandName());
+        $this->assertSame('handlerName {argument} {--option}', $this->signatureParts->getSignatureWithoutCommandName());
     }
 
     /** @test */
