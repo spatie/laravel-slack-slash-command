@@ -12,7 +12,7 @@ class Artisan extends BaseHandler
     {
         $this->dispatch(new ArtisanJob());
 
-        return $this->respondToSlack('Performing Artisan command...');
+        return $this->respondToSlack('Performing artisan command...');
     }
 
     public function canHandle(Request $request): bool
