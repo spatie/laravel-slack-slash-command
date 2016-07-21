@@ -17,6 +17,9 @@ abstract class SignatureHandler extends BaseHandler
     /** @var \Symfony\Component\Console\Input\StringInput */
     protected $input;
 
+    /** @var bool */
+    protected $signatureIsBound;
+
     public function __construct(Request $request)
     {
         parent::__construct($request);
@@ -24,8 +27,9 @@ abstract class SignatureHandler extends BaseHandler
         if (empty($this->signature)) {
             throw InvalidHandler::signatureIsRequired(static::class);
         }
-    }
 
+        $this->signatureIsBound = $this->bindSignature($this->signature);
+    }
 
 
     public function getArgument($foo)
@@ -50,25 +54,30 @@ abstract class SignatureHandler extends BaseHandler
 
     public function canHandle(Request $request): bool
     {
-        $signatureParts = new SignatureParts($this->signature);
-
-        if (! $this->bind($signatureParts->getSignatureWithoutCommandName())) {
+        if (!$this->signatureIsBound) {
             return false;
         };
+
+        $signatureParts = new SignatureParts($this->signature);
 
         if ($request->command != $signatureParts->getSlashCommandName()) {
             return false;
         }
-
-        if (explode(' ', $request->text)[0] = $signatureParts->getHandlerName()) {
+        
+        if (explode(' ', $request->text)[0] != $signatureParts->getHandlerName()) {
             return false;
         }
+
 
         return true;
     }
 
-    protected function bind(string $signature)
+    protected function bindSignature()
     {
+        $signatureParts = new SignatureParts($this->signature);
+
+        $signature = $signatureParts->getSignatureWithoutCommandName();
+
         list($name, $arguments, $options) = Parser::parse($signature);
 
         $this->name = $name;
@@ -83,14 +92,15 @@ abstract class SignatureHandler extends BaseHandler
             $inputDefinition->addOption($option);
         }
 
-        $this->input = new StringInput($this->request->text);
+        $inputWithoutHandlerName = explode(' ', $this->request->text)[1] ?? '';
+
+        $this->input = new StringInput($inputWithoutHandlerName);
+
 
         try {
             $this->input->bind($inputDefinition);
 
         } catch (RuntimeException $exception) {
-
-            throw $exception;
             return false;
         }
 

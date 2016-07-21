@@ -13,7 +13,7 @@ class SignaturePartsTest extends TestCase
 
     public function setUp()
     {
-        $this->signatureParts = new SignatureParts('commandName handlerName {argument}');
+        $this->signatureParts = new SignatureParts('/commandName handlerName {argument} {--option}');
 
         parent::setUp();
     }
@@ -35,6 +35,13 @@ class SignaturePartsTest extends TestCase
     {
         $this->assertSame('handlerName {argument}', $this->signatureParts->getSignatureWithoutCommandName());
     }
+
+    /** @test */
+    public function it_can_determine_the_arguments_and_options()
+    {
+        $this->assertSame('{argument} {--option}', $this->signatureParts->getArgumentsAndOptions());
+    }
+
 
     /** @test */
     public function it_will_throw_an_exception_if_a_signature_does_not_contain_a_space()

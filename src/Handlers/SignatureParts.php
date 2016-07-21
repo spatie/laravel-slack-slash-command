@@ -20,7 +20,7 @@ class SignatureParts
 
     public function getSlashCommandName(): string
     {
-        return explode(' ', $this->signature)[0];
+        return ltrim(explode(' ', $this->signature)[0], '/');
     }
 
     public function getHandlerName(): string
@@ -31,5 +31,10 @@ class SignatureParts
     public function getSignatureWithoutCommandName(): string
     {
         return explode(' ', $this->signature, 2)[1];
+    }
+
+    public function getArgumentsAndOptions(): string
+    {
+        return explode(' ', $this->signature, 3)[2];
     }
 }
