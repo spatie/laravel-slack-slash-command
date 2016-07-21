@@ -26,7 +26,7 @@ class SignatureHandlerTest extends TestCase
 
         $this->signatureHandler = new class($this->request) extends SignatureHandler
         {
-            public $signature = 'command {argument} {--option} {--another-option}';
+            public $signature = '/commandName handlerName {argument} {--option} {--another-option}';
 
             public function handle(Request $request): Response
             {
@@ -54,7 +54,7 @@ class SignatureHandlerTest extends TestCase
     {
         $signatureHandler = new class($this->request) extends SignatureHandler
         {
-            public $signature = 'another';
+            public $signature = '/commandName another';
 
             public function handle(Request $request): Response
             {
@@ -109,8 +109,8 @@ class SignatureHandlerTest extends TestCase
             'channel_name' => 'General',
             'user_id' => 'U123',
             'user_name' => 'Bob',
-            'command' => '/command',
-            'text' => 'my-argument --option',
+            'command' => '/commandName',
+            'text' => 'handlerName my-argument --option',
             'response_url' => 'https://slack.com/respond',
         ], $mergeVariables);
     }

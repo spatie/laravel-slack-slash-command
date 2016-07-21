@@ -17,9 +17,6 @@ abstract class SignatureHandler extends BaseHandler
     /** @var \Symfony\Component\Console\Input\StringInput */
     protected $input;
 
-    /** @var bool */
-    protected $couldBindSignature = false;
-
     public function __construct(Request $request)
     {
         parent::__construct($request);
@@ -27,34 +24,9 @@ abstract class SignatureHandler extends BaseHandler
         if (empty($this->signature)) {
             throw InvalidHandler::signatureIsRequired(static::class);
         }
-
-        $this->parseSignature();
     }
 
-    protected function parseSignature()
-    {
-        list($name, $arguments, $options) = Parser::parse($this->signature);
 
-        $this->name = $name;
-
-        $inputDefinition = new InputDefinition();
-
-        foreach ($arguments as $argument) {
-            $inputDefinition->addArgument($argument);
-        }
-
-        foreach ($options as $option) {
-            $inputDefinition->addOption($option);
-        }
-
-        $this->input = new StringInput($this->request->text);
-
-        try {
-            $this->input->bind($inputDefinition);
-            $this->couldBindSignature = true;
-        } catch (RuntimeException $exception) {
-        }
-    }
 
     public function getArgument($foo)
     {
@@ -78,12 +50,50 @@ abstract class SignatureHandler extends BaseHandler
 
     public function canHandle(Request $request): bool
     {
-        if (!$this->couldBindSignature) {
+        $signatureParts = new SignatureParts($this->signature);
+
+        if (! $this->bind($signatureParts->getSignatureWithoutCommandName())) {
+            return false;
+        };
+
+        if ($request->command != $signatureParts->getSlashCommandName()) {
             return false;
         }
 
-        $commandName = explode(' ', $this->signature)[0];
+        if (explode(' ', $request->text)[0] = $signatureParts->getHandlerName()) {
+            return false;
+        }
 
-        return strtolower($request->command) === strtolower($commandName);
+        return true;
+    }
+
+    protected function bind(string $signature)
+    {
+        list($name, $arguments, $options) = Parser::parse($signature);
+
+        $this->name = $name;
+
+        $inputDefinition = new InputDefinition();
+
+        foreach ($arguments as $argument) {
+            $inputDefinition->addArgument($argument);
+        }
+
+        foreach ($options as $option) {
+            $inputDefinition->addOption($option);
+        }
+
+        $this->input = new StringInput($this->request->text);
+
+        try {
+            $this->input->bind($inputDefinition);
+
+        } catch (RuntimeException $exception) {
+
+            throw $exception;
+            return false;
+        }
+
+        return true;
     }
 }
