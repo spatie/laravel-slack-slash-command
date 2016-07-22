@@ -132,7 +132,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
 
-Parts of spatie/laravel-slack-slash-command, most notably the message and attachment functionalities were heavily inspired on [Regan McEntyre's Slack package](https://github.com/maknz/slack).
+The message and attachment functionalities were heavily inspired on [Regan McEntyre's Slack package](https://github.com/maknz/slack).
 
 ## About Spatie
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
