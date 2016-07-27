@@ -33,6 +33,4 @@ abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashComma
     {
         return $this->request;
     }
-
-    abstract public function handle();
 }
