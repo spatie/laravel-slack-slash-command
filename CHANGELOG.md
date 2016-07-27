@@ -2,19 +2,8 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+## 1.0.1 - 2016-07-27
+- fix dependency injection in `handle` method of queud jobs
 
-### Added
-- Nothing
-
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+## 1.0.0 - 2016-07-20
+- initial release
