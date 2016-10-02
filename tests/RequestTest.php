@@ -6,7 +6,7 @@ use Spatie\SlashCommand\Request;
 
 class RequestTest extends TestCase
 {
-    /** @var \Spatie\SlashCommand\Request  */
+    /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
     public function setUp()

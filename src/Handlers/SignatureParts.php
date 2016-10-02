@@ -13,7 +13,7 @@ class SignatureParts
     {
         $this->signature = $signature;
 
-        if (!str_contains($this->signature, ' ')) {
+        if (! str_contains($this->signature, ' ')) {
             throw InvalidSignature::signatureMustContainASpace($this->signature);
         }
     }

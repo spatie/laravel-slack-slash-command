@@ -160,7 +160,7 @@ class Response
             })->toArray(),
         ];
 
-        if (!empty($this->icon)) {
+        if (! empty($this->icon)) {
             $payload[$this->getIconType()] = $this->icon;
         }
 

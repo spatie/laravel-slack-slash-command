@@ -9,7 +9,7 @@ use Spatie\SlashCommand\Test\TestCase;
 
 class SlashCommandResponseJobTest extends TestCase
 {
-    /** @var \Spatie\SlashCommand\Request  */
+    /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
     /** @var \Spatie\SlashCommand\Jobs\SlashCommandResponseJob */
@@ -23,8 +23,7 @@ class SlashCommandResponseJobTest extends TestCase
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
 
-        $this->job = new class() extends SlashCommandResponseJob
-        {
+        $this->job = new class() extends SlashCommandResponseJob {
             public function handle()
             {
             }
