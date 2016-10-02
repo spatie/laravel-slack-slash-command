@@ -352,7 +352,7 @@ class Attachment
      */
     public function addField($field)
     {
-        if (!is_array($field) && !$field instanceof AttachmentField) {
+        if (! is_array($field) && ! $field instanceof AttachmentField) {
             throw FieldCannotBeAdded::invalidType();
         }
 

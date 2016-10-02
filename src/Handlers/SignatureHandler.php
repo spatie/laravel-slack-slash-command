@@ -53,9 +53,9 @@ abstract class SignatureHandler extends BaseHandler
 
     public function canHandle(Request $request): bool
     {
-        if (!$this->signatureIsBound) {
+        if (! $this->signatureIsBound) {
             return false;
-        };
+        }
 
         $signatureParts = new SignatureParts($this->signature);
 

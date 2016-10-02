@@ -10,7 +10,7 @@ use Spatie\SlashCommand\Test\TestCase;
 
 class SignatureHandlerTest extends TestCase
 {
-    /** @var \Spatie\SlashCommand\Request  */
+    /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
     /** @var \Spatie\SlashCommand\Handlers\SignatureHandler */
@@ -24,8 +24,7 @@ class SignatureHandlerTest extends TestCase
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
 
-        $this->signatureHandler = new class($this->request) extends SignatureHandler
-        {
+        $this->signatureHandler = new class($this->request) extends SignatureHandler {
             public $signature = '/commandName handlerName {argument} {--option} {--another-option}';
 
             public function handle(Request $request): Response
@@ -40,8 +39,7 @@ class SignatureHandlerTest extends TestCase
     {
         $this->expectException(InvalidHandler::class);
 
-        new class($this->request) extends SignatureHandler
-        {
+        new class($this->request) extends SignatureHandler {
             public function handle(Request $request): Response
             {
                 return true;
@@ -52,8 +50,7 @@ class SignatureHandlerTest extends TestCase
     /** @test */
     public function it_cannot_handle_requests_with_a_command_that_does_not_match_the_signature()
     {
-        $signatureHandler = new class($this->request) extends SignatureHandler
-        {
+        $signatureHandler = new class($this->request) extends SignatureHandler {
             public $signature = '/commandName another';
 
             public function handle(Request $request): Response
@@ -64,8 +61,7 @@ class SignatureHandlerTest extends TestCase
 
         $this->assertFalse($signatureHandler->canHandle($this->request));
 
-        $signatureHandler = new class($this->request) extends SignatureHandler
-        {
+        $signatureHandler = new class($this->request) extends SignatureHandler {
             public $signature = '/another handlerName';
 
             public function handle(Request $request): Response
