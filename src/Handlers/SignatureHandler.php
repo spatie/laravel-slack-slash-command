@@ -55,7 +55,7 @@ abstract class SignatureHandler extends BaseHandler
     {
         if (!$this->signatureIsBound) {
             return false;
-        };
+        }
 
         $signatureParts = new SignatureParts($this->signature);
 

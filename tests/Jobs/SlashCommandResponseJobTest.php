@@ -9,7 +9,7 @@ use Spatie\SlashCommand\Test\TestCase;
 
 class SlashCommandResponseJobTest extends TestCase
 {
-    /** @var \Spatie\SlashCommand\Request  */
+    /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
     /** @var \Spatie\SlashCommand\Jobs\SlashCommandResponseJob */
@@ -23,8 +23,7 @@ class SlashCommandResponseJobTest extends TestCase
 
         $this->request = Request::createFromIlluminateRequest($illuminateRequest);
 
-        $this->job = new class() extends SlashCommandResponseJob
-        {
+        $this->job = new class() extends SlashCommandResponseJob {
             public function handle()
             {
             }
@@ -49,15 +48,15 @@ class SlashCommandResponseJobTest extends TestCase
     protected function getPostParameters(array $mergeVariables = []): array
     {
         return array_merge([
-            'token' => 'test-token',
-            'team_id' => 'T123',
-            'team_domain' => 'Company',
-            'channel_id' => 'C123',
+            'token'        => 'test-token',
+            'team_id'      => 'T123',
+            'team_domain'  => 'Company',
+            'channel_id'   => 'C123',
             'channel_name' => 'General',
-            'user_id' => 'U123',
-            'user_name' => 'Bob',
-            'command' => 'command',
-            'text' => 'my-argument --option',
+            'user_id'      => 'U123',
+            'user_name'    => 'Bob',
+            'command'      => 'command',
+            'text'         => 'my-argument --option',
             'response_url' => 'https://slack.com/respond',
         ], $mergeVariables);
     }

@@ -2,9 +2,9 @@
 
 namespace Spatie\SlashCommand\Test;
 
+use Illuminate\Http\Request as IlluminateRequest;
 use Mockery;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Illuminate\Http\Request as IlluminateRequest;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -28,8 +28,8 @@ abstract class TestCase extends OrchestraTestCase
         $app['config']->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
         $app['config']->set('laravel-slack-slash-command', [
-            'token' => 'test-token',
-            'url' => 'test-url',
+            'token'    => 'test-token',
+            'url'      => 'test-url',
             'handlers' => [
                 \Spatie\SlashCommand\Handlers\CatchAll::class,
             ],

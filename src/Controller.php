@@ -48,15 +48,14 @@ class Controller extends IlluminateController
     }
 
     /**
-     * @return \Spatie\SlashCommand\Handlers\BaseHandler
-     *
      * @throws \Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled
+     *
+     * @return \Spatie\SlashCommand\Handlers\BaseHandler
      */
     protected function determineHandler()
     {
         $handler = collect($this->config->get('handlers'))
             ->map(function (string $handlerClassName) {
-
                 if (!class_exists($handlerClassName)) {
                     throw InvalidHandler::handlerDoesNotExist($handlerClassName);
                 }

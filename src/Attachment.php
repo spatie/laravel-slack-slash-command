@@ -346,9 +346,9 @@ class Attachment
      *
      * @param \Spatie\SlashCommand\AttachmentField|array $field
      *
-     * @return $this
-     *
      * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
+     *
+     * @return $this
      */
     public function addField($field)
     {
@@ -385,21 +385,21 @@ class Attachment
     public function toArray()
     {
         return [
-            'fallback' => $this->fallback,
-            'text' => $this->text,
-            'pretext' => $this->preText,
-            'color' => $this->color,
-            'footer' => $this->footer,
+            'fallback'    => $this->fallback,
+            'text'        => $this->text,
+            'pretext'     => $this->preText,
+            'color'       => $this->color,
+            'footer'      => $this->footer,
             'footer_icon' => $this->footer,
-            'ts' => $this->timestamp ? $this->timestamp->getTimestamp() : null,
-            'image_url' => $this->imageUrl,
-            'thumb_url' => $this->thumbUrl,
-            'title' => $this->title,
-            'title_link' => $this->titleLink,
+            'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
+            'image_url'   => $this->imageUrl,
+            'thumb_url'   => $this->thumbUrl,
+            'title'       => $this->title,
+            'title_link'  => $this->titleLink,
             'author_name' => $this->authorName,
             'author_link' => $this->authorLink,
             'author_icon' => $this->authorIcon,
-            'fields' => $this->fields->map(function (AttachmentField $field) {
+            'fields'      => $this->fields->map(function (AttachmentField $field) {
                 return $field->toArray();
             })->toArray(),
         ];
