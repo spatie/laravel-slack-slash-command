@@ -3,6 +3,7 @@
 namespace Spatie\SlashCommand\Handlers;
 
 use Illuminate\Console\Parser;
+use Illuminate\Support\Str;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Request;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -59,7 +60,8 @@ abstract class SignatureHandler extends BaseHandler
 
         $signatureParts = new SignatureParts($this->signature);
 
-        if ($request->command != $signatureParts->getSlashCommandName()) {
+
+        if (! Str::is($signatureParts->getSlashCommandName(), $request->command)) {
             return false;
         }
 
