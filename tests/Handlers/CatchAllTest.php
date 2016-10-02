@@ -14,9 +14,9 @@ class CatchAllTest extends TestCase
         $text = 'some text';
 
         $response = $this->call('POST', 'test-url', [
-            'token' => 'test-token',
+            'token'   => 'test-token',
             'command' => $command,
-            'text' => $text,
+            'text'    => $text,
         ]);
 
         $this->assertInstanceOf(Response::class, $response);

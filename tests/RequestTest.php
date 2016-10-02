@@ -6,7 +6,7 @@ use Spatie\SlashCommand\Request;
 
 class RequestTest extends TestCase
 {
-    /** @var \Spatie\SlashCommand\Request  */
+    /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
     public function setUp()
@@ -45,15 +45,15 @@ class RequestTest extends TestCase
     protected function getPostParameters(): array
     {
         return [
-            'token' => 'test-token',
-            'team_id' => 'T123',
-            'team_domain' => 'Company',
-            'channel_id' => 'C123',
+            'token'        => 'test-token',
+            'team_id'      => 'T123',
+            'team_domain'  => 'Company',
+            'channel_id'   => 'C123',
             'channel_name' => 'General',
-            'user_id' => 'U123',
-            'user_name' => 'Bob',
-            'command' => 'my-command',
-            'text' => 'this is the text',
+            'user_id'      => 'U123',
+            'user_name'    => 'Bob',
+            'command'      => 'my-command',
+            'text'         => 'this is the text',
             'response_url' => 'https://slack.com/respond',
         ];
     }

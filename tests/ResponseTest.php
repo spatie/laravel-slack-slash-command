@@ -25,15 +25,15 @@ class ResponseTest extends TestCase
         $this->responseUrl = 'https://slack.com/respond';
 
         $illuminateRequest = $this->getIlluminateRequest([
-            'token' => 'test-token',
-            'team_id' => 'T123',
-            'team_domain' => 'Company',
-            'channel_id' => 'C123',
+            'token'        => 'test-token',
+            'team_id'      => 'T123',
+            'team_domain'  => 'Company',
+            'channel_id'   => 'C123',
             'channel_name' => 'General',
-            'user_id' => 'U123',
-            'user_name' => 'Bob',
-            'command' => 'my-command',
-            'text' => 'this is the text',
+            'user_id'      => 'U123',
+            'user_name'    => 'Bob',
+            'command'      => 'my-command',
+            'text'         => 'this is the text',
             'response_url' => $this->responseUrl,
         ]);
 
@@ -75,7 +75,7 @@ class ResponseTest extends TestCase
             ->send();
 
         $expectedPayload = $this->getPayload([
-            'text' => 'hello',
+            'text'    => 'hello',
             'channel' => 'myChannel',
         ]);
 
@@ -93,8 +93,8 @@ class ResponseTest extends TestCase
             ->send();
 
         $expectedPayload = $this->getPayload([
-            'text' => 'hello',
-            'channel' => 'yetAnotherChannel',
+            'text'          => 'hello',
+            'channel'       => 'yetAnotherChannel',
             'response_type' => 'in_channel',
         ]);
 
@@ -106,14 +106,14 @@ class ResponseTest extends TestCase
     public function getPayload(array $mergeVariables = []): array
     {
         return array_merge([
-            'text' => '',
-            'channel' => 'General',
-            'link_names' => true,
-            'unfurl_links' => true,
-            'unfurl_media' => true,
-            'mrkdwn' => true,
+            'text'          => '',
+            'channel'       => 'General',
+            'link_names'    => true,
+            'unfurl_links'  => true,
+            'unfurl_media'  => true,
+            'mrkdwn'        => true,
             'response_type' => 'ephemeral',
-            'attachments' => [],
+            'attachments'   => [],
         ], $mergeVariables);
     }
 }

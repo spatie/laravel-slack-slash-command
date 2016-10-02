@@ -148,14 +148,14 @@ class Response
     protected function getPayload(): array
     {
         $payload = [
-            'text' => $this->text,
-            'channel' => $this->channel,
-            'link_names' => true,
-            'unfurl_links' => true,
-            'unfurl_media' => true,
-            'mrkdwn' => true,
+            'text'          => $this->text,
+            'channel'       => $this->channel,
+            'link_names'    => true,
+            'unfurl_links'  => true,
+            'unfurl_media'  => true,
+            'mrkdwn'        => true,
             'response_type' => $this->responseType,
-            'attachments' => $this->attachments->map(function (Attachment $attachment) {
+            'attachments'   => $this->attachments->map(function (Attachment $attachment) {
                 return $attachment->toArray();
             })->toArray(),
         ];
