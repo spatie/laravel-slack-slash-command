@@ -8,21 +8,15 @@ use Spatie\SlashCommand\AttachmentField;
 use Spatie\SlashCommand\HandlesSlashCommand;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\DescriptorHelper;
+use Symfony\Component\Console\Output\BufferedOutput;
 
-class Help extends BaseHandler
+class Help extends SignatureHandler
 {
+    protected $signature = '* help {command? : The command you want information about}';
 
-    /**
-     * Check if the command begins with 'help'
-     *
-     * @param \Spatie\SlashCommand\Request $request
-     *
-     * @return bool
-     */
-    public function canHandle(Request $request): bool
-    {
-        return Str::startsWith($request->text, 'help');
-    }
+    protected $description = 'List all commands or provide information about all commands';
 
     /**
      * Handle the given request.
@@ -33,7 +27,8 @@ class Help extends BaseHandler
      */
     public function handle(Request $request): Response
     {
-        $command = trim(substr($this->request->text, 4));
+        $command = $this->getArgument('command');
+
         $helpRequest = clone $this->request;
         $helpRequest->text = $command;
 
@@ -42,8 +37,8 @@ class Help extends BaseHandler
                 return new $handlerClassName($helpRequest);
             })
             ->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
-                if ($handler instanceof SignatureHandler && isset($handler->signature)) {
-                    $signatureParts = new SignatureParts($handler->signature);
+                if ($handler instanceof SignatureHandler) {
+                    $signatureParts = new SignatureParts($handler->getSignature());
                     return in_array($signatureParts->getSlashCommandName(), [$this->request->command, '*']);
                 }
             });
@@ -58,31 +53,48 @@ class Help extends BaseHandler
                 })
                 ->first();
 
-            $signature = $this->formatSignature($handler->signature);
-
-            return $this->respondToSlack("Usage for command */{$this->request->command} {$command}*")
-                ->withAttachment(Attachment::create()->setText($signature));
+            return $this->respondToSlack('')
+                ->withAttachment(Attachment::create()
+                    ->addField($this->getAttachmentFieldForHandler($handler))
+                );
         } else {
             // Create AttachmentFields for each handler
             $attachmentFields = collect($handlers)->reduce(function (array $attachmentFields, SignatureHandler $handler) {
 
-                $signature = $this->formatSignature($handler->signature);
-                $signatureParts = new SignatureParts($signature);
-                $attachmentFields[] = AttachmentField::create($signatureParts->getHandlerName(), $signature);
+                $attachmentFields[] = AttachmentField::create($this->getFullCommand($handler), $handler->getDescription());
 
                 return $attachmentFields;
             }, []);
 
-            return $this->respondToSlack("Listing all commands available for */{$this->request->command}*:")
+            return $this->respondToSlack("Available commands:")
                 ->withAttachment(Attachment::create()
                     ->setFields($attachmentFields)
                 );
         }
     }
 
-    protected function formatSignature($signature)
+    protected function getFullCommand(SignatureHandler $handler): string
     {
-        $signatureParts = new SignatureParts($signature);
-        return '/' . $this->request->command . ' ' . $signatureParts->getSignatureWithoutCommandName();
+        $signatureParts = new SignatureParts($handler->signature);
+
+        return '/' . $this->request->command . ' ' . $signatureParts->getHandlerName();
+    }
+
+    protected function getAttachmentFieldForHandler(SignatureHandler $handler): AttachmentField
+    {
+        $fullCommand = $this->getFullCommand($handler);
+
+        $inputDefinition = $handler->getInputDefinition();
+        $output = new BufferedOutput();
+
+        $command = (new Command($fullCommand))
+            ->setDefinition($inputDefinition)
+            ->setDescription($handler->getDescription())
+        ;
+
+        $descriptor = new DescriptorHelper();
+        $descriptor->describe($output, $command);
+
+        return AttachmentField::create($fullCommand, $output->fetch());
     }
 }
