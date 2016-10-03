@@ -14,8 +14,17 @@ abstract class SignatureHandler extends BaseHandler
     /** @var string */
     protected $name;
 
+    /** @var string */
+    protected $signature;
+
+    /** @var string */
+    protected $description;
+
     /** @var \Symfony\Component\Console\Input\StringInput */
     protected $input;
+
+    /** @var \Symfony\Component\Console\Input\InputDefinition */
+    protected $inputDefinition;
 
     /** @var bool */
     protected $signatureIsBound;
@@ -29,6 +38,16 @@ abstract class SignatureHandler extends BaseHandler
         }
 
         $this->signatureIsBound = $this->bindSignature($this->signature);
+    }
+
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description ?: '';
     }
 
     public function getArgument($foo)
@@ -49,6 +68,11 @@ abstract class SignatureHandler extends BaseHandler
     public function getOptions(): array
     {
         return $this->input->getOptions();
+    }
+
+    public function getInputDefinition(): InputDefinition
+    {
+        return $this->inputDefinition;
     }
 
     public function canHandle(Request $request): bool
@@ -93,6 +117,7 @@ abstract class SignatureHandler extends BaseHandler
         $inputWithoutHandlerName = explode(' ', $this->request->text, 2)[1] ?? '';
 
         $this->input = new StringInput($inputWithoutHandlerName);
+        $this->inputDefinition = $inputDefinition;
 
         try {
             $this->input->bind($inputDefinition);
