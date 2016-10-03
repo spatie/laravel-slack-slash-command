@@ -25,7 +25,7 @@ class ControllerTest extends TestCase
 
         if (isset($response->exception)) {
             throw $response->exception;
-        };
+        }
     }
 
     /** @test */
