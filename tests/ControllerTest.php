@@ -21,7 +21,11 @@ class ControllerTest extends TestCase
     {
         $this->expectException(InvalidRequest::class);
 
-        $this->call('POST', 'test-url', ['token' => 'wrong token']);
+        $response = $this->call('POST', 'test-url', ['token' => 'wrong token']);
+
+        if (isset($response->exception)) {
+            throw $response->exception;
+        };
     }
 
     /** @test */
