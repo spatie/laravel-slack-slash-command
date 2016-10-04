@@ -2,15 +2,13 @@
 
 namespace Spatie\SlashCommand\Handlers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\SlashCommand\Attachment;
 use Spatie\SlashCommand\AttachmentField;
 use Spatie\SlashCommand\HandlesSlashCommand;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\DescriptorHelper;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 class Help extends SignatureHandler
 {
@@ -27,74 +25,78 @@ class Help extends SignatureHandler
      */
     public function handle(Request $request): Response
     {
-        $command = $this->getArgument('command');
+        $handlers = $this->findAvailableHandlers();
 
+        if ($command = $this->getArgument('command')) {
+            return $this->displayHelpForCommand($handlers, $command);
+        }
+
+        return $this->displayHelpList($handlers);
+    }
+
+    /**
+     * Find all handlers that are available for the current SlashCommand
+     * and have a signature
+     *
+     * @return Collection|SignatureHandler[]
+     */
+    protected function findAvailableHandlers(): Collection
+    {
+        return collect(config('laravel-slack-slash-command.handlers'))
+            ->map(function (string $handlerClassName) {
+                return new $handlerClassName($this->request);
+            })
+            ->filter(function (HandlesSlashCommand $handler) {
+                return $handler instanceof SignatureHandler;
+            })
+            ->filter(function (SignatureHandler $handler) {
+                $signatureParts = new SignatureParts($handler->getSignature());
+                return Str::is($signatureParts->getSlashCommandName(), $this->request->command);
+            });
+    }
+
+    /**
+     * Show the help information for a single SignatureHandler
+     *
+     * @param  Collection|SignatureHandler[] $handlers
+     * @param  string $command
+     * @return Response
+     */
+    protected function displayHelpForCommand(Collection $handlers, string $command): Response
+    {
         $helpRequest = clone $this->request;
         $helpRequest->text = $command;
 
-        $handlers = collect(config('laravel-slack-slash-command.handlers'))
-            ->map(function (string $handlerClassName) use($helpRequest) {
-                return new $handlerClassName($helpRequest);
+        /** @var SignatureHandler $handler */
+        $handler = $handlers->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
+                return $handler->canHandle($helpRequest);
             })
-            ->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
-                if ($handler instanceof SignatureHandler) {
-                    $signatureParts = new SignatureParts($handler->getSignature());
-                    return in_array($signatureParts->getSlashCommandName(), [$this->request->command, '*']);
-                }
-            });
+            ->first();
 
-        // When command is passed, find all commands
-        if (! empty($command)) {
+        $field = AttachmentField::create($handler->getFullCommand(), $handler->getHelpDescription());
 
-            /** @var SignatureHandler $handler */
-            $handler = $handlers
-                ->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
-                    return $handler->canHandle($helpRequest);
-                })
-                ->first();
-
-            return $this->respondToSlack('')
-                ->withAttachment(Attachment::create()
-                    ->addField($this->getAttachmentFieldForHandler($handler))
-                );
-        } else {
-            // Create AttachmentFields for each handler
-            $attachmentFields = collect($handlers)->reduce(function (array $attachmentFields, SignatureHandler $handler) {
-
-                $attachmentFields[] = AttachmentField::create($this->getFullCommand($handler), $handler->getDescription());
-
-                return $attachmentFields;
-            }, []);
-
-            return $this->respondToSlack("Available commands:")
-                ->withAttachment(Attachment::create()
-                    ->setFields($attachmentFields)
-                );
-        }
+        return $this->respondToSlack('')
+            ->withAttachment(Attachment::create()
+                ->addField($field)
+            );
     }
 
-    protected function getFullCommand(SignatureHandler $handler): string
+    /**
+     * Show a list of all available Handlers
+     *
+     * @param  Collection|SignatureHandler[] $handlers
+     * @return Response
+     */
+    protected function displayHelpList(Collection $handlers): Response
     {
-        $signatureParts = new SignatureParts($handler->signature);
+        $attachmentFields = $handlers->map(function (SignatureHandler $handler) {
+            return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
+        })
+            ->all();
 
-        return '/' . $this->request->command . ' ' . $signatureParts->getHandlerName();
-    }
-
-    protected function getAttachmentFieldForHandler(SignatureHandler $handler): AttachmentField
-    {
-        $fullCommand = $this->getFullCommand($handler);
-
-        $inputDefinition = $handler->getInputDefinition();
-        $output = new BufferedOutput();
-
-        $command = (new Command($fullCommand))
-            ->setDefinition($inputDefinition)
-            ->setDescription($handler->getDescription())
-        ;
-
-        $descriptor = new DescriptorHelper();
-        $descriptor->describe($output, $command);
-
-        return AttachmentField::create($fullCommand, $output->fetch());
+        return $this->respondToSlack("Available commands:")
+            ->withAttachment(Attachment::create()
+                ->setFields($attachmentFields)
+            );
     }
 }
