@@ -5,9 +5,12 @@ namespace Spatie\SlashCommand\Handlers;
 use Illuminate\Console\Parser;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Request;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
+use Symfony\Component\Console\Helper\DescriptorHelper;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 abstract class SignatureHandler extends BaseHandler
 {
@@ -70,9 +73,37 @@ abstract class SignatureHandler extends BaseHandler
         return $this->input->getOptions();
     }
 
-    public function getInputDefinition(): InputDefinition
+    /**
+     * Get the full command (eg. `/bot ping`)
+     *
+     * @return string
+     */
+    public function getFullCommand(): string
     {
-        return $this->inputDefinition;
+        return '/' . $this->request->command . ' ' . $this->name;
+    }
+
+    /**
+     * Get the usage description, including parameters and options
+     *
+     * @return string
+     */
+    public function getHelpDescription(): string
+    {
+        $inputDefinition = $this->inputDefinition;
+        $output = new BufferedOutput();
+
+        $name = '/' . $this->request->command . ' ' . $this->name;
+
+        $command = (new Command($name))
+            ->setDefinition($inputDefinition)
+            ->setDescription($this->getDescription())
+        ;
+
+        $descriptor = new DescriptorHelper();
+        $descriptor->describe($output, $command);
+
+        return $output->fetch();
     }
 
     public function canHandle(Request $request): bool
