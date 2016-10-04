@@ -12,8 +12,6 @@ use Spatie\SlashCommand\Response;
 
 class CatchAll extends BaseHandler
 {
-    protected $helpAvailable = false;
-
     /**
      * If this function returns true, the handle method will get called.
      *
@@ -39,27 +37,26 @@ class CatchAll extends BaseHandler
     {
         $response = $this->respondToSlack("I did not recognize this command: `/{$request->command} {$request->text}`");
 
-        list($command) = explode(' ' , $this->request->text);
+        list($command) = explode(' ', $this->request->text);
 
-        $alternatives = $this->findAlternatives($command);
-        if (! $alternatives->isEmpty()) {
-            $response->withAttachment($this->getCommandListAttachment($alternatives));
+        $alternativeHandlers = $this->findAlternativeHandlers($command);
+
+        if ($alternativeHandlers->count()) {
+            $response->withAttachment($this->getCommandListAttachment($alternativeHandlers));
         }
 
-        if ($this->helpAvailable) {
+        if ($this->containsHelpHandler($alternativeHandlers)) {
             $response->withAttachment(Attachment::create()
                 ->setText("For all available commands, try `/{$request->command} help`")
             );
-        }
+        };
+
         return $response;
     }
 
-    protected function findAlternatives(string $command): Collection
+    protected function findAlternativeHandlers(string $command): Collection
     {
-        // Number of characters to change
-        $threshold = 2;
-
-        $handlers = collect(config('laravel-slack-slash-command.handlers'))
+        $alternativeHandlers = collect(config('laravel-slack-slash-command.handlers'))
             ->map(function (string $handlerClassName) {
                 return new $handlerClassName($this->request);
             })
@@ -68,25 +65,20 @@ class CatchAll extends BaseHandler
             })
             ->filter(function (SignatureHandler $handler) {
                 $signatureParts = new SignatureParts($handler->getSignature());
+
                 return Str::is($signatureParts->getSlashCommandName(), $this->request->command);
-            })
-            ->map(function(SignatureHandler $handler){
-                if ($handler instanceof Help) {
-                    $this->helpAvailable = true;
-                }
-                return $handler;
-            })
-            ;
+            });
 
         if (strpos($command, ':') !== false) {
-            $subHandlers = $this->findInNamespace($handlers, $command);
-            if (! $subHandlers->isEmpty()) {
+
+            $subHandlers = $this->findInNamespace($alternativeHandlers, $command);
+            if (!$subHandlers->isEmpty()) {
                 return $subHandlers;
             }
         }
 
-        return $handlers->filter(function(SignatureHandler $handler) use($command, $threshold) {
-            return levenshtein($handler->getName(), $command) <= $threshold;
+        return $alternativeHandlers->filter(function (SignatureHandler $handler) use ($command) {
+            return levenshtein($handler->getName(), $command) <= 2;
         });
     }
 
@@ -95,8 +87,8 @@ class CatchAll extends BaseHandler
         // Find commands in the same namespace
         list($namespace, $subCommand) = explode(':', $command);
 
-        $subHandlers = $handlers->filter(function (SignatureHandler $handler) use($namespace) {
-            return Str::startsWith($handler->getName(), $namespace . ':' );
+        $subHandlers = $handlers->filter(function (SignatureHandler $handler) use ($namespace) {
+            return Str::startsWith($handler->getName(), $namespace . ':');
         });
 
         return $subHandlers;
@@ -104,13 +96,21 @@ class CatchAll extends BaseHandler
 
     protected function getCommandListAttachment(Collection $handlers): Attachment
     {
-        $attachmentFields = $handlers->map(function (SignatureHandler $handler) {
-            return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
-        })
+        $attachmentFields = $handlers
+            ->map(function (SignatureHandler $handler) {
+                return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
+            })
             ->all();
 
         return Attachment::create()
             ->setTitle('Did you mean:')
             ->setFields($attachmentFields);
+    }
+
+    protected function containsHelpHandler($alternativeHandlers)
+    {
+        $alternativeHandlers->first(function (SignatureHandler $handler) {
+            return $handler instanceof Help;
+        });
     }
 }
