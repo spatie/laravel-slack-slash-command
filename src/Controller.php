@@ -33,6 +33,9 @@ class Controller extends IlluminateController
         $handler = $this->determineHandler();
 
         try {
+            if ($handler instanceof SignatureHandler) {
+                $handler->validate();
+            }
             $response = $handler->handle($this->request);
         } catch (SlackSlashCommandException $exception) {
             $response = $exception->getResponse($this->request);
