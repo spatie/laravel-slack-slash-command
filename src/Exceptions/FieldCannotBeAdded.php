@@ -2,10 +2,9 @@
 
 namespace Spatie\SlashCommand\Exceptions;
 
-use Exception;
 use Spatie\SlashCommand\AttachmentField;
 
-class FieldCannotBeAdded extends Exception
+class FieldCannotBeAdded extends SlashException
 {
     public static function invalidType()
     {

@@ -4,6 +4,7 @@ namespace Spatie\SlashCommand\Handlers;
 
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Spatie\SlashCommand\Exceptions\SlashException;
 use Spatie\SlashCommand\HandlesSlashCommand;
 use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
@@ -31,6 +32,11 @@ abstract class BaseHandler implements HandlesSlashCommand
         $job->setRequest($this->request);
 
         return app(Dispatcher::class)->dispatch($job);
+    }
+
+    protected function abort($response)
+    {
+        throw new SlashException($response);
     }
 
     public function getRequest(): Request

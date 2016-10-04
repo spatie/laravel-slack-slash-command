@@ -5,6 +5,7 @@ namespace Spatie\SlashCommand\Handlers;
 use Illuminate\Console\Parser;
 use Illuminate\Support\Str;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
+use Spatie\SlashCommand\Exceptions\InvalidInput;
 use Spatie\SlashCommand\Request;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -103,5 +104,14 @@ abstract class SignatureHandler extends BaseHandler
         }
 
         return true;
+    }
+
+    protected function validate()
+    {
+        try {
+            $this->input->validate();
+        } catch (RuntimeException $e) {
+            throw new InvalidInput($e->getMessage(), $this, $e);
+        }
     }
 }
