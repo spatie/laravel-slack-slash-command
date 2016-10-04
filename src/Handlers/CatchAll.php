@@ -39,7 +39,7 @@ class CatchAll extends BaseHandler
     {
         $response = $this->respondToSlack("I did not recognize this command: `/{$request->command} {$request->text}`");
 
-        list($command) = explode(' ' , $this->request->text);
+        list($command) = explode(' ', $this->request->text);
 
         $alternatives = $this->findAlternatives($command);
         if (! $alternatives->isEmpty()) {
@@ -51,6 +51,7 @@ class CatchAll extends BaseHandler
                 ->setText("For all available commands, try `/{$request->command} help`")
             );
         }
+
         return $response;
     }
 
@@ -68,15 +69,16 @@ class CatchAll extends BaseHandler
             })
             ->filter(function (SignatureHandler $handler) {
                 $signatureParts = new SignatureParts($handler->getSignature());
+
                 return Str::is($signatureParts->getSlashCommandName(), $this->request->command);
             })
-            ->map(function(SignatureHandler $handler){
+            ->map(function (SignatureHandler $handler) {
                 if ($handler instanceof Help) {
                     $this->helpAvailable = true;
                 }
+
                 return $handler;
-            })
-            ;
+            });
 
         if (strpos($command, ':') !== false) {
             $subHandlers = $this->findInNamespace($handlers, $command);
@@ -85,7 +87,7 @@ class CatchAll extends BaseHandler
             }
         }
 
-        return $handlers->filter(function(SignatureHandler $handler) use($command, $threshold) {
+        return $handlers->filter(function (SignatureHandler $handler) use ($command,$threshold) {
             return levenshtein($handler->getName(), $command) <= $threshold;
         });
     }
@@ -95,8 +97,8 @@ class CatchAll extends BaseHandler
         // Find commands in the same namespace
         list($namespace, $subCommand) = explode(':', $command);
 
-        $subHandlers = $handlers->filter(function (SignatureHandler $handler) use($namespace) {
-            return Str::startsWith($handler->getName(), $namespace . ':' );
+        $subHandlers = $handlers->filter(function (SignatureHandler $handler) use ($namespace) {
+            return Str::startsWith($handler->getName(), $namespace.':');
         });
 
         return $subHandlers;
