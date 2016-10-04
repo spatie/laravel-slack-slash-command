@@ -23,5 +23,6 @@ return [
 
         //this handler will respond with a `Could not handle command` message.
         Spatie\SlashCommand\Handlers\CatchAll::class,
+        Spatie\SlashCommand\Handlers\Help::class,
     ],
 ];

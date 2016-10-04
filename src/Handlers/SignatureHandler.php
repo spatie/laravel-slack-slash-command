@@ -81,7 +81,7 @@ abstract class SignatureHandler extends BaseHandler
      */
     public function getFullCommand(): string
     {
-        return '/' . $this->request->command . ' ' . $this->name;
+        return "/{$this->request->command} {$this->name}";
     }
 
     /**
@@ -94,12 +94,11 @@ abstract class SignatureHandler extends BaseHandler
         $inputDefinition = $this->inputDefinition;
         $output = new BufferedOutput();
 
-        $name = '/' . $this->request->command . ' ' . $this->name;
+        $name = $this->getFullCommand();
 
         $command = (new Command($name))
             ->setDefinition($inputDefinition)
-            ->setDescription($this->getDescription())
-        ;
+            ->setDescription($this->getDescription());
 
         $descriptor = new DescriptorHelper();
         $descriptor->describe($output, $command);

@@ -51,12 +51,13 @@ class Help extends SignatureHandler
             })
             ->filter(function (SignatureHandler $handler) {
                 $signatureParts = new SignatureParts($handler->getSignature());
+
                 return Str::is($signatureParts->getSlashCommandName(), $this->request->command);
             });
     }
 
     /**
-     * Show the help information for a single SignatureHandler
+     * Show the help information for a single SignatureHandler.
      *
      * @param  Collection|SignatureHandler[] $handlers
      * @param  string $command
@@ -65,38 +66,40 @@ class Help extends SignatureHandler
     protected function displayHelpForCommand(Collection $handlers, string $command): Response
     {
         $helpRequest = clone $this->request;
+
         $helpRequest->text = $command;
 
-        /** @var SignatureHandler $handler */
-        $handler = $handlers->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
-                return $handler->canHandle($helpRequest);
-            })
+        /** @var \Spatie\SlashCommand\Handlers $handler */
+        $handler = $handlers->filter(function (HandlesSlashCommand $handler) use ($helpRequest) {
+            return $handler->canHandle($helpRequest);
+        })
             ->first();
 
         $field = AttachmentField::create($handler->getFullCommand(), $handler->getHelpDescription());
 
         return $this->respondToSlack('')
-            ->withAttachment(Attachment::create()
-                ->addField($field)
+            ->withAttachment(
+                Attachment::create()->addField($field)
             );
     }
 
     /**
-     * Show a list of all available Handlers
+     * Show a list of all available handlers.
      *
      * @param  Collection|SignatureHandler[] $handlers
      * @return Response
      */
     protected function displayHelpList(Collection $handlers): Response
     {
-        $attachmentFields = $handlers->map(function (SignatureHandler $handler) {
-            return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
-        })
+        $attachmentFields = $handlers
+            ->map(function (SignatureHandler $handler) {
+                return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
+            })
             ->all();
 
         return $this->respondToSlack("Available commands:")
-            ->withAttachment(Attachment::create()
-                ->setFields($attachmentFields)
+            ->withAttachment(
+                Attachment::create()->setFields($attachmentFields)
             );
     }
 }
