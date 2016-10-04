@@ -13,9 +13,9 @@ class SlackSlashCommandException extends Exception
     {
         return Response::create($request)
             ->withAttachment(Attachment::create()
+                ->setColor('danger')
                 ->setText($this->getMessage())
                 ->setFallback($this->getMessage())
-                ->setColor('danger')
             );
     }
 }
