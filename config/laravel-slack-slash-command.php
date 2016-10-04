@@ -22,8 +22,8 @@ return [
 
         //this handler will display instructions on how to use the various command.
         Spatie\SlashCommand\Handlers\Help::class,
-        //this handler will respond with a `Could not handle command` message.
 
+        //this handler will respond with a `Could not handle command` message.
         Spatie\SlashCommand\Handlers\CatchAll::class,
     ],
 ];
