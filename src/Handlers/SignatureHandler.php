@@ -43,6 +43,11 @@ abstract class SignatureHandler extends BaseHandler
 
         $this->signatureIsBound = $this->bindSignature($this->signature);
     }
+    
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     public function getSignature(): string
     {
