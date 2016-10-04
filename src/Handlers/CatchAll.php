@@ -71,7 +71,7 @@ class CatchAll extends BaseHandler
 
         if (strpos($command, ':') !== false) {
             $subHandlers = $this->findInNamespace($alternativeHandlers, $command);
-            if (! $subHandlers->isEmpty()) {
+            if ($subHandlers->count()) {
                 return $subHandlers;
             }
         }
