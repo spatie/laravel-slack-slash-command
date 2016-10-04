@@ -21,7 +21,7 @@ return [
         //add your own handlers here
 
 
-        //this handler will display instructions on how to use the various command.
+        //this handler will display instructions on how to use the various commands.
         Spatie\SlashCommand\Handlers\Help::class,
 
         //this handler will respond with a `Could not handle command` message.
