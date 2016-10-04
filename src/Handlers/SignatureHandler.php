@@ -104,4 +104,24 @@ abstract class SignatureHandler extends BaseHandler
 
         return true;
     }
+    
+        /**
+     * @return Response|null
+     */
+    protected function validate()
+    {
+        try {
+            $this->input->validate();
+        } catch (RuntimeException $e) {
+            return $this->respondToSlack('')->withAttachment(
+                Attachment::create()
+                    ->setColor('danger')
+                    ->setText($e->getMessage())
+                )
+                ->withAttachment(
+                    Attachment::create()
+                    ->setText($this->getHelpDescription())
+                );
+        }
+    }
 }
