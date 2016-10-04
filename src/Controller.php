@@ -10,6 +10,7 @@ use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
+use Spatie\SlashCommand\Handlers\SignatureHandler;
 
 class Controller extends IlluminateController
 {
