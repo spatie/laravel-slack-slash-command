@@ -36,7 +36,7 @@ class Help extends SignatureHandler
 
     /**
      * Find all handlers that are available for the current SlashCommand
-     * and have a signature
+     * and have a signature.
      *
      * @return Collection|SignatureHandler[]
      */
@@ -51,12 +51,13 @@ class Help extends SignatureHandler
             })
             ->filter(function (SignatureHandler $handler) {
                 $signatureParts = new SignatureParts($handler->getSignature());
+
                 return Str::is($signatureParts->getSlashCommandName(), $this->request->command);
             });
     }
 
     /**
-     * Show the help information for a single SignatureHandler
+     * Show the help information for a single SignatureHandler.
      *
      * @param  Collection|SignatureHandler[] $handlers
      * @param  string $command
@@ -68,9 +69,9 @@ class Help extends SignatureHandler
         $helpRequest->text = $command;
 
         /** @var SignatureHandler $handler */
-        $handler = $handlers->filter(function (HandlesSlashCommand $handler) use ($helpRequest){
-                return $handler->canHandle($helpRequest);
-            })
+        $handler = $handlers->filter(function (HandlesSlashCommand $handler) use ($helpRequest) {
+            return $handler->canHandle($helpRequest);
+        })
             ->first();
 
         $field = AttachmentField::create($handler->getFullCommand(), $handler->getHelpDescription());
@@ -82,7 +83,7 @@ class Help extends SignatureHandler
     }
 
     /**
-     * Show a list of all available Handlers
+     * Show a list of all available Handlers.
      *
      * @param  Collection|SignatureHandler[] $handlers
      * @return Response
@@ -94,7 +95,7 @@ class Help extends SignatureHandler
         })
             ->all();
 
-        return $this->respondToSlack("Available commands:")
+        return $this->respondToSlack('Available commands:')
             ->withAttachment(Attachment::create()
                 ->setFields($attachmentFields)
             );

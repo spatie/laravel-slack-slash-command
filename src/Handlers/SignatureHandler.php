@@ -75,17 +75,17 @@ abstract class SignatureHandler extends BaseHandler
     }
 
     /**
-     * Get the full command (eg. `/bot ping`)
+     * Get the full command (eg. `/bot ping`).
      *
      * @return string
      */
     public function getFullCommand(): string
     {
-        return '/' . $this->request->command . ' ' . $this->name;
+        return '/'.$this->request->command.' '.$this->name;
     }
 
     /**
-     * Get the usage description, including parameters and options
+     * Get the usage description, including parameters and options.
      *
      * @return string
      */
@@ -94,12 +94,11 @@ abstract class SignatureHandler extends BaseHandler
         $inputDefinition = $this->inputDefinition;
         $output = new BufferedOutput();
 
-        $name = '/' . $this->request->command . ' ' . $this->name;
+        $name = '/'.$this->request->command.' '.$this->name;
 
         $command = (new Command($name))
             ->setDefinition($inputDefinition)
-            ->setDescription($this->getDescription())
-        ;
+            ->setDescription($this->getDescription());
 
         $descriptor = new DescriptorHelper();
         $descriptor->describe($output, $command);
