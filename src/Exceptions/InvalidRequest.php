@@ -2,7 +2,7 @@
 
 namespace Spatie\SlashCommand\Exceptions;
 
-class InvalidRequest extends SlashException
+class InvalidRequest extends SlackSlashCommandException
 {
     public static function tokenNotFound()
     {

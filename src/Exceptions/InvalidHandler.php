@@ -4,7 +4,7 @@ namespace Spatie\SlashCommand\Exceptions;
 
 use Spatie\SlashCommand\Handlers\BaseHandler;
 
-class InvalidHandler extends SlashException
+class InvalidHandler extends SlackSlashCommandException
 {
     public static function handlerDoesNotExist($handler)
     {

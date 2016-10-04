@@ -4,7 +4,7 @@ namespace Spatie\SlashCommand\Handlers;
 
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Spatie\SlashCommand\Exceptions\SlashException;
+use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 use Spatie\SlashCommand\HandlesSlashCommand;
 use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
@@ -36,7 +36,7 @@ abstract class BaseHandler implements HandlesSlashCommand
 
     protected function abort($response)
     {
-        throw new SlashException($response);
+        throw new SlackSlashCommandException($response);
     }
 
     public function getRequest(): Request

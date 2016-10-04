@@ -8,7 +8,7 @@ use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
 
-class InvalidInput extends SlashException
+class InvalidInput extends SlackSlashCommandException
 {
     protected $handler;
 

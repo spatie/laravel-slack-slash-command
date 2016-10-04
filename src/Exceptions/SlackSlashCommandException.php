@@ -7,7 +7,7 @@ use Spatie\SlashCommand\Attachment;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 
-class SlashException extends Exception
+class SlackSlashCommandException extends Exception
 {
     public function getResponse(Request $request): Response
     {

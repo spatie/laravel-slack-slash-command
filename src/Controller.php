@@ -8,7 +8,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Routing\Controller as IlluminateController;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
-use Spatie\SlashCommand\Exceptions\SlashException;
+use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
 
 class Controller extends IlluminateController
@@ -34,7 +34,7 @@ class Controller extends IlluminateController
 
         try {
             $response = $handler->handle($this->request);
-        } catch (SlashException $e) {
+        } catch (SlackSlashCommandException $e) {
             $response = $e->getResponse($this->request);
         }
 
