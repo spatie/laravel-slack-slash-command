@@ -92,6 +92,9 @@ class Help extends SignatureHandler
     protected function displayListOfAllCommands(Collection $handlers): Response
     {
         $attachmentFields = $handlers
+            ->sort(function(SignatureHandler $handlerA, SignatureHandler $handlerB) {
+                return strcmp($handlerA->getFullCommand(), $handlerB->getFullCommand());
+            })
             ->map(function (SignatureHandler $handler) {
                 return AttachmentField::create($handler->getFullCommand(), $handler->getDescription());
             })
