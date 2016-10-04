@@ -34,8 +34,8 @@ class Controller extends IlluminateController
 
         try {
             $response = $handler->handle($this->request);
-        } catch (SlackSlashCommandException $e) {
-            $response = $e->getResponse($this->request);
+        } catch (SlackSlashCommandException $exception) {
+            $response = $exception->getResponse($this->request);
         }
 
         return $response->getIlluminateResponse();

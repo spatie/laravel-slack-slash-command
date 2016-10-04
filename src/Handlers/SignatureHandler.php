@@ -160,7 +160,6 @@ abstract class SignatureHandler extends BaseHandler
         try {
             $this->input->bind($inputDefinition);
 
-            $this->validate();
         } catch (RuntimeException $exception) {
             return false;
         }
