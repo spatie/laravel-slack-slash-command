@@ -75,7 +75,7 @@ abstract class SignatureHandler extends BaseHandler
     }
 
     /**
-     * Get the full command (eg. `/bot ping`)
+     * Get the full command (eg. `/bot ping`).
      *
      * @return string
      */
@@ -85,7 +85,7 @@ abstract class SignatureHandler extends BaseHandler
     }
 
     /**
-     * Get the usage description, including parameters and options
+     * Get the usage description, including parameters and options.
      *
      * @return string
      */
