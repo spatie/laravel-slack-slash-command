@@ -31,7 +31,7 @@ class Help extends SignatureHandler
             return $this->displayHelpForCommand($handlers, $command);
         }
 
-        return $this->displayHelpList($handlers);
+        return $this->displayListOfAllCommands($handlers);
     }
 
     /**
@@ -89,7 +89,7 @@ class Help extends SignatureHandler
      * @param  Collection|SignatureHandler[] $handlers
      * @return Response
      */
-    protected function displayHelpList(Collection $handlers): Response
+    protected function displayListOfAllCommands(Collection $handlers): Response
     {
         $attachmentFields = $handlers
             ->map(function (SignatureHandler $handler) {
@@ -99,7 +99,9 @@ class Help extends SignatureHandler
 
         return $this->respondToSlack('Available commands:')
             ->withAttachment(
-                Attachment::create()->setFields($attachmentFields)
+                Attachment::create()
+                    ->setColor('good')
+                    ->setFields($attachmentFields)
             );
     }
 }

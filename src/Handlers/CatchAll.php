@@ -102,6 +102,7 @@ class CatchAll extends BaseHandler
             ->all();
 
         return Attachment::create()
+            ->setColor('warning')
             ->setTitle('Did you mean:')
             ->setFields($attachmentFields);
     }
