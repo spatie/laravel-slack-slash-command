@@ -36,7 +36,7 @@ class Help extends SignatureHandler
 
     /**
      * Find all handlers that are available for the current SlashCommand
-     * and have a signature
+     * and have a signature.
      *
      * @return Collection|SignatureHandler[]
      */
@@ -97,7 +97,7 @@ class Help extends SignatureHandler
             })
             ->all();
 
-        return $this->respondToSlack("Available commands:")
+        return $this->respondToSlack('Available commands:')
             ->withAttachment(
                 Attachment::create()->setFields($attachmentFields)
             );
