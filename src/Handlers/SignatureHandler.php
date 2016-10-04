@@ -166,7 +166,7 @@ abstract class SignatureHandler extends BaseHandler
         return true;
     }
 
-    protected function validate()
+    public function validate()
     {
         try {
             $this->input->validate();
