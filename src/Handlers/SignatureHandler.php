@@ -170,8 +170,8 @@ abstract class SignatureHandler extends BaseHandler
     {
         try {
             $this->input->validate();
-        } catch (RuntimeException $e) {
-            throw new InvalidInput($e->getMessage(), $this, $e);
+        } catch (RuntimeException $exception) {
+            throw new InvalidInput($exception->getMessage(), $this, $exception);
         }
     }
 }

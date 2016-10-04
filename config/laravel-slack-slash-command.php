@@ -20,6 +20,7 @@ return [
     'handlers' => [
         //add your own handlers here
 
+
         //this handler will display instructions on how to use the various command.
         Spatie\SlashCommand\Handlers\Help::class,
 
