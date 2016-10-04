@@ -106,10 +106,10 @@ class CatchAll extends BaseHandler
             ->setFields($attachmentFields);
     }
 
-    protected function containsHelpHandler($alternativeHandlers)
+    protected function containsHelpHandler(Collection $alternativeHandlers): bool
     {
-        $alternativeHandlers->first(function (SignatureHandler $handler) {
+        return ! $alternativeHandlers->filter(function (SignatureHandler $handler) {
             return $handler instanceof Help;
-        });
+        })->isEmpty();
     }
 }
