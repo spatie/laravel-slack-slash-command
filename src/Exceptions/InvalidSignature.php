@@ -2,9 +2,7 @@
 
 namespace Spatie\SlashCommand\Exceptions;
 
-use Exception;
-
-class InvalidSignature extends Exception
+class InvalidSignature extends SlashException
 {
     public static function signatureMustContainASpace($signature)
     {

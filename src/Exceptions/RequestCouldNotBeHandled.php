@@ -2,10 +2,9 @@
 
 namespace Spatie\SlashCommand\Exceptions;
 
-use Exception;
 use Spatie\SlashCommand\Request;
 
-class RequestCouldNotBeHandled extends Exception
+class RequestCouldNotBeHandled extends SlashException
 {
     public static function noHandlerFound(Request $request)
     {
