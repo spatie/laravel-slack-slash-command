@@ -49,7 +49,7 @@ class CatchAll extends BaseHandler
             $response->withAttachment(Attachment::create()
                 ->setText("For all available commands, try `/{$request->command} help`")
             );
-        };
+        }
 
         return $response;
     }
@@ -70,9 +70,8 @@ class CatchAll extends BaseHandler
             });
 
         if (strpos($command, ':') !== false) {
-
             $subHandlers = $this->findInNamespace($alternativeHandlers, $command);
-            if (!$subHandlers->isEmpty()) {
+            if (! $subHandlers->isEmpty()) {
                 return $subHandlers;
             }
         }
@@ -88,7 +87,7 @@ class CatchAll extends BaseHandler
         list($namespace, $subCommand) = explode(':', $command);
 
         $subHandlers = $handlers->filter(function (SignatureHandler $handler) use ($namespace) {
-            return Str::startsWith($handler->getName(), $namespace . ':');
+            return Str::startsWith($handler->getName(), $namespace.':');
         });
 
         return $subHandlers;
