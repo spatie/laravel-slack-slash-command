@@ -2,6 +2,7 @@
 
 namespace Spatie\SlashCommand;
 
+use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request as IlluminateRequest;
 use Illuminate\Http\Response as IlluminateResponse;
@@ -35,6 +36,16 @@ class Controller extends IlluminateController
         try {
             $response = $handler->handle($this->request);
         } catch (SlackSlashCommandException $exception) {
+            $response = $exception->getResponse($this->request);
+        } catch (Exception $exception) {
+            $message = config('app.debug') ? (string) $exception : 'Whoops, something went wrong..';
+
+            $exception = new SlackSlashCommandException(
+                $message,
+                $exception->getCode(),
+                $exception
+            );
+
             $response = $exception->getResponse($this->request);
         }
 
