@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.1.1 - 2016-10-05
+
+- all exceptions will be converted to proper Illuminate responses
+- a `SignatureHandler` will now be validated in the controller
+
 ## 1.1.0 - 2016-10-04
 
 - added the `Help` handler
