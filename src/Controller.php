@@ -11,7 +11,6 @@ use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
-use Spatie\SlashCommand\Response;
 
 class Controller extends IlluminateController
 {
@@ -85,7 +84,7 @@ class Controller extends IlluminateController
 
     protected function convertToResponse(Exception $exception) : Response
     {
-        $message = config('app.debug') ? (string)$exception : 'Whoops, something went wrong...';
+        $message = config('app.debug') ? (string) $exception : 'Whoops, something went wrong...';
 
         $exception = new SlackSlashCommandException(
             $message,
