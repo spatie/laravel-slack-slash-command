@@ -11,6 +11,7 @@ use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
+use Spatie\SlashCommand\Handlers\SignatureHandler;
 
 class Controller extends IlluminateController
 {
@@ -34,6 +35,9 @@ class Controller extends IlluminateController
         $handler = $this->determineHandler();
 
         try {
+            if ($handler instanceof SignatureHandler) {
+                $handler->validate();
+            }
             $response = $handler->handle($this->request);
         } catch (SlackSlashCommandException $exception) {
             $response = $exception->getResponse($this->request);
