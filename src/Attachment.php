@@ -324,55 +324,40 @@ class Attachment
     }
 
     /**
-     * Set the fields for the attachment.
-     *
-     * @param array $fields
-     *
-     * @return $this
-     */
-    public function setFields(array $fields)
+    * Add a field to the attachment.
+    *
+    * @param \Spatie\SlashCommand\AttachmentField|array|string $key
+    * @param null|string $value
+    *
+    * @return $this
+    *
+    * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
+    */
+    public function addField($key, $value = null)
     {
-        $this->clearFields();
+        if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
+            throw FieldCannotBeAdded::invalidType();
+        }
 
-        collect($fields)->each(function ($key, $field) {
-            $this->addField($key, $field);
-        });
+        if (is_array($key) && $value !== '') {
+            array_map(function ($value, $index) {
+                $this->fields->push(AttachmentField::create($index, $value));
+            }, $key, array_keys($key));
+
+            return $this;
+        }
+
+        if (! $key instanceof AttachmentField && ! is_array($key)) {
+            $this->fields->push(AttachmentField::create($key, $value));
+
+            return $this;
+        }
+
+        var_dump($key);exit;
+        $this->fields->push($key);
 
         return $this;
     }
-
-    /**
-     * Add a field to the attachment.
-     *
-     * @param \Spatie\SlashCommand\AttachmentField|string $key
-     * @param null|string $value
-     *
-     * @return $this
-     *
-     * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
-     */
-     public function addField($key, $value = null)
-     {
-         if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
-             throw FieldCannotBeAdded::invalidType();
-         }
-
-         if (is_array($key) && is_null($value)) {
-             array_map(function ($value, $index) {
-                 $this->fields->push(AttachmentField::create($index, $value));
-             }, $value, array_keys($value));
-
-             return $this;
-         }
-
-         if (!$key instanceof AttachmentField) {
-             $this->fields->push(AttachmentField::create($key, $value));
-         }
-
-         $this->fields->push($key);
-
-         return $this;
-     }
 
     /**
      * Clear all fields for this attachment.
