@@ -371,7 +371,6 @@ class Attachment
             return $this;
         }
 
-        var_dump($key);exit;
         $this->fields->push($key);
 
         return $this;
