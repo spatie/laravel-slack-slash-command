@@ -351,24 +351,28 @@ class Attachment
      *
      * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
      */
-    public function addField($key, $value = null)
-    {
-        if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
-            throw FieldCannotBeAdded::invalidType();
-        }
+     public function addField($key, $value = null)
+     {
+         if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
+             throw FieldCannotBeAdded::invalidType();
+         }
 
-        if (is_array($key) && is_null($value)) {
-            array_map(function($value, $index) {
-                $this->fields->push(AttachmentField::create($index, $value));
-            }, $value, array_keys($value));
+         if (is_array($key) && is_null($value)) {
+             array_map(function($value, $index) {
+                 $this->fields->push(AttachmentField::create($index, $value));
+             }, $value, array_keys($value));
 
-            return $this;
-        }
+             return $this;
+         }
 
-        $this->fields->push(AttachmentField::create($key, $value));
+         if (!$key instanceof AttachmentField) {
+             $this->fields->push(AttachmentField::create($key, $value));
+         }
 
-        return $this;
-    }
+         $this->fields->push($key);
+
+         return $this;
+     }
 
     /**
      * Clear all fields for this attachment.
