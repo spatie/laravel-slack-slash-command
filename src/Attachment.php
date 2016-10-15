@@ -358,7 +358,7 @@ class Attachment
          }
 
          if (is_array($key) && is_null($value)) {
-             array_map(function($value, $index) {
+             array_map(function ($value, $index) {
                  $this->fields->push(AttachmentField::create($index, $value));
              }, $value, array_keys($value));
 
