@@ -334,8 +334,8 @@ class Attachment
     {
         $this->clearFields();
 
-        collect($fields)->each(function ($field) {
-            $this->addField($field);
+        collect($fields)->each(function ($key, $field) {
+            $this->addField($key, $field);
         });
 
         return $this;
@@ -344,23 +344,28 @@ class Attachment
     /**
      * Add a field to the attachment.
      *
-     * @param \Spatie\SlashCommand\AttachmentField|array $field
+     * @param \Spatie\SlashCommand\AttachmentField|string $key
+     * @param null|string $value
      *
      * @return $this
      *
      * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
      */
-    public function addField($field)
+    public function addField($key, $value = null)
     {
-        if (! is_array($field) && ! $field instanceof AttachmentField) {
+        if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
             throw FieldCannotBeAdded::invalidType();
         }
 
-        if (is_array($field)) {
-            $field = AttachmentField::create($field);
+        if (is_array($key) && is_null($value)) {
+            array_map(function($value, $index) {
+                $this->fields->push(AttachmentField::create($index, $value));
+            }, $value, array_keys($value));
+
+            return $this;
         }
 
-        $this->fields->push($field);
+        $this->fields->push(AttachmentField::create($key, $value));
 
         return $this;
     }
