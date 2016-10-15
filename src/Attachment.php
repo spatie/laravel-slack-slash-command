@@ -324,6 +324,24 @@ class Attachment
     }
 
     /**
+     * Set the fields for the attachment.
+     *
+     * @param array $fields
+     *
+     * @return $this
+     */
+    public function setFields(array $fields)
+    {
+        $this->clearFields();
+
+        collect($fields)->each(function ($key, $field) {
+            $this->addField($key, $field);
+        });
+
+        return $this;
+    }
+
+    /**
     * Add a field to the attachment.
     *
     * @param \Spatie\SlashCommand\AttachmentField|array|string $key
