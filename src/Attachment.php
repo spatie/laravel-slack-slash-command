@@ -323,23 +323,7 @@ class Attachment
         return $this;
     }
 
-    /**
-     * Set the fields for the attachment.
-     *
-     * @param array $fields
-     *
-     * @return $this
-     */
-    public function setFields(array $fields)
-    {
-        $this->clearFields();
 
-        collect($fields)->each(function ($field) {
-            $this->addField($field);
-        });
-
-        return $this;
-    }
 
     /**
      * Add a field to the attachment.
@@ -366,6 +350,36 @@ class Attachment
         $this->fields->push($field);
 
         return $this;
+    }
+
+    /**
+     * Add the fields for the attachment.
+     *
+     * @param array $fields
+     *
+     * @return $this
+     */
+    public function addFields(array $fields)
+    {
+        collect($fields)->each(function ($field) {
+            $this->addField($field);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Set the fields for the attachment.
+     *
+     * @param array $fields
+     *
+     * @return $this
+     */
+    public function setFields(array $fields)
+    {
+        $this->clearFields();
+
+        $this->addFields();
     }
 
     /**
