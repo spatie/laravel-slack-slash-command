@@ -26,11 +26,11 @@ class AttachmentTest extends TestCase
     }
 
     /** @test */
-    public function it_can_add_a_multiple_fields()
+    public function it_can_add_a_multiple_fields_using_an_associative_array()
     {
         $this->attachment->addFields([
-            ['key' => 'value'],
-            ['key2' => 'value2'],
+            'key' => 'value',
+            'key2' => 'value2',
         ]);
 
         $attachments = $this->attachment->toArray()['fields'];

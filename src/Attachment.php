@@ -359,8 +359,8 @@ class Attachment
      */
     public function addFields(array $fields)
     {
-        collect($fields)->each(function ($field) {
-            $this->addField($field);
+        collect($fields)->each(function ($field, $key) {
+            $this->addField([$key => $field]);
         });
 
         return $this;
@@ -377,7 +377,9 @@ class Attachment
     {
         $this->clearFields();
 
-        $this->addFields();
+        $this->addFields($fields);
+
+        return $this;
     }
 
     /**
