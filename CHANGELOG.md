@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.1.2 - 2016-10-17
+
+- fixes passing an array to `addFields`
+
 ## 1.1.1 - 2016-10-05
 
 - all exceptions will be converted to proper Illuminate responses
