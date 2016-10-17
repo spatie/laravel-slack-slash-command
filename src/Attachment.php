@@ -357,7 +357,10 @@ class Attachment
         }
 
         if (is_array($field)) {
-            $field = AttachmentField::create($field);
+            $title = array_keys($field)[0];
+            $value = $field[$title];
+
+            $field = AttachmentField::create($title, $value);
         }
 
         $this->fields->push($field);
