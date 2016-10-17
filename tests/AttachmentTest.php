@@ -6,7 +6,7 @@ use Spatie\SlashCommand\Attachment;
 
 class AttachmentTest extends TestCase
 {
-    /** @var  Attachment */
+    /** @var Attachment */
     protected $attachment;
 
     public function setUp()
@@ -41,5 +41,4 @@ class AttachmentTest extends TestCase
         $this->assertEquals('key2', $attachments[1]['title']);
         $this->assertEquals('value2', $attachments[1]['value']);
     }
-
 }

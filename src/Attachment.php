@@ -323,8 +323,6 @@ class Attachment
         return $this;
     }
 
-
-
     /**
      * Add a field to the attachment.
      *
