@@ -334,33 +334,44 @@ class Attachment
     {
         $this->clearFields();
 
-        collect($fields)->each(function ($field) {
-            $this->addField($field);
+        collect($fields)->each(function ($key, $field) {
+            $this->addField($key, $field);
         });
 
         return $this;
     }
 
     /**
-     * Add a field to the attachment.
-     *
-     * @param \Spatie\SlashCommand\AttachmentField|array $field
-     *
-     * @return $this
-     *
-     * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
-     */
-    public function addField($field)
+    * Add a field to the attachment.
+    *
+    * @param \Spatie\SlashCommand\AttachmentField|array|string $key
+    * @param null|string $value
+    *
+    * @return $this
+    *
+    * @throws \Spatie\SlashCommand\Exceptions\FieldCannotBeAdded
+    */
+    public function addField($key, $value = null)
     {
-        if (! is_array($field) && ! $field instanceof AttachmentField) {
+        if (! is_array($key) && ! $key instanceof AttachmentField && is_null($value)) {
             throw FieldCannotBeAdded::invalidType();
         }
 
-        if (is_array($field)) {
-            $field = AttachmentField::create($field);
+        if (is_array($key) && $value !== '') {
+            array_map(function ($value, $index) {
+                $this->fields->push(AttachmentField::create($index, $value));
+            }, $key, array_keys($key));
+
+            return $this;
         }
 
-        $this->fields->push($field);
+        if (! $key instanceof AttachmentField && ! is_array($key)) {
+            $this->fields->push(AttachmentField::create($key, $value));
+
+            return $this;
+        }
+
+        $this->fields->push($key);
 
         return $this;
     }
