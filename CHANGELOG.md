@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.1.3 - 2016-10-18
+
+- fixes adding an `AttachmendField` to an `Attachment`
+
 ## 1.1.2 - 2016-10-17
 
 - fixes passing an array to `addFields`
