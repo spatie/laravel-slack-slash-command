@@ -54,7 +54,13 @@ class Controller extends IlluminateController
             throw InvalidRequest::tokenNotFound();
         }
 
-        if ($this->request->get('token') != $this->config->get('token')) {
+        $validTokens = $this->config->get('token');
+
+        if (! is_array($validTokens)) {
+            $validTokens = [$validTokens];
+        }
+
+        if (! in_array($this->request->get('token'), $validTokens)) {
             throw InvalidRequest::invalidToken($this->request->get('token'));
         }
     }

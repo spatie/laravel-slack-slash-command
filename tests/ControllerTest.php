@@ -33,6 +33,18 @@ class ControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_an_array_of_configured_tokens()
+    {
+        $this->app['config']->set('laravel-slack-slash-command.token', ['token1', 'token2']);
+
+        $response = $this->call('POST', 'test-url', ['token' => 'token2']);
+
+        if (isset($response->exception)) {
+            throw $response->exception;
+        }
+    }
+
+    /** @test */
     public function it_throws_an_exception_if_no_handler_can_handle_the_request()
     {
         $this->app['config']->set('laravel-slack-slash-command.handlers', []);
