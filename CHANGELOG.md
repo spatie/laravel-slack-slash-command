@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.2.0 - 2016-11-19
+
+- add support for multiple configured tokens
+
 ## 1.1.3 - 2016-10-18
 
 - fixes adding an `AttachmendField` to an `Attachment`
