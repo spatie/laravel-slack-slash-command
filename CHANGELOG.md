@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.3.0 - 2017-01-24
+
+- add support for Laravel 5.4
+
 ## 1.2.0 - 2016-11-19
 
 - add support for multiple configured tokens
