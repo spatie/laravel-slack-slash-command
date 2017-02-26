@@ -360,7 +360,6 @@ class Attachment
     public function addFields(array $fields)
     {
         collect($fields)->each(function ($field, $key) {
-
             if (! $field instanceof AttachmentField) {
                 $field = [$key => $field];
             }
