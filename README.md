@@ -89,8 +89,10 @@ This is the contents of the published file:
 return [
 
     /*
-     * Over at Slack you can configure to which url the slack commands must be send.
-     * url here. You must specify that. Be sure to leave of the domain name.
+     * At the integration settings over at Slack you can configure the url to which the 
+     * slack commands are posted. Specify the path component of that url here. 
+     * 
+     * For `http://example.com/slack` you would put `slack` here.
      */
     'url' => 'slack',
 

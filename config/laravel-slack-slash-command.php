@@ -3,8 +3,10 @@
 return [
 
     /*
-     * In Slack Integration Settings you can configure URL to which the slack commands are POSTed.
-     * Specify the PATH component of your URL. for http://example.com/slack the value would be 'slack' here.
+     * At the integration settings over at Slack you can configure the url to which the
+     * slack commands are posted. Specify the path component of that url here.
+     *
+     * For `http://example.com/slack` you would put `slack` here.
      */
     'url' => 'slack',
 
