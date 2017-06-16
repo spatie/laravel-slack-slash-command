@@ -41,5 +41,12 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\SlashCommand\\SlashCommandServiceProvider"
+            ]
+        }
     }
 }
