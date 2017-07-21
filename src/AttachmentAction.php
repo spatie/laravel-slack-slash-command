@@ -4,6 +4,10 @@ namespace Spatie\SlashCommand;
 
 class AttachmentAction
 {
+    const STYLE_DEFAULT = 'default';
+    const STYLE_PRIMARY = 'primary';
+    const STYLE_DANGER = 'danger';
+
     /**
      * The required name field of the action.
      *
@@ -25,13 +29,19 @@ class AttachmentAction
      */
     protected $type;
 
-
     /**
      * The value of the action.
      *
      * @var string
      */
     protected $value = '';
+
+    /**
+     * The style of the action.
+     *
+     * @var string
+     */
+    protected $style = self::STYLE_DEFAULT;
 
     public static function create($name, $text, $type)
     {
@@ -102,6 +112,20 @@ class AttachmentAction
     }
 
     /**
+     * Set the style of the action.
+     *
+     * @param string $style
+     *
+     * @return AttachmentAction
+     */
+    public function setStyle(string $style): AttachmentAction
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
      * Convert this action to its array representation.
      *
      * @return array
@@ -113,6 +137,7 @@ class AttachmentAction
             'text' => $this->text,
             'type' => $this->type,
             'value' => $this->value,
+            'style' => $this->style,
         ];
     }
 }
