@@ -3,6 +3,7 @@
 namespace Spatie\SlashCommand\Test;
 
 use Spatie\SlashCommand\Attachment;
+use Spatie\SlashCommand\AttachmentAction;
 use Spatie\SlashCommand\AttachmentField;
 
 class AttachmentTest extends TestCase
@@ -85,5 +86,19 @@ class AttachmentTest extends TestCase
         $this->assertEquals('button2', $attachments[1]['name']);
         $this->assertEquals('button2', $attachments[1]['text']);
         $this->assertEquals('button', $attachments[1]['type']);
+    }
+
+    /** @test */
+    public function it_can_add_an_array_of_attachment_actions()
+    {
+        $attachmentAction = AttachmentAction::create('action', 'click me', 'button');
+
+        $this->attachment->addActions([$attachmentAction]);
+
+        $actions = $this->attachment->toArray()['actions'];
+
+        $this->assertSame('action', $actions[0]['name']);
+        $this->assertSame('click me', $actions[0]['text']);
+        $this->assertSame('button', $actions[0]['type']);
     }
 }
