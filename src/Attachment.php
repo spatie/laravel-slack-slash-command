@@ -450,6 +450,34 @@ class Attachment
     }
 
     /**
+     * Set the actions for the attachment.
+     *
+     * @param array $actions
+     *
+     * @return $this
+     */
+    public function setActions(array $actions)
+    {
+        $this->clearActions();
+
+        $this->addActions($actions);
+
+        return $this;
+    }
+
+    /**
+     * Clear all actions for this attachment.
+     *
+     * @return $this
+     */
+    public function clearActions()
+    {
+        $this->actions = new Collection();
+
+        return $this;
+    }
+
+    /**
      * Convert this attachment to its array representation.
      *
      * @return array
