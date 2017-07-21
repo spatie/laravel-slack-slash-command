@@ -9,21 +9,21 @@ class AttachmentAction
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * The required text field of the action.
      *
      * @var string
      */
-    private $text;
+    protected $text;
 
     /**
      * The required type field of the action.
      *
      * @var string
      */
-    private $type;
+    protected $type;
 
     public static function create($name, $text, $type)
     {
