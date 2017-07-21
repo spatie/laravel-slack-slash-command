@@ -38,6 +38,48 @@ class AttachmentAction
     }
 
     /**
+     * Set the name of the action.
+     *
+     * @param string $name
+     *
+     * @return AttachmentAction
+     */
+    public function setName(string $name): AttachmentAction
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Set the text of the action.
+     *
+     * @param string $text
+     *
+     * @return AttachmentAction
+     */
+    public function setText(string $text): AttachmentAction
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Set the type of the action.
+     *
+     * @param string $type
+     *
+     * @return AttachmentAction
+     */
+    public function setType(string $type): AttachmentAction
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
      * Convert this action to its array representation.
      *
      * @return array
