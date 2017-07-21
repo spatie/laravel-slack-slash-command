@@ -4,6 +4,7 @@ namespace Spatie\SlashCommand;
 
 use DateTime;
 use Illuminate\Support\Collection;
+use Spatie\SlashCommand\Exceptions\ActionCannotBeAdded;
 use Spatie\SlashCommand\Exceptions\FieldCannotBeAdded;
 
 class Attachment
@@ -117,6 +118,13 @@ class Attachment
      */
     protected $fields;
 
+    /**
+     * The actions of the attachment.
+     *
+     * @var Collection
+     */
+    protected $actions;
+
     public static function create()
     {
         return new static();
@@ -124,7 +132,8 @@ class Attachment
 
     public function __construct()
     {
-        $this->fields = new Collection();
+        $this->fields  = new Collection();
+        $this->actions = new Collection();
     }
 
     /**
@@ -334,7 +343,7 @@ class Attachment
      */
     public function addField($field)
     {
-        if (! is_array($field) && ! $field instanceof AttachmentField) {
+        if (!is_array($field) && !$field instanceof AttachmentField) {
             throw FieldCannotBeAdded::invalidType();
         }
 
@@ -361,7 +370,7 @@ class Attachment
     {
         collect($fields)->each(function ($field, $key) {
 
-            if (! $field instanceof AttachmentField) {
+            if (!$field instanceof AttachmentField) {
                 $field = [$key => $field];
             }
 
@@ -400,6 +409,31 @@ class Attachment
     }
 
     /**
+     * @param \Spatie\SlashCommand\AttachmentAction|array $action
+     *
+     * @return $this
+     * @throws \Spatie\SlashCommand\Exceptions\ActionCannotBeAdded
+     */
+    public function addAction($action)
+    {
+        if (!is_array($action) && !$action instanceof AttachmentAction) {
+            throw ActionCannotBeAdded::invalidType();
+        }
+
+        if (is_array($action)) {
+            $name = $action['name'];
+            $text = $action['text'];
+            $type = $action['type'];
+
+            $action = AttachmentAction::create($name, $text, $type);
+        }
+
+        $this->actions->push($action);
+
+        return $this;
+    }
+
+    /**
      * Convert this attachment to its array representation.
      *
      * @return array
@@ -407,22 +441,25 @@ class Attachment
     public function toArray()
     {
         return [
-            'fallback' => $this->fallback,
-            'text' => $this->text,
-            'pretext' => $this->preText,
-            'color' => $this->color,
-            'footer' => $this->footer,
+            'fallback'    => $this->fallback,
+            'text'        => $this->text,
+            'pretext'     => $this->preText,
+            'color'       => $this->color,
+            'footer'      => $this->footer,
             'footer_icon' => $this->footer,
-            'ts' => $this->timestamp ? $this->timestamp->getTimestamp() : null,
-            'image_url' => $this->imageUrl,
-            'thumb_url' => $this->thumbUrl,
-            'title' => $this->title,
-            'title_link' => $this->titleLink,
+            'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
+            'image_url'   => $this->imageUrl,
+            'thumb_url'   => $this->thumbUrl,
+            'title'       => $this->title,
+            'title_link'  => $this->titleLink,
             'author_name' => $this->authorName,
             'author_link' => $this->authorLink,
             'author_icon' => $this->authorIcon,
-            'fields' => $this->fields->map(function (AttachmentField $field) {
+            'fields'      => $this->fields->map(function (AttachmentField $field) {
                 return $field->toArray();
+            })->toArray(),
+            'actions'     => $this->actions->map(function (AttachmentAction $action) {
+                return $action->toArray();
             })->toArray(),
         ];
     }
