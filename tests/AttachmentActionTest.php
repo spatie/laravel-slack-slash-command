@@ -33,4 +33,17 @@ class AttachmentActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('button', $action['type']);
         $this->assertSame('primary', $action['style']);
     }
+
+    public function it_can_set_a_confirmation_hash()
+    {
+        $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
+                                            ->setConfirmation(['text' => 'are you sure you want to do that?']);
+
+        $action = $attachmentAction->toArray();
+
+        $this->assertSame('action', $action['name']);
+        $this->assertSame('an action', $action['text']);
+        $this->assertSame('button', $action['type']);
+        $this->assertSame(['text' => 'are you sure you want to do that?'], $action['confirm']);
+    }
 }
