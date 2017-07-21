@@ -434,6 +434,22 @@ class Attachment
     }
 
     /**
+     * Add the actions for the attachment.
+     *
+     * @param array $actions
+     *
+     * @return $this
+     */
+    public function addActions(array $actions)
+    {
+        collect($actions)->each(function ($action) {
+            $this->addAction($action);
+        });
+
+        return $this;
+    }
+
+    /**
      * Convert this attachment to its array representation.
      *
      * @return array
