@@ -55,4 +55,16 @@ class AttachmentTest extends TestCase
         $this->assertEquals('title', $attachments[0]['title']);
         $this->assertEquals('value', $attachments[0]['value']);
     }
+
+    /** @test */
+    public function it_can_add_a_action()
+    {
+        $this->attachment->addAction(['name' => 'button', 'text' => 'a button', 'type' => 'button']);
+
+        $action = $this->attachment->toArray()['actions'][0];
+
+        $this->assertSame('button', $action['name']);
+        $this->assertSame('a button', $action['text']);
+        $this->assertSame('button', $action['type']);
+    }
 }
