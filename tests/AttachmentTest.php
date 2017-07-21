@@ -67,4 +67,23 @@ class AttachmentTest extends TestCase
         $this->assertSame('a button', $action['text']);
         $this->assertSame('button', $action['type']);
     }
+
+    /** @test */
+    public function it_can_add_multiple_actions_using_an_associative_array()
+    {
+        $this->attachment->addActions([
+            ['name' => 'button1', 'text' => 'button1', 'type' => 'button'],
+            ['name' => 'button2', 'text' => 'button2', 'type' => 'button'],
+        ]);
+
+        $attachments = $this->attachment->toArray()['actions'];
+
+        $this->assertEquals('button1', $attachments[0]['name']);
+        $this->assertEquals('button1', $attachments[0]['text']);
+        $this->assertEquals('button', $attachments[0]['type']);
+
+        $this->assertEquals('button2', $attachments[1]['name']);
+        $this->assertEquals('button2', $attachments[1]['text']);
+        $this->assertEquals('button', $attachments[1]['type']);
+    }
 }
