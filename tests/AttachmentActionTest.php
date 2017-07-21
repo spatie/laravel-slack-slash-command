@@ -7,7 +7,7 @@ use Spatie\SlashCommand\AttachmentAction;
 class AttachmentActionTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function test_it_can_set_a_value()
+    public function it_can_set_a_value()
     {
         $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
                                             ->setValue('value');
@@ -21,7 +21,7 @@ class AttachmentActionTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function test_it_can_set_a_style()
+    public function it_can_set_a_style()
     {
         $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
                                             ->setStyle(AttachmentAction::STYLE_PRIMARY);
