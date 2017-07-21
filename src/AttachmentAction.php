@@ -25,6 +25,14 @@ class AttachmentAction
      */
     protected $type;
 
+
+    /**
+     * The value of the action.
+     *
+     * @var string
+     */
+    protected $value = '';
+
     public static function create($name, $text, $type)
     {
         return new static($name, $text, $type);
@@ -80,6 +88,20 @@ class AttachmentAction
     }
 
     /**
+     * Set the value of the action.
+     *
+     * @param string $value
+     *
+     * @return AttachmentAction
+     */
+    public function setValue(string $value): AttachmentAction
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
      * Convert this action to its array representation.
      *
      * @return array
@@ -90,6 +112,7 @@ class AttachmentAction
             'name' => $this->name,
             'text' => $this->text,
             'type' => $this->type,
+            'value' => $this->value,
         ];
     }
 }
