@@ -2,6 +2,8 @@
 
 namespace Spatie\SlashCommand;
 
+use Spatie\SlashCommand\Exceptions\InvalidConfirmationHash;
+
 class AttachmentAction
 {
     const STYLE_DEFAULT = 'default';
@@ -42,6 +44,14 @@ class AttachmentAction
      * @var string
      */
     protected $style = self::STYLE_DEFAULT;
+
+    /**
+     * An optional confirmation
+     * dialog for the action
+     *
+     * @var null|array
+     */
+    protected $confirmation = null;
 
     public static function create($name, $text, $type)
     {
@@ -126,6 +136,25 @@ class AttachmentAction
     }
 
     /**
+     * Sets the confirmation hash for the action.
+     *
+     * @param array $confirmation
+     *
+     * @return \Spatie\SlashCommand\AttachmentAction
+     * @throws \Spatie\SlashCommand\Exceptions\InvalidConfirmationHash
+     */
+    public function setConfirmation(array $confirmation)
+    {
+        if (!array_key_exists('text', $confirmation)) {
+            throw InvalidConfirmationHash::missingTextField();
+        }
+
+        $this->confirmation = $confirmation;
+
+        return $this;
+    }
+
+    /**
      * Convert this action to its array representation.
      *
      * @return array
@@ -138,6 +167,7 @@ class AttachmentAction
             'type' => $this->type,
             'value' => $this->value,
             'style' => $this->style,
+            'confirm' => $this->confirmation,
         ];
     }
 }
