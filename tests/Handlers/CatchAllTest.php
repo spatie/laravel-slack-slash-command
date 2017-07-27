@@ -2,7 +2,6 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
-use Illuminate\Http\Response;
 use Spatie\SlashCommand\Test\TestCase;
 
 class CatchAllTest extends TestCase
@@ -19,12 +18,9 @@ class CatchAllTest extends TestCase
             'text' => $text,
         ]);
 
-        $this->assertInstanceOf(Response::class, $response);
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        $responseContent = json_decode($response->getContent(), true);
-
-        $this->assertSame("I did not recognize this command: `{$command} {$text}`", $responseContent['text']);
+        $response->assertSuccessful();
+        $response->assertJsonFragment([
+            'text' => "I did not recognize this command: `{$command} {$text}`"
+        ]);
     }
 }
