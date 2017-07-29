@@ -112,6 +112,13 @@ class Attachment
     protected $timestamp;
 
     /**
+     * The callback id to use for the attachment.
+     *
+     * @var string
+     */
+    protected $callbackId;
+
+    /**
      * The fields of the attachment.
      *
      * @var \Illuminate\Support\Collection
@@ -334,6 +341,20 @@ class Attachment
     }
 
     /**
+     * Set the callback id to use for the attachment.
+     *
+     * @param string $callbackId
+     *
+     * @return $this
+     */
+    public function setCallbackId(string $callbackId)
+    {
+        $this->callbackId = $callbackId;
+
+        return $this;
+    }
+
+    /**
      * Add a field to the attachment.
      *
      * @param \Spatie\SlashCommand\AttachmentField|array $field
@@ -499,6 +520,7 @@ class Attachment
             'author_name' => $this->authorName,
             'author_link' => $this->authorLink,
             'author_icon' => $this->authorIcon,
+            'callback_id' => $this->callbackId,
             'fields'      => $this->fields->map(function (AttachmentField $field) {
                 return $field->toArray();
             })->toArray(),
