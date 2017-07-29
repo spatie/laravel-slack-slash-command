@@ -3,9 +3,9 @@
 namespace Spatie\SlashCommand\Exceptions;
 
 use Exception;
-use Spatie\SlashCommand\Attachment;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
+use Spatie\SlashCommand\Attachment;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
 
 class InvalidInput extends SlackSlashCommandException

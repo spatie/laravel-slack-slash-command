@@ -1,4 +1,6 @@
-<?php namespace Spatie\SlashCommand\Exceptions;
+<?php
+
+namespace Spatie\SlashCommand\Exceptions;
 
 use Spatie\SlashCommand\AttachmentAction;
 

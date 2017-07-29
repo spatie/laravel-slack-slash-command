@@ -2,13 +2,13 @@
 
 namespace Spatie\SlashCommand\Handlers;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Spatie\SlashCommand\Request;
+use Spatie\SlashCommand\Response;
+use Illuminate\Support\Collection;
 use Spatie\SlashCommand\Attachment;
 use Spatie\SlashCommand\AttachmentField;
 use Spatie\SlashCommand\HandlesSlashCommand;
-use Spatie\SlashCommand\Request;
-use Spatie\SlashCommand\Response;
 
 class CatchAll extends BaseHandler
 {

@@ -3,8 +3,8 @@
 namespace Spatie\SlashCommand\Test;
 
 use Mockery;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Http\Request as IlluminateRequest;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {

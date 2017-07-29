@@ -5,13 +5,13 @@ namespace Spatie\SlashCommand;
 use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request as IlluminateRequest;
-use Illuminate\Http\Response as IlluminateResponse;
-use Illuminate\Routing\Controller as IlluminateController;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
 use Spatie\SlashCommand\Exceptions\InvalidRequest;
-use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
-use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
+use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Routing\Controller as IlluminateController;
+use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
+use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 
 class Controller extends IlluminateController
 {

@@ -2,13 +2,13 @@
 
 namespace Spatie\SlashCommand\Handlers;
 
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
-use Spatie\SlashCommand\HandlesSlashCommand;
-use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
+use Illuminate\Contracts\Bus\Dispatcher;
+use Spatie\SlashCommand\HandlesSlashCommand;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
+use Spatie\SlashCommand\Exceptions\SlackSlashCommandException;
 
 abstract class BaseHandler implements HandlesSlashCommand
 {
