@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-slack` will be documented in this file
 
+## 1.4.0 - 2017-07-29
+
+- add support adding actions to attachments
+
 ## 1.3.0 - 2017-01-24
 
 - add support for Laravel 5.4
