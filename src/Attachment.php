@@ -114,14 +114,14 @@ class Attachment
     /**
      * The fields of the attachment.
      *
-     * @var Collection
+     * @var \Illuminate\Support\Collection
      */
     protected $fields;
 
     /**
      * The actions of the attachment.
      *
-     * @var Collection
+     * @var \Illuminate\Support\Collection
      */
     protected $actions;
 
@@ -133,6 +133,7 @@ class Attachment
     public function __construct()
     {
         $this->fields  = new Collection();
+
         $this->actions = new Collection();
     }
 
