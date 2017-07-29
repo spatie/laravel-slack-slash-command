@@ -2,8 +2,8 @@
 
 namespace Spatie\SlashCommand\Test;
 
-use GuzzleHttp\Client;
 use Mockery;
+use GuzzleHttp\Client;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 

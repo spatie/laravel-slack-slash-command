@@ -47,7 +47,7 @@ class AttachmentAction
 
     /**
      * An optional confirmation
-     * dialog for the action
+     * dialog for the action.
      *
      * @var null|array
      */
@@ -145,7 +145,7 @@ class AttachmentAction
      */
     public function setConfirmation(array $confirmation)
     {
-        if (!array_key_exists('text', $confirmation)) {
+        if (! array_key_exists('text', $confirmation)) {
             throw InvalidConfirmationHash::missingTextField();
         }
 

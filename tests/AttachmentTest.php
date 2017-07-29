@@ -3,8 +3,8 @@
 namespace Spatie\SlashCommand\Test;
 
 use Spatie\SlashCommand\Attachment;
-use Spatie\SlashCommand\AttachmentAction;
 use Spatie\SlashCommand\AttachmentField;
+use Spatie\SlashCommand\AttachmentAction;
 
 class AttachmentTest extends TestCase
 {

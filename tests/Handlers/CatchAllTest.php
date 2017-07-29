@@ -20,7 +20,7 @@ class CatchAllTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertJsonFragment([
-            'text' => "I did not recognize this command: `{$command} {$text}`"
+            'text' => "I did not recognize this command: `{$command} {$text}`",
         ]);
     }
 }

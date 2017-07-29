@@ -4,8 +4,8 @@ namespace Spatie\SlashCommand;
 
 use DateTime;
 use Illuminate\Support\Collection;
-use Spatie\SlashCommand\Exceptions\ActionCannotBeAdded;
 use Spatie\SlashCommand\Exceptions\FieldCannotBeAdded;
+use Spatie\SlashCommand\Exceptions\ActionCannotBeAdded;
 
 class Attachment
 {
@@ -132,7 +132,7 @@ class Attachment
 
     public function __construct()
     {
-        $this->fields  = new Collection();
+        $this->fields = new Collection();
 
         $this->actions = new Collection();
     }
@@ -344,7 +344,7 @@ class Attachment
      */
     public function addField($field)
     {
-        if (!is_array($field) && !$field instanceof AttachmentField) {
+        if (! is_array($field) && ! $field instanceof AttachmentField) {
             throw FieldCannotBeAdded::invalidType();
         }
 
@@ -370,8 +370,7 @@ class Attachment
     public function addFields(array $fields)
     {
         collect($fields)->each(function ($field, $key) {
-
-            if (!$field instanceof AttachmentField) {
+            if (! $field instanceof AttachmentField) {
                 $field = [$key => $field];
             }
 
@@ -417,7 +416,7 @@ class Attachment
      */
     public function addAction($action)
     {
-        if (!is_array($action) && !$action instanceof AttachmentAction) {
+        if (! is_array($action) && ! $action instanceof AttachmentAction) {
             throw ActionCannotBeAdded::invalidType();
         }
 
