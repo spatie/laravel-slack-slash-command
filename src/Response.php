@@ -94,12 +94,13 @@ class Response
      *
      * @return $this
      */
-    public function withMultiAttachments(array $multiAttachments){
-      foreach ($multiAttachments as $attachment) {
-          $this->attachments->push($attachment);
-      }
+    public function withMultiAttachments(array $multiAttachments)
+    {
+        foreach ($multiAttachments as $attachment) {
+            $this->attachments->push($attachment);
+        }
 
-      return $this;
+        return $this;
     }
 
     /**
