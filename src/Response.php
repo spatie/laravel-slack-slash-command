@@ -90,6 +90,19 @@ class Response
     }
 
     /**
+     * @param array $multiAttachments
+     *
+     * @return $this
+     */
+    public function withMultiAttachments(array $multiAttachments){
+      foreach ($multiAttachments as $attachment) {
+          $this->attachments->push($attachment);
+      }
+
+      return $this;
+    }
+
+    /**
      * @param string $channelName
      *
      * @return $this
