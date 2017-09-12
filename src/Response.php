@@ -94,9 +94,9 @@ class Response
      *
      * @return $this
      */
-    public function withMultiAttachments(array $multiAttachments)
+    public function withAttachments(array $attachments)
     {
-        foreach ($multiAttachments as $attachment) {
+        foreach ($attachments as $attachment) {
             $this->attachments->push($attachment);
         }
 

@@ -51,6 +51,27 @@ class CatchAll extends BaseHandler
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
+## Example of Multiple Attachments
+
+In cases where the response may need to send an unknown amount of attachments, create an array of the attachments and pass the array to the `withAttachments()` method.
+
+```
+$processedItems = getItems();
+
+foreach($processedItems as $item)
+{
+		$myattachments[] = Attachment::create()
+				->setFallback("An attachment")
+				->setColor('#ff00f3')
+				->setText($item['info']);
+}
+
+return $this
+		->respondToSlack('Here are the items')
+		->withAttachments($myattachments)
+		->send();
+```
+
 ## Postcardware
 
 You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
