@@ -4,7 +4,7 @@ namespace Spatie\SlashCommand\Test;
 
 use Spatie\SlashCommand\AttachmentAction;
 
-class AttachmentActionTest extends \PHPUnit_Framework_TestCase
+class AttachmentActionTest extends TestCase
 {
     /** @test */
     public function it_can_set_a_value()
