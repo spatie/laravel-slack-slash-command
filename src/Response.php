@@ -90,7 +90,7 @@ class Response
     }
 
     /**
-     * @param array $multiAttachments
+     * @param array $attachments
      *
      * @return $this
      */
