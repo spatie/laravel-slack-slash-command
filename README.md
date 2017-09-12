@@ -61,7 +61,7 @@ $processedItems = getItems();
 foreach($processedItems as $item)
 {
 		$myattachments[] = Attachment::create()
-				->setFallback("An attachment")
+				->setFallback('An attachment')
 				->setColor('#ff00f3')
 				->setText($item['info']);
 }
