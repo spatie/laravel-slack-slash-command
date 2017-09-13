@@ -90,14 +90,18 @@ class Response
     }
 
     /**
-     * @param array $attachments
+     * @param array|\Spatie\SlashCommand\Attachment $attachments
      *
      * @return $this
      */
-    public function withAttachments(array $attachments)
+    public function withAttachments($attachments)
     {
+        if (! is_array($attachments)) {
+            $attachments = [$attachments];
+        }
+
         foreach ($attachments as $attachment) {
-            $this->attachments->push($attachment);
+            $this->withAttachment($attachment);
         }
 
         return $this;
