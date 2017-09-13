@@ -1,10 +1,14 @@
 # Changelog
 
-All Notable changes to `laravel-slack` will be documented in this file
+All notable changes to `laravel-slack` will be documented in this file
+
+## 1.5.0 - 2017-09-13
+
+- add `withAttachments`
 
 ## 1.4.1 - 2017-07-29
 
-- added `setCallbackId`
+- add `setCallbackId`
 
 ## 1.4.0 - 2017-07-29
 
