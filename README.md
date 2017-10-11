@@ -51,14 +51,6 @@ class CatchAll extends BaseHandler
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
-## Postcardware
-
-You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
-
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
-
-The best postcards will get published on the open source page on our website.
-
 ## Installation
 
 You can install the package via composer:
@@ -124,9 +116,6 @@ You'll find the documentation on [https://docs.spatie.be/laravel-slack-slash-com
 
 Find yourself stuck using the package? Found a bug? Do you have general questions or suggestions for improving the media library? Feel free to [create an issue on GitHub](https://github.com/spatie/laravel-slack-slash-command/issues), we'll try to address it as soon as possible.
 
-If you've found a bug regarding security please mail [freek@spatie.be](mailto:freek@spatie.be) instead of using the issue tracker.
-
-
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
@@ -141,6 +130,18 @@ $ composer test
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+### Security
+
+If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
+
+## Postcardware
+
+You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
+
+Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
+
+We publish all received postcards [on our company website](https://spatie.be/en/opensource/postcards).
+
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
@@ -148,8 +149,12 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 The message and attachment functionalities were heavily inspired on [Regan McEntyre's Slack package](https://github.com/maknz/slack).
 
-## About Spatie
+## Support us
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
+
+Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
+All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 
