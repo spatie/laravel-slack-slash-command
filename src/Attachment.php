@@ -128,7 +128,7 @@ class Attachment
     /**
      * Message Formatting.
      *
-     * @var array $mrkdwn
+     * @var array
      */
     protected $mrkdwn = [];
 
@@ -322,7 +322,7 @@ class Attachment
     /**
      * Enable simple markup language.
      *
-     * @param boolean $mrkdwn
+     * @param bool $setMrkdwn
      *
      * @return $this
      */
