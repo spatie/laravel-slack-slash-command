@@ -329,7 +329,7 @@ class Attachment
     public function setMarkdown(bool $setMrkdwn)
     {
         if ($setMrkdwn) {
-            $this->mrkdwn = ["text", "pretext", "footer"];
+            $this->mrkdwn = ['text', 'pretext', 'footer'];
         }
 
         return $this;
