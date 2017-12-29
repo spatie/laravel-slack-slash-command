@@ -126,6 +126,13 @@ class Attachment
     protected $fields;
 
     /**
+     * Message Formatting.
+     *
+     * @var array $mrkdwn
+     */
+    protected $mrkdwn = [];
+
+    /**
      * The actions of the attachment.
      *
      * @var \Illuminate\Support\Collection
@@ -308,6 +315,22 @@ class Attachment
     public function setAuthorName(string $authorName)
     {
         $this->authorName = $authorName;
+
+        return $this;
+    }
+
+    /**
+     * Enable simple markup language.
+     *
+     * @param boolean $mrkdwn
+     *
+     * @return $this
+     */
+    public function setMarkdown(bool $setMrkdwn)
+    {
+        if ($setMrkdwn) {
+            $this->mrkdwn = ["text", "pretext", "footer"];
+        }
 
         return $this;
     }
@@ -511,6 +534,7 @@ class Attachment
             'pretext'     => $this->preText,
             'color'       => $this->color,
             'footer'      => $this->footer,
+            'mrkdwn_in'   => $this->mrkdwn,
             'footer_icon' => $this->footer,
             'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
             'image_url'   => $this->imageUrl,
