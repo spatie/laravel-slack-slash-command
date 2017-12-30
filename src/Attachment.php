@@ -126,11 +126,11 @@ class Attachment
     protected $fields;
 
     /**
-     * Message Formatting.
+     * Use message formatting.
      *
-     * @var array
+     * @var bool
      */
-    protected $mrkdwn = [];
+    protected $useMarkdown = false;
 
     /**
      * The actions of the attachment.
@@ -322,15 +322,11 @@ class Attachment
     /**
      * Enable simple markup language.
      *
-     * @param bool $setMrkdwn
-     *
      * @return $this
      */
-    public function setMarkdown(bool $setMrkdwn)
+    public function useMarkdown()
     {
-        if ($setMrkdwn) {
-            $this->mrkdwn = ['text', 'pretext', 'footer'];
-        }
+        $this->useMarkdown = true;
 
         return $this;
     }
@@ -534,7 +530,7 @@ class Attachment
             'pretext'     => $this->preText,
             'color'       => $this->color,
             'footer'      => $this->footer,
-            'mrkdwn_in'   => $this->mrkdwn,
+            'mrkdwn_in'   => $this->useMarkdown ? ['text', 'pretext', 'footer'] : [],
             'footer_icon' => $this->footer,
             'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
             'image_url'   => $this->imageUrl,
