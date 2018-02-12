@@ -28,7 +28,7 @@ class Response
     /** @var \GuzzleHttp\Client */
     protected $client;
 
-    public static function create(Request $request): Response
+    public static function create(Request $request): self
     {
         $client = app(Client::class);
 
