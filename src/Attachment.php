@@ -126,6 +126,13 @@ class Attachment
     protected $fields;
 
     /**
+     * Use message formatting.
+     *
+     * @var bool
+     */
+    protected $useMarkdown = false;
+
+    /**
      * The actions of the attachment.
      *
      * @var \Illuminate\Support\Collection
@@ -308,6 +315,18 @@ class Attachment
     public function setAuthorName(string $authorName)
     {
         $this->authorName = $authorName;
+
+        return $this;
+    }
+
+    /**
+     * Enable simple markup language.
+     *
+     * @return $this
+     */
+    public function useMarkdown()
+    {
+        $this->useMarkdown = true;
 
         return $this;
     }
@@ -511,6 +530,7 @@ class Attachment
             'pretext'     => $this->preText,
             'color'       => $this->color,
             'footer'      => $this->footer,
+            'mrkdwn_in'   => $this->useMarkdown ? ['text', 'pretext', 'footer'] : [],
             'footer_icon' => $this->footer,
             'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
             'image_url'   => $this->imageUrl,
