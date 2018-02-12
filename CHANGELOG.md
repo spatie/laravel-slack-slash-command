@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.5.1 - 2018-02-12
+
+- add support for L5.6
+
 ## 1.5.0 - 2017-09-13
 
 - add `withAttachments`
