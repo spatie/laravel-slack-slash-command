@@ -33,7 +33,7 @@ class Request
     /** @var string */
     public $responseUrl;
 
-    public static function createFromIlluminateRequest(IlluminateRequest $illuminateRequest): Request
+    public static function createFromIlluminateRequest(IlluminateRequest $illuminateRequest): self
     {
         return collect([
             'token',

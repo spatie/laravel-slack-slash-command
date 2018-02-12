@@ -72,7 +72,7 @@ class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setName(string $name): AttachmentAction
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -86,7 +86,7 @@ class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setText(string $text): AttachmentAction
+    public function setText(string $text): self
     {
         $this->text = $text;
 
@@ -100,7 +100,7 @@ class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setType(string $type): AttachmentAction
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -114,7 +114,7 @@ class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setValue(string $value): AttachmentAction
+    public function setValue(string $value): self
     {
         $this->value = $value;
 
@@ -128,7 +128,7 @@ class AttachmentAction
      *
      * @return AttachmentAction
      */
-    public function setStyle(string $style): AttachmentAction
+    public function setStyle(string $style): self
     {
         $this->style = $style;
 
