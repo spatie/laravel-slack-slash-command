@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.6.1 - 2018-08-04
+
+- fix `footerIcon`
+
 ## 1.6.0 - 2018-02-12
 
 - add `useMarkdown`
