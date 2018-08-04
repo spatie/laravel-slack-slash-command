@@ -531,7 +531,7 @@ class Attachment
             'color'       => $this->color,
             'footer'      => $this->footer,
             'mrkdwn_in'   => $this->useMarkdown ? ['text', 'pretext', 'footer'] : [],
-            'footer_icon' => $this->footer,
+            'footer_icon' => $this->footerIcon,
             'ts'          => $this->timestamp ? $this->timestamp->getTimestamp() : null,
             'image_url'   => $this->imageUrl,
             'thumb_url'   => $this->thumbUrl,
