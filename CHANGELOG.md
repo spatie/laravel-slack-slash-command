@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.6.2 - 2018-09-10
+
+- add support for L5.7
+
 ## 1.6.1 - 2018-08-04
 
 - fix `footerIcon`
