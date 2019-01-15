@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request as IlluminateRequest;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
-use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Routing\Controller as IlluminateController;
@@ -30,8 +29,6 @@ class Controller extends IlluminateController
 
     public function getResponse(): IlluminateResponse
     {
-        $this->guardAgainstInvalidRequest();
-
         $handler = $this->determineHandler();
 
         try {
@@ -46,23 +43,6 @@ class Controller extends IlluminateController
         }
 
         return $response->getIlluminateResponse();
-    }
-
-    protected function guardAgainstInvalidRequest()
-    {
-        if (! request()->has('token')) {
-            throw InvalidRequest::tokenNotFound();
-        }
-
-        $validTokens = $this->config->get('token');
-
-        if (! is_array($validTokens)) {
-            $validTokens = [$validTokens];
-        }
-
-        if (! in_array($this->request->get('token'), $validTokens)) {
-            throw InvalidRequest::invalidToken($this->request->get('token'));
-        }
     }
 
     /**

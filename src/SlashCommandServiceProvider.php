@@ -3,6 +3,7 @@
 namespace Spatie\SlashCommand;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\SlashCommand\Middleware\VerifySlackRequest;
 
 class SlashCommandServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,11 @@ class SlashCommandServiceProvider extends ServiceProvider
             __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
 
-        $this->app['router']->post(config('laravel-slack-slash-command')['url'], Controller::class.'@getResponse');
+        $this->app['router']->aliasMiddleware('verify' , VerifySlackRequest::class);
+        $this->app['router']
+            ->post(config('laravel-slack-slash-command')['url'], Controller::class.'@getResponse')
+            ->middleware('verify');
+
     }
 
     /**
