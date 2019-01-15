@@ -2,13 +2,10 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Spatie\SlashCommand\Test\TestCase;
 
 class CatchAllTest extends TestCase
 {
-    use WithoutMiddleware;
-
     /** @test */
     public function it_can_catch_a_request()
     {

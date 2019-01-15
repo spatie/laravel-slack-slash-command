@@ -3,9 +3,9 @@
 namespace Spatie\SlashCommand;
 use Illuminate\Http\Request as IlluminateRequest;
 
-class SlackRequestSignature
+class RequestSignature
 {
-    private const SLACK_REQUEST_VERSION = 'v0';
+    const SLACK_REQUEST_VERSION = 'v0';
 
     public function create(IlluminateRequest $request): string
     {

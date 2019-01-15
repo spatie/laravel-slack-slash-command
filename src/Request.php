@@ -7,6 +7,9 @@ use Illuminate\Http\Request as IlluminateRequest;
 class Request
 {
     /** @var string */
+    public $token;
+
+    /** @var string */
     public $teamId;
 
     /** @var string */
@@ -33,6 +36,7 @@ class Request
     public static function createFromIlluminateRequest(IlluminateRequest $illuminateRequest): self
     {
         return collect([
+            'token',
             'teamId',
             'teamDomain',
             'channelId',

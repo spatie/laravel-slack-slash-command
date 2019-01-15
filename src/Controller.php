@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request as IlluminateRequest;
 use Spatie\SlashCommand\Exceptions\InvalidHandler;
+use Spatie\SlashCommand\Exceptions\InvalidRequest;
 use Spatie\SlashCommand\Handlers\SignatureHandler;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Routing\Controller as IlluminateController;
@@ -27,8 +28,10 @@ class Controller extends IlluminateController
         $this->config = collect($config->get('laravel-slack-slash-command'));
     }
 
-    public function getResponse(): IlluminateResponse
+    public function getResponse(IlluminateRequest $request): IlluminateResponse
     {
+        $this->guardAgainstInvalidRequest($request);
+
         $handler = $this->determineHandler();
 
         try {
@@ -43,6 +46,41 @@ class Controller extends IlluminateController
         }
 
         return $response->getIlluminateResponse();
+    }
+
+    protected function guardAgainstInvalidRequest(IlluminateRequest $request)
+    {
+        if ($this->config->get('verify_with_signing')) {
+            $this->verifyWithSigning($request);
+        } else {
+            $this->verifyWithToken($request);
+        }
+    }
+
+    protected function verifyWithSigning(IlluminateRequest $request)
+    {
+        $signature = app(RequestSignature::class)->create($request);
+
+        if ($request->header('X-Slack-Signature') !== $signature) {
+            throw InvalidRequest::invalidSignature($signature);
+        }
+    }
+
+    protected function verifyWithToken(IlluminateRequest $request)
+    {
+        if (! $request->has('token')) {
+            throw InvalidRequest::tokenNotFound();
+        }
+
+        $validTokens = $this->config->get('token');
+
+        if (! is_array($validTokens)) {
+            $validTokens = [$validTokens];
+        }
+
+        if (! in_array($this->request->get('token'), $validTokens)) {
+            throw InvalidRequest::invalidToken($this->request->get('token'));
+        }
     }
 
     /**
