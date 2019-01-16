@@ -28,7 +28,7 @@ class RequestSignature
         return [
             self::SLACK_REQUEST_VERSION,
             $request->header('X-Slack-Request-Timestamp'),
-            $request->getContent()
+            http_build_query($request->all())
         ];
     }
 }

@@ -8,12 +8,14 @@ use Spatie\SlashCommand\Exceptions\RequestCouldNotBeHandled;
 
 class ControllerTest extends TestCase
 {
+    const TEST_URL = 'test-url';
+
     /** @test */
     public function it_throws_an_exception_when_receiving_a_request_without_a_token()
     {
         $this->expectException(InvalidRequest::class);
 
-        $response = $this->call('POST', 'test-url');
+        $response = $this->post(self::TEST_URL);
 
         if (isset($response->exception)) {
             throw $response->exception;
@@ -25,7 +27,7 @@ class ControllerTest extends TestCase
     {
         $this->expectException(InvalidRequest::class);
 
-        $response = $this->call('POST', 'test-url', ['token' => 'wrong token']);
+        $response = $this->post(self::TEST_URL, ['token' => 'wrong token']);
 
         if (isset($response->exception)) {
             throw $response->exception;
@@ -37,7 +39,7 @@ class ControllerTest extends TestCase
     {
         $this->app['config']->set('laravel-slack-slash-command.token', ['token1', 'token2']);
 
-        $response = $this->call('POST', 'test-url', ['token' => 'token2']);
+        $response = $this->post(self::TEST_URL, ['token' => 'token2']);
 
         if (isset($response->exception)) {
             throw $response->exception;
@@ -53,7 +55,7 @@ class ControllerTest extends TestCase
 
         $this->expectException(RequestCouldNotBeHandled::class);
 
-        $response = $this->call('POST', 'test-url', ['token' => 'test-token']);
+        $response = $this->post(self::TEST_URL, ['token' => 'test-token']);
 
         if (isset($response->exception)) {
             throw $response->exception;
@@ -67,10 +69,47 @@ class ControllerTest extends TestCase
 
         $this->expectException(InvalidHandler::class);
 
-        $response = $this->call('POST', 'test-url', ['token' => 'test-token']);
+        $response = $this->post(self::TEST_URL, ['token' => 'test-token']);
 
         if (isset($response->exception)) {
             throw $response->exception;
         }
+    }
+
+    /** @test */
+    public function it_throws_an_exception_when_receiving_a_wrong_signature()
+    {
+        $this->app['config']->set('laravel-slack-slash-command.verify_with_signing', true);
+
+        $this->expectException(InvalidRequest::class);
+
+        $response = $this->post(self::TEST_URL, ['token' => 'test-token']);
+
+        if (isset($response->exception)) {
+            throw $response->exception;
+        }
+    }
+
+    /** @test */
+    public function it_can_verify_request_with_signature()
+    {
+        $this->app['config']->set('laravel-slack-slash-command.verify_with_signing', true);
+        $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test-signing');
+
+        $signature = $this->getTestSignature();
+
+        $requestData = [
+            'token' => 'test-token',
+            'user_id' => 'U123'
+        ];
+
+        $headers = [
+            'X-Slack-Request-Timestamp' => 1234,
+            'X-Slack-Signature' => $signature
+        ];
+
+        $response = $this->post(self::TEST_URL, $requestData, $headers);
+
+        $response->assertSuccessful();
     }
 }

@@ -46,4 +46,9 @@ abstract class TestCase extends OrchestraTestCase
 
         return $mock;
     }
+
+    protected function getTestSignature(): string
+    {
+        return 'v0=' . hash_hmac('sha256', 'v0:1234:token=test-token&user_id=U123', 'test-signing');
+    }
 }
