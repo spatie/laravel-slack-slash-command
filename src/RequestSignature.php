@@ -1,6 +1,7 @@
 <?php
 
 namespace Spatie\SlashCommand;
+
 use Illuminate\Http\Request as IlluminateRequest;
 
 class RequestSignature
