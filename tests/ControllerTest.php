@@ -100,12 +100,12 @@ class ControllerTest extends TestCase
 
         $requestData = [
             'token' => 'test-token',
-            'user_id' => 'U123'
+            'user_id' => 'U123',
         ];
 
         $headers = [
             'X-Slack-Request-Timestamp' => 1234,
-            'X-Slack-Signature' => $signature
+            'X-Slack-Signature' => $signature,
         ];
 
         $response = $this->post(self::TEST_URL, $requestData, $headers);

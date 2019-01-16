@@ -20,7 +20,7 @@ return [
      */
     'signing_secret' => env('SLACK_SIGNING_SECRET'),
 
-    /**
+    /*
      * Verify requests from slack with signing_secret signature
      */
     'verify_with_signing' => false,

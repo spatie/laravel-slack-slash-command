@@ -33,7 +33,7 @@ class RequestSignatureTest extends TestCase
     public function it_cannot_create_new_signature_with_invalid_timestamp()
     {
         $headers = [
-            'X-Slack-Request-Timestamp' => 1111
+            'X-Slack-Request-Timestamp' => 1111,
         ];
 
         $illuminateRequest = $this->getIlluminateRequest($this->getPostParameters(), $headers);
@@ -69,7 +69,7 @@ class RequestSignatureTest extends TestCase
     {
         return [
             'token' => 'test-token',
-            'user_id' => 'U123'
+            'user_id' => 'U123',
         ];
     }
 

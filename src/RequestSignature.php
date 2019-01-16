@@ -10,8 +10,8 @@ class RequestSignature
     public function create(IlluminateRequest $request): string
     {
         return self::SLACK_REQUEST_VERSION
-            . '='
-            . hash_hmac(
+            .'='
+            .hash_hmac(
                 'sha256',
                 $this->createBaseString($request),
                 config('laravel-slack-slash-command.signing_secret')
@@ -28,7 +28,7 @@ class RequestSignature
         return [
             self::SLACK_REQUEST_VERSION,
             $request->header('X-Slack-Request-Timestamp'),
-            http_build_query($request->all())
+            http_build_query($request->all()),
         ];
     }
 }
