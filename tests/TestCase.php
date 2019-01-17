@@ -57,7 +57,7 @@ abstract class TestCase extends OrchestraTestCase
         return [
             'token' => 'test-token',
             'user_id' => 'U123',
-            'text' => ''
+            'text' => '',
         ];
     }
 }
