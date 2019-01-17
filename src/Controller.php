@@ -28,9 +28,9 @@ class Controller extends IlluminateController
         $this->config = collect($config->get('laravel-slack-slash-command'));
     }
 
-    public function getResponse(): IlluminateResponse
+    public function getResponse(IlluminateRequest $request): IlluminateResponse
     {
-        $this->guardAgainstInvalidRequest();
+        $this->guardAgainstInvalidRequest($request);
 
         $handler = $this->determineHandler();
 
@@ -48,9 +48,27 @@ class Controller extends IlluminateController
         return $response->getIlluminateResponse();
     }
 
-    protected function guardAgainstInvalidRequest()
+    protected function guardAgainstInvalidRequest(IlluminateRequest $request)
     {
-        if (! request()->has('token')) {
+        if ($this->config->get('verify_with_signing')) {
+            $this->verifyWithSigning($request);
+        } else {
+            $this->verifyWithToken($request);
+        }
+    }
+
+    protected function verifyWithSigning(IlluminateRequest $request)
+    {
+        $signature = app(RequestSignature::class)->create($request);
+
+        if ($request->header('X-Slack-Signature') !== $signature) {
+            throw InvalidRequest::invalidSignature($signature);
+        }
+    }
+
+    protected function verifyWithToken(IlluminateRequest $request)
+    {
+        if (! $request->has('token')) {
             throw InvalidRequest::tokenNotFound();
         }
 

@@ -128,7 +128,7 @@ class Response
      *
      * @param string $icon
      *
-     * @return this
+     * @return $this
      */
     public function useIcon(string $icon)
     {

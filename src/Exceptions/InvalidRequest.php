@@ -13,4 +13,9 @@ class InvalidRequest extends SlackSlashCommandException
     {
         return new static("The request had an invalid token `{$token}`.");
     }
+
+    public static function invalidSignature($signature)
+    {
+        return new static("The request had an invalid signature `{$signature}`.");
+    }
 }
