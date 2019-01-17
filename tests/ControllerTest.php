@@ -98,17 +98,12 @@ class ControllerTest extends TestCase
 
         $signature = $this->getTestSignature();
 
-        $requestData = [
-            'token' => 'test-token',
-            'user_id' => 'U123',
-        ];
-
         $headers = [
             'X-Slack-Request-Timestamp' => 1234,
             'X-Slack-Signature' => $signature,
         ];
 
-        $response = $this->post(self::TEST_URL, $requestData, $headers);
+        $response = $this->post(self::TEST_URL, $this->getPostParametersForSignature(), $headers);
 
         $response->assertSuccessful();
     }

@@ -22,7 +22,7 @@ class RequestSignatureTest extends TestCase
     /** @test */
     public function it_can_create_new_signature()
     {
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParameters(), $this->getHeaders());
+        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $this->getHeaders());
 
         $signature = $this->requestSignature->create($illuminateRequest);
 
@@ -36,7 +36,7 @@ class RequestSignatureTest extends TestCase
             'X-Slack-Request-Timestamp' => 1111,
         ];
 
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParameters(), $headers);
+        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $headers);
 
         $signature = $this->requestSignature->create($illuminateRequest);
 
@@ -48,7 +48,7 @@ class RequestSignatureTest extends TestCase
     {
         $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test1-signing');
 
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParameters(), $this->getHeaders());
+        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $this->getHeaders());
 
         $signature = $this->requestSignature->create($illuminateRequest);
 
@@ -63,14 +63,6 @@ class RequestSignatureTest extends TestCase
         $signature = $this->requestSignature->create($illuminateRequest);
 
         $this->assertNotSame($this->getTestSignature(), $signature);
-    }
-
-    protected function getPostParameters(): array
-    {
-        return [
-            'token' => 'test-token',
-            'user_id' => 'U123',
-        ];
     }
 
     protected function getHeaders(): array

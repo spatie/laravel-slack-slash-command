@@ -49,6 +49,15 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function getTestSignature(): string
     {
-        return 'v0='.hash_hmac('sha256', 'v0:1234:token=test-token&user_id=U123', 'test-signing');
+        return 'v0='.hash_hmac('sha256', 'v0:1234:token=test-token&user_id=U123&text=', 'test-signing');
+    }
+
+    protected function getPostParametersForSignature(): array
+    {
+        return [
+            'token' => 'test-token',
+            'user_id' => 'U123',
+            'text' => ''
+        ];
     }
 }
