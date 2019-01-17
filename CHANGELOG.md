@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.7.0 - 2019-01-17
+
+- added ability to verify requests with signature
+
 ## 1.6.2 - 2018-09-10
 
 - add support for L5.7
