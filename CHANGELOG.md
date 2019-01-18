@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.7.1 - 2019-01-18
+
+- fix creating signature with nullable fields in request body
+
 ## 1.7.0 - 2019-01-17
 
 - added ability to verify requests with signature
