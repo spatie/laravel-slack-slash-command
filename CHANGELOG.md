@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.8.0 - 2019-03-12
+
+- add support for Laravel 5.8
+- drop support for Laravel 5.7 and older
+
 ## 1.7.1 - 2019-01-18
 
 - fix creating signature with nullable fields in request body
