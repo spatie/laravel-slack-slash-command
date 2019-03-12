@@ -10,7 +10,7 @@ class RequestSignatureTest extends TestCase
     /** @var RequestSignature */
     protected $requestSignature;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

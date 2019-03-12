@@ -9,7 +9,7 @@ class RequestTest extends TestCase
     /** @var \Spatie\SlashCommand\Request */
     protected $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

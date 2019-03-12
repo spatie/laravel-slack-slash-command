@@ -16,7 +16,7 @@ class SignatureHandlerTest extends TestCase
     /** @var \Spatie\SlashCommand\Handlers\SignatureHandler */
     protected $signatureHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

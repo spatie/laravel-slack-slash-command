@@ -11,7 +11,7 @@ class SignaturePartsTest extends TestCase
     /** @var \Spatie\SlashCommand\Handlers\SignatureParts */
     protected $signatureParts;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->signatureParts = new SignatureParts('/commandName handlerName {argument} {--option}');
 
