@@ -2,6 +2,7 @@
 
 namespace Spatie\SlashCommand\Handlers;
 
+use Illuminate\Support\Str;
 use Spatie\SlashCommand\Exceptions\InvalidSignature;
 
 class SignatureParts
@@ -13,7 +14,7 @@ class SignatureParts
     {
         $this->signature = $signature;
 
-        if (! str_contains($this->signature, ' ')) {
+        if (! Str::contains($this->signature, ' ')) {
             throw InvalidSignature::signatureMustContainASpace($this->signature);
         }
     }

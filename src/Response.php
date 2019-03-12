@@ -3,6 +3,7 @@
 namespace Spatie\SlashCommand;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class Response
@@ -143,7 +144,7 @@ class Response
             return '';
         }
 
-        if (starts_with($this->icon, ':') && ends_with($this->icon, ':')) {
+        if (Str::startsWith($this->icon, ':') && Str::endsWith($this->icon, ':')) {
             return 'icon_emoji';
         }
 
