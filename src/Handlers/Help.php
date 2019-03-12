@@ -59,7 +59,7 @@ class Help extends SignatureHandler
     /**
      * Show the help information for a single SignatureHandler.
      *
-     * @param  Collection|SignatureHandler[] $handlers
+     * @param  Collection $handlers
      * @param  string $command
      * @return Response
      */
@@ -86,7 +86,7 @@ class Help extends SignatureHandler
     /**
      * Show a list of all available handlers.
      *
-     * @param  Collection|SignatureHandler[] $handlers
+     * @param  Collection $handlers
      * @return Response
      */
     protected function displayListOfAllCommands(Collection $handlers): Response

@@ -18,7 +18,7 @@ class ResponseTest extends TestCase
     /** @var string */
     protected $responseUrl;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

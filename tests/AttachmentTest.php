@@ -11,7 +11,7 @@ class AttachmentTest extends TestCase
     /** @var Attachment */
     protected $attachment;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->attachment = new Attachment();
     }

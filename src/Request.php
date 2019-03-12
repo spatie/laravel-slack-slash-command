@@ -2,6 +2,7 @@
 
 namespace Spatie\SlashCommand;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request as IlluminateRequest;
 
 class Request
@@ -47,7 +48,7 @@ class Request
             'text',
             'responseUrl',
         ])->reduce(function (Request $request, string $propertyName) use ($illuminateRequest) {
-            $request->$propertyName = $illuminateRequest->get(snake_case($propertyName));
+            $request->$propertyName = $illuminateRequest->get(Str::snake($propertyName));
 
             if ($propertyName == 'command') {
 

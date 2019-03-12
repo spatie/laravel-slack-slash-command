@@ -60,6 +60,9 @@ abstract class SignatureHandler extends BaseHandler
         return $this->description ?: '';
     }
 
+    /**
+     * @param string $foo
+     */
     public function getArgument($foo)
     {
         return $this->input->getArgument($foo);
