@@ -15,7 +15,7 @@ class SlashCommandResponseJobTest extends TestCase
     /** @var \Spatie\SlashCommand\Jobs\SlashCommandResponseJob */
     protected $job;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
