@@ -21,7 +21,7 @@
         "illuminate/routing": "~5.8.0",
         "illuminate/config": "~5.8.0",
         "illuminate/queue": "~5.8.0",
-        "guzzlehttp/guzzle": "^6.2.1",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/helpers": "^1.0"
 
     },
