@@ -17,6 +17,9 @@ class Request
     public $teamDomain;
 
     /** @var string */
+    public $channelId;
+
+    /** @var string */
     public $channelName;
 
     /** @var string */
