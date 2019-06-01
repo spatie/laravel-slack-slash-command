@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.8.1 - 2019-06-01
+
+- add channelId property in Request
+
 ## 1.8.0 - 2019-03-12
 
 - add support for Laravel 5.8
