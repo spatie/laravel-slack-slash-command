@@ -10,7 +10,7 @@ at slack.com](https://slack.com/apps/manage/custom-integrations) to get started.
 
 You should now be on a screen that looks like this.
 
-<img src="../../images/slack-integration-settings.jpg">
+<img src="../images/slack-integration-settings.jpg">
 
 These are things you'll need to do:
 - In the `url` you should type the domain name of your Laravel app followed by one or more segments. In the screenshot we've added a `slack` segment. You can choose any segment you want. You'll also need to specify this later on in the config file of the package. 
