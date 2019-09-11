@@ -37,7 +37,7 @@ class CatchAll extends BaseHandler
     {
         $response = $this->respondToSlack("I did not recognize this command: `/{$request->command} {$request->text}`");
 
-        list($command) = explode(' ', $this->request->text);
+        [$command] = explode(' ', $this->request->text);
 
         $alternativeHandlers = $this->findAlternativeHandlers($command);
 
@@ -84,7 +84,7 @@ class CatchAll extends BaseHandler
     protected function findInNamespace(Collection $handlers, string $command): Collection
     {
         // Find commands in the same namespace
-        list($namespace, $subCommand) = explode(':', $command);
+        [$namespace, $subCommand] = explode(':', $command);
 
         $subHandlers = $handlers->filter(function (SignatureHandler $handler) use ($namespace) {
             return Str::startsWith($handler->getName(), $namespace.':');

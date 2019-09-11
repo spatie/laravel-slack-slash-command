@@ -140,7 +140,7 @@ abstract class SignatureHandler extends BaseHandler
 
         $signature = $signatureParts->getSignatureWithoutCommandName();
 
-        list($name, $arguments, $options) = Parser::parse($signature);
+        [$name, $arguments, $options] = Parser::parse($signature);
 
         $this->name = $name;
 
