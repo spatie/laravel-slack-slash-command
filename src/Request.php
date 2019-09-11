@@ -50,7 +50,7 @@ class Request
             'command',
             'text',
             'responseUrl',
-        ])->reduce(function (Request $request, string $propertyName) use ($illuminateRequest) {
+        ])->reduce(function (self $request, string $propertyName) use ($illuminateRequest) {
             $request->$propertyName = $illuminateRequest->get(Str::snake($propertyName));
 
             if ($propertyName == 'command') {
