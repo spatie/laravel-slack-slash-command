@@ -3,7 +3,7 @@ title: Making your attachments interactive
 weight: 4
 ---
 
-On top of adding attachments to your messages, you can also make your attachments interactive. 
+On top of adding attachments to your messages, you can also make your attachments interactive.
 
 Take a look at this response on Slack:
 
@@ -12,7 +12,7 @@ Take a look at this response on Slack:
 This is how you would build that up
 
 ```php
-$this->respondToSlack()
+$this->respondToSlack('')
     ->withAttachment(Attachment::create()
         ->setColor('good')
         ->setText('This is good!')
