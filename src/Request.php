@@ -2,8 +2,8 @@
 
 namespace Spatie\SlashCommand;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request as IlluminateRequest;
+use Illuminate\Support\Str;
 
 class Request
 {

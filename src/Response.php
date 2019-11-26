@@ -3,8 +3,8 @@
 namespace Spatie\SlashCommand;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Str;
 use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Support\Str;
 
 class Response
 {

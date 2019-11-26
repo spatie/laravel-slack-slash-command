@@ -2,11 +2,11 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
+use Spatie\SlashCommand\Exceptions\InvalidHandler;
+use Spatie\SlashCommand\Handlers\SignatureHandler;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 use Spatie\SlashCommand\Test\TestCase;
-use Spatie\SlashCommand\Exceptions\InvalidHandler;
-use Spatie\SlashCommand\Handlers\SignatureHandler;
 
 class SignatureHandlerTest extends TestCase
 {

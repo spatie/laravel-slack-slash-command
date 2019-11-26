@@ -2,9 +2,9 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
-use Spatie\SlashCommand\Test\TestCase;
-use Spatie\SlashCommand\Handlers\SignatureParts;
 use Spatie\SlashCommand\Exceptions\InvalidSignature;
+use Spatie\SlashCommand\Handlers\SignatureParts;
+use Spatie\SlashCommand\Test\TestCase;
 
 class SignaturePartsTest extends TestCase
 {
