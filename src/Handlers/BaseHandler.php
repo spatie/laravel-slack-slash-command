@@ -22,7 +22,7 @@ abstract class BaseHandler implements HandlesSlashCommand
         $this->request = $request;
     }
 
-    public function respondToSlack(string $text): Response
+    public function respondToSlack(string $text = ''): Response
     {
         return Response::create($this->request)->withText($text);
     }

@@ -6,5 +6,5 @@ interface HandlesSlashCommand
 {
     public function getRequest(): Request;
 
-    public function respondToSlack(string $text): Response;
+    public function respondToSlack(string $text = ''): Response;
 }
