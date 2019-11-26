@@ -2,10 +2,10 @@
 
 namespace Spatie\SlashCommand\Jobs;
 
-use Spatie\SlashCommand\Request;
-use Spatie\SlashCommand\Response;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\SlashCommand\HandlesSlashCommand;
+use Spatie\SlashCommand\Request;
+use Spatie\SlashCommand\Response;
 
 abstract class SlashCommandResponseJob implements ShouldQueue, HandlesSlashCommand
 {

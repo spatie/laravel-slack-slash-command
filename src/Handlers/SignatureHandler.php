@@ -2,17 +2,17 @@
 
 namespace Spatie\SlashCommand\Handlers;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Parser;
+use Illuminate\Support\Str;
+use Spatie\SlashCommand\Exceptions\InvalidHandler;
+use Spatie\SlashCommand\Exceptions\InvalidInput;
 use Spatie\SlashCommand\Request;
 use Symfony\Component\Console\Command\Command;
-use Spatie\SlashCommand\Exceptions\InvalidInput;
-use Symfony\Component\Console\Input\StringInput;
-use Spatie\SlashCommand\Exceptions\InvalidHandler;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Helper\DescriptorHelper;
 use Symfony\Component\Console\Exception\RuntimeException;
+use Symfony\Component\Console\Helper\DescriptorHelper;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 abstract class SignatureHandler extends BaseHandler
 {

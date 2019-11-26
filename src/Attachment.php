@@ -4,8 +4,8 @@ namespace Spatie\SlashCommand;
 
 use DateTime;
 use Illuminate\Support\Collection;
-use Spatie\SlashCommand\Exceptions\FieldCannotBeAdded;
 use Spatie\SlashCommand\Exceptions\ActionCannotBeAdded;
+use Spatie\SlashCommand\Exceptions\FieldCannotBeAdded;
 
 class Attachment
 {

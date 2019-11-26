@@ -2,10 +2,10 @@
 
 namespace Spatie\SlashCommand\Test\Handlers;
 
+use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
 use Spatie\SlashCommand\Test\TestCase;
-use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 
 class SlashCommandResponseJobTest extends TestCase
 {
