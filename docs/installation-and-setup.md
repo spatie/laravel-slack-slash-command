@@ -5,17 +5,20 @@ weight: 4
 
 ## Setting up a slash command at Slack.com
 
-In order to use this package you'll need to setup a slash command. Head over to the [custom integrations page
-at slack.com](https://slack.com/apps/manage/custom-integrations) to get started. There click "slash commands" and on the next page click "Add configuration". On that screen you can choose a name for your Slack command. You can choose anything that Slack allows. And finally you can setup your new command.
+In order to use this package you'll need to setup a slash command. Head over to the [create apps page
+at slack.com](https://api.slack.com/apps) to get started. There click "slash commands" and on the next page click "Create new command".
 
 You should now be on a screen that looks like this.
 
-<img src="../images/slack-integration-settings.jpg">
+<img src="../images/create-new-command.png">
 
 These are things you'll need to do:
-- In the `url` you should type the domain name of your Laravel app followed by one or more segments. In the screenshot we've added a `slack` segment. You can choose any segment you want. You'll also need to specify this later on in the config file of the package. 
+- In the `url` you should type the domain name of your Laravel app followed by one or more segments. In the screenshot we've added a `slack` segment. You can choose any segment you want. You'll also need to specify this later on in the config file of the package.
 - Choose `POST` in the `method` field
-- Specify a token in the `token` field. You'll need to copy that value over to the config file of this package.
+
+If you would like to test your Slash command locally, you can use ngrok (for example with `valet share`) to generate an url. Be aware that you should reinstall your app if the ngrok url expires.
+
+After you created your slash command you can head over to "Basic information" and copy the `Verification Token`. You need this for the `SLACK_SLASH_COMMAND_VERIFICATION_TOKEN` value in your .env
 
 ## Installing the package
 

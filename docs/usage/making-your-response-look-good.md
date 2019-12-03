@@ -12,7 +12,7 @@ Take a look at this response on Slack:
 This is how you would build that up
 
 ```php
-$this->respondToSlack()
+$this->respondToSlack('')
     ->withAttachment(Attachment::create()
         ->setColor('good')
         ->setText('This is good!')
