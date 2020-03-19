@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.10.0 - 2019-03-19
+
+- add support for Laravel 7
+
 ## 1.9.1 - 2019-11-26
 
 - fix default parameter
