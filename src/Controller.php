@@ -110,7 +110,7 @@ class Controller extends IlluminateController
         return $handler;
     }
 
-    protected function convertToResponse(Exception $exception) : Response
+    protected function convertToResponse(Exception $exception): Response
     {
         $message = config('app.debug') ? (string) $exception : 'Whoops, something went wrong...';
 
