@@ -41,7 +41,7 @@ abstract class BaseHandler implements HandlesSlashCommand
 
     public function getRequest(): Request
     {
-        return $this->getRequest();
+        return $this->request;
     }
 
     /**
