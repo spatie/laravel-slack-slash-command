@@ -17,11 +17,11 @@
     ],
     "require": {
         "php" : "^7.2",
-        "illuminate/support": "~5.8.0|^6.0|^7.0",
-        "illuminate/routing": "~5.8.0|^6.0|^7.0",
-        "illuminate/config": "~5.8.0|^6.0|^7.0",
-        "illuminate/queue": "~5.8.0|^6.0|^7.0",
-        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
+        "illuminate/routing": "~5.8.0|^6.0|^7.0|^8.0",
+        "illuminate/config": "~5.8.0|^6.0|^7.0|^8.0",
+        "illuminate/queue": "~5.8.0|^6.0|^7.0|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
         "laravel/helpers": "^1.0"
 
     },
