@@ -36,7 +36,7 @@ class Request
 
     /** @var string */
     public $responseUrl;
-    
+
     /** @var array */
     public $params;
 
@@ -64,7 +64,7 @@ class Request
 
             return $request;
         }, new static());
-        
+
         $selfRequest->params = $illuminateRequest->route()->parameters();
 
         return $selfRequest;
