@@ -36,10 +36,13 @@ class Request
 
     /** @var string */
     public $responseUrl;
+    
+    /** @var array */
+    public $params;
 
     public static function createFromIlluminateRequest(IlluminateRequest $illuminateRequest): self
     {
-        return collect([
+        $selfRequest = collect([
             'token',
             'teamId',
             'teamDomain',
@@ -61,6 +64,10 @@ class Request
 
             return $request;
         }, new static());
+        
+        $selfRequest->params = $illuminateRequest->route()->parameters();
+
+        return $selfRequest;
     }
 
     public function get(string $propertyName): string
