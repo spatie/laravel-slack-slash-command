@@ -12,7 +12,7 @@ class SlashCommandServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
+            __DIR__ . '/../config/laravel-slack-slash-command.php' => config_path('laravel-slack-slash-command.php'),
         ], 'config');
 
         $this->addRoutes();
@@ -23,19 +23,18 @@ class SlashCommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-slack-slash-command.php', 'laravel-slack-slash-command');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-slack-slash-command.php', 'laravel-slack-slash-command');
     }
-    
-     /**
+
+    /**
      * Define routes
      */
     public function addRoutes()
     {
         $router = $this->app['router'];
 
-        $domain = array_key_exists('domain',config('laravel-slack-slash-command')) ? config('laravel-slack-slash-command')['domain'] : '';
+        $domain = array_key_exists('domain', config('laravel-slack-slash-command')) ? config('laravel-slack-slash-command')['domain'] : '';
 
-        $router->domain($domain)->get(config('laravel-slack-slash-command')['path'], Controller::class.'@getResponse');
-
+        $router->domain($domain)->get(config('laravel-slack-slash-command')['path'], Controller::class . '@getResponse');
     }
 }
