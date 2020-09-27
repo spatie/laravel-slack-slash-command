@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.11.0 - 2020-09-27
+
+- Laravel 8 & Guzzle 7 support (#101)
+
 ## 1.10.0 - 2019-03-19
 
 - add support for Laravel 7
