@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.11.1 - 2021-04-08
+
+- allow PHP Version ^7.3|^8.0 in composer.json (#105)
+
 ## 1.11.0 - 2020-09-27
 
 - Laravel 8 & Guzzle 7 support (#101)
