@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-slack` will be documented in this file
 
+## 1.12.2 - 2021-05-28
+
+- remove unnecessary array access to config value (#106)
+
 ## 1.11.1 - 2021-04-08
 
 - allow PHP Version ^7.3|^8.0 in composer.json (#105)
