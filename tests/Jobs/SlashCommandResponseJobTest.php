@@ -37,10 +37,10 @@ beforeEach(function () {
 });
 
 it('can get a request', function () {
-    $this->assertInstanceOf(Request::class, $this->request);
-    $this->assertInstanceOf(Request::class, $this->job->getRequest());
+    expect($this->request)->toBeInstanceOf(Request::class);
+    expect($this->job->getRequest())->toBeInstanceOf(Request::class);
 });
 
 it('can get a response', function () {
-    $this->assertInstanceOf(Response::class, $this->job->getResponse());
+    expect($this->job->getResponse())->toBeInstanceOf(Response::class);
 });

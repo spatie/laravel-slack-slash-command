@@ -10,10 +10,10 @@ it('can set a value', function () {
 
     $action = $attachmentAction->toArray();
 
-    $this->assertSame('action', $action['name']);
-    $this->assertSame('an action', $action['text']);
-    $this->assertSame('button', $action['type']);
-    $this->assertSame('value', $action['value']);
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['value'])->toBe('value');
 });
 
 it('can set a style', function () {
@@ -22,10 +22,10 @@ it('can set a style', function () {
 
     $action = $attachmentAction->toArray();
 
-    $this->assertSame('action', $action['name']);
-    $this->assertSame('an action', $action['text']);
-    $this->assertSame('button', $action['type']);
-    $this->assertSame('primary', $action['style']);
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['style'])->toBe('primary');
 });
 
 it('can set a confirmation hash', function () {
@@ -34,8 +34,8 @@ it('can set a confirmation hash', function () {
 
     $action = $attachmentAction->toArray();
 
-    $this->assertSame('action', $action['name']);
-    $this->assertSame('an action', $action['text']);
-    $this->assertSame('button', $action['type']);
-    $this->assertSame(['text' => 'are you sure you want to do that?'], $action['confirm']);
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['confirm'])->toBe(['text' => 'are you sure you want to do that?']);
 })->skip();

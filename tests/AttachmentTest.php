@@ -15,8 +15,8 @@ it('can add a field', function () {
 
     $attachment = $this->attachment->toArray()['fields'][0];
 
-    $this->assertEquals('title', $attachment['title']);
-    $this->assertEquals('value', $attachment['value']);
+    expect($attachment['title'])->toEqual('title');
+    expect($attachment['value'])->toEqual('value');
 });
 
 it('can add a multiple fields using an associative array', function () {
@@ -27,11 +27,11 @@ it('can add a multiple fields using an associative array', function () {
 
     $attachments = $this->attachment->toArray()['fields'];
 
-    $this->assertEquals('title', $attachments[0]['title']);
-    $this->assertEquals('value', $attachments[0]['value']);
+    expect($attachments[0]['title'])->toEqual('title');
+    expect($attachments[0]['value'])->toEqual('value');
 
-    $this->assertEquals('title2', $attachments[1]['title']);
-    $this->assertEquals('value2', $attachments[1]['value']);
+    expect($attachments[1]['title'])->toEqual('title2');
+    expect($attachments[1]['value'])->toEqual('value2');
 });
 
 it('can add an array of attachment fields', function () {
@@ -41,8 +41,8 @@ it('can add an array of attachment fields', function () {
 
     $attachments = $this->attachment->toArray()['fields'];
 
-    $this->assertEquals('title', $attachments[0]['title']);
-    $this->assertEquals('value', $attachments[0]['value']);
+    expect($attachments[0]['title'])->toEqual('title');
+    expect($attachments[0]['value'])->toEqual('value');
 });
 
 it('can add a action', function () {
@@ -50,9 +50,9 @@ it('can add a action', function () {
 
     $action = $this->attachment->toArray()['actions'][0];
 
-    $this->assertSame('button', $action['name']);
-    $this->assertSame('a button', $action['text']);
-    $this->assertSame('button', $action['type']);
+    expect($action['name'])->toBe('button');
+    expect($action['text'])->toBe('a button');
+    expect($action['type'])->toBe('button');
 });
 
 it('can add multiple actions using an associative array', function () {
@@ -63,13 +63,13 @@ it('can add multiple actions using an associative array', function () {
 
     $attachments = $this->attachment->toArray()['actions'];
 
-    $this->assertEquals('button1', $attachments[0]['name']);
-    $this->assertEquals('button1', $attachments[0]['text']);
-    $this->assertEquals('button', $attachments[0]['type']);
+    expect($attachments[0]['name'])->toEqual('button1');
+    expect($attachments[0]['text'])->toEqual('button1');
+    expect($attachments[0]['type'])->toEqual('button');
 
-    $this->assertEquals('button2', $attachments[1]['name']);
-    $this->assertEquals('button2', $attachments[1]['text']);
-    $this->assertEquals('button', $attachments[1]['type']);
+    expect($attachments[1]['name'])->toEqual('button2');
+    expect($attachments[1]['text'])->toEqual('button2');
+    expect($attachments[1]['type'])->toEqual('button');
 });
 
 it('can add an array of attachment actions', function () {
@@ -79,7 +79,7 @@ it('can add an array of attachment actions', function () {
 
     $actions = $this->attachment->toArray()['actions'];
 
-    $this->assertSame('action', $actions[0]['name']);
-    $this->assertSame('click me', $actions[0]['text']);
-    $this->assertSame('button', $actions[0]['type']);
+    expect($actions[0]['name'])->toBe('action');
+    expect($actions[0]['text'])->toBe('click me');
+    expect($actions[0]['type'])->toBe('button');
 });

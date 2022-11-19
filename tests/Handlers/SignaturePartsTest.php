@@ -10,23 +10,21 @@ beforeEach(function () {
 });
 
 it('can determine the commandName', function () {
-    $this->assertSame('commandName', $this->signatureParts->getSlashCommandName());
+    expect($this->signatureParts->getSlashCommandName())->toBe('commandName');
 });
 
 it('can determine the handlerName', function () {
-    $this->assertSame('handlerName', $this->signatureParts->getHandlerName());
+    expect($this->signatureParts->getHandlerName())->toBe('handlerName');
 });
 
 it('can determine the signature without the commandName', function () {
-    $this->assertSame('handlerName {argument} {--option}', $this->signatureParts->getSignatureWithoutCommandName());
+    expect($this->signatureParts->getSignatureWithoutCommandName())->toBe('handlerName {argument} {--option}');
 });
 
 it('can determine the arguments and options', function () {
-    $this->assertSame('{argument} {--option}', $this->signatureParts->getArgumentsAndOptions());
+    expect($this->signatureParts->getArgumentsAndOptions())->toBe('{argument} {--option}');
 });
 
 it('will throw an exception if a signature does not contain a space', function () {
-    $this->expectException(InvalidSignature::class);
-
     new SignatureParts('commandName');
-});
+})->throws(InvalidSignature::class);

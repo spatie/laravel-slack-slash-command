@@ -47,7 +47,7 @@ beforeEach(function () {
 it('provides a factory method', function () {
     $response = Response::create($this->request);
 
-    $this->assertInstanceOf(Response::class, $response);
+    expect($response)->toBeInstanceOf(Response::class);
 });
 
 it('can send a text', function () {

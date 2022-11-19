@@ -27,17 +27,17 @@ beforeEach(function () {
 });
 
 it('can get the parameters as public properties', function () {
-    $this->assertSame(getPostParameters()['token'], $this->request->token);
+    expect($this->request->token)->toBe(getPostParameters()['token']);
 });
 
 it('provides a get function to retrieve parameters', function () {
-    $this->assertSame(getPostParameters()['token'], $this->request->get('token'));
+    expect($this->request->get('token'))->toBe(getPostParameters()['token']);
 });
 
 it('return an empty string when getting a non existing property', function () {
-    $this->assertSame('', $this->request->get('does not exist'));
+    expect($this->request->get('does not exist'))->toBe('');
 });
 
 it('can get all parameters at once', function () {
-    $this->assertSame(getPostParameters()['token'], $this->request->all()['token']);
+    expect($this->request->all()['token'])->toBe(getPostParameters()['token']);
 });

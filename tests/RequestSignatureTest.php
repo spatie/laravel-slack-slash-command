@@ -32,7 +32,7 @@ it('can create new signature', function () {
 
     $signature = $this->requestSignature->create($illuminateRequest);
 
-    $this->assertSame($this->getTestSignature(), $signature);
+    expect($signature)->toBe($this->getTestSignature());
 });
 
 it('cannot create new signature with invalid timestamp', function () {
@@ -44,7 +44,7 @@ it('cannot create new signature with invalid timestamp', function () {
 
     $signature = $this->requestSignature->create($illuminateRequest);
 
-    $this->assertNotSame($this->getTestSignature(), $signature);
+    expect($signature)->not->toBe($this->getTestSignature());
 });
 
 it('cannot create new signature with invalid signing secret', function () {
@@ -54,7 +54,7 @@ it('cannot create new signature with invalid signing secret', function () {
 
     $signature = $this->requestSignature->create($illuminateRequest);
 
-    $this->assertNotSame($this->getTestSignature(), $signature);
+    expect($signature)->not->toBe($this->getTestSignature());
 });
 
 it('cannot create new signature with invalid post parameters', function () {
@@ -62,5 +62,5 @@ it('cannot create new signature with invalid post parameters', function () {
 
     $signature = $this->requestSignature->create($illuminateRequest);
 
-    $this->assertNotSame($this->getTestSignature(), $signature);
+    expect($signature)->not->toBe($this->getTestSignature());
 });

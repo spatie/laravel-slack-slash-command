@@ -11,24 +11,20 @@ beforeEach(function () {
 });
 
 it('throws an exception when receiving a request without a token', function () {
-    $this->expectException(InvalidRequest::class);
-
     $response = $this->post($this->TEST_URL);
 
     if (isset($response->exception)) {
         throw $response->exception;
     }
-});
+})->throws(InvalidRequest::class);
 
 it('throws an exception when receiving a wrong token', function () {
-    $this->expectException(InvalidRequest::class);
-
     $response = $this->post($this->TEST_URL, ['token' => 'wrong token']);
 
     if (isset($response->exception)) {
         throw $response->exception;
     }
-});
+})->throws(InvalidRequest::class);
 
 it('can handle an array of configured tokens', function () {
     $this->app['config']->set('laravel-slack-slash-command.token', ['token1', 'token2']);
@@ -45,38 +41,32 @@ it('can handle an array of configured tokens', function () {
 it('throws an exception if no handler can handle the request', function () {
     $this->app['config']->set('laravel-slack-slash-command.handlers', []);
 
-    $this->expectException(RequestCouldNotBeHandled::class);
-
     $response = $this->post($this->TEST_URL, ['token' => 'test-token']);
 
     if (isset($response->exception)) {
         throw $response->exception;
     }
-});
+})->throws(RequestCouldNotBeHandled::class);
 
 it('throws an exception if an non existing handler class is given', function () {
     $this->app['config']->set('laravel-slack-slash-command.handlers', ['NonExistingClassName']);
 
-    $this->expectException(InvalidHandler::class);
-
     $response = $this->post($this->TEST_URL, ['token' => 'test-token']);
 
     if (isset($response->exception)) {
         throw $response->exception;
     }
-});
+})->throws(InvalidHandler::class);
 
 it('throws an exception when receiving a wrong signature', function () {
     $this->app['config']->set('laravel-slack-slash-command.verify_with_signing', true);
 
-    $this->expectException(InvalidRequest::class);
-
     $response = $this->post($this->TEST_URL, ['token' => 'test-token']);
 
     if (isset($response->exception)) {
         throw $response->exception;
     }
-});
+})->throws(InvalidRequest::class);
 
 it('can verify request with signature', function () {
     $this->app['config']->set('laravel-slack-slash-command.verify_with_signing', true);

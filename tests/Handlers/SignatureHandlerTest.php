@@ -39,15 +39,13 @@ beforeEach(function () {
 });
 
 it('throws an exception if a signature has not been set', function () {
-    $this->expectException(InvalidHandler::class);
-
     new class($this->request) extends SignatureHandler {
         public function handle(Request $request): Response
         {
             return true;
         }
     };
-});
+})->throws(InvalidHandler::class);
 
 it('cannot handle requests with a command that does not match the signature', function () {
     $signatureHandler = new class($this->request) extends SignatureHandler {
@@ -59,7 +57,7 @@ it('cannot handle requests with a command that does not match the signature', fu
         }
     };
 
-    $this->assertFalse($signatureHandler->canHandle($this->request));
+    expect($signatureHandler->canHandle($this->request))->toBeFalse();
 
     $signatureHandler = new class($this->request) extends SignatureHandler {
         public $signature = '/another handlerName';
@@ -70,29 +68,29 @@ it('cannot handle requests with a command that does not match the signature', fu
         }
     };
 
-    $this->assertFalse($signatureHandler->canHandle($this->request));
+    expect($signatureHandler->canHandle($this->request))->toBeFalse();
 });
 
 it('can handle requests with a valid signature', function () {
-    $this->assertTrue($this->signatureHandler->canHandle($this->request));
+    expect($this->signatureHandler->canHandle($this->request))->toBeTrue();
 });
 
 it('can get the value of an argument', function () {
-    $this->assertSame('my-argument', $this->signatureHandler->getArgument('argument'));
+    expect($this->signatureHandler->getArgument('argument'))->toBe('my-argument');
 });
 
 it('can get all arguments', function () {
-    $this->assertSame(['argument' => 'my-argument'], $this->signatureHandler->getArguments());
+    expect($this->signatureHandler->getArguments())->toBe(['argument' => 'my-argument']);
 });
 
 it('can determine which options have been set', function () {
-    $this->assertTrue($this->signatureHandler->getOption('option'));
-    $this->assertFalse($this->signatureHandler->getOption('another-option'));
+    expect($this->signatureHandler->getOption('option'))->toBeTrue();
+    expect($this->signatureHandler->getOption('another-option'))->toBeFalse();
 });
 
 it('can get all options', function () {
-    $this->assertSame([
+    expect($this->signatureHandler->getOptions())->toBe([
         'option' => true,
         'another-option' => false,
-    ], $this->signatureHandler->getOptions());
+    ]);
 });
