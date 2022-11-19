@@ -5,79 +5,62 @@ namespace Spatie\SlashCommand\Test;
 use Illuminate\Http\Request;
 use Spatie\SlashCommand\RequestSignature;
 
-class RequestSignatureTest extends TestCase
+function getHeaders(): array
 {
-    /** @var RequestSignature */
-    protected $requestSignature;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test-signing');
-
-        $this->requestSignature = new RequestSignature();
-    }
-
-    /** @test */
-    public function it_can_create_new_signature()
-    {
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $this->getHeaders());
-
-        $signature = $this->requestSignature->create($illuminateRequest);
-
-        $this->assertSame($this->getTestSignature(), $signature);
-    }
-
-    /** @test */
-    public function it_cannot_create_new_signature_with_invalid_timestamp()
-    {
-        $headers = [
-            'X-Slack-Request-Timestamp' => 1111,
-        ];
-
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $headers);
-
-        $signature = $this->requestSignature->create($illuminateRequest);
-
-        $this->assertNotSame($this->getTestSignature(), $signature);
-    }
-
-    /** @test */
-    public function it_cannot_create_new_signature_with_invalid_signing_secret()
-    {
-        $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test1-signing');
-
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParametersForSignature(), $this->getHeaders());
-
-        $signature = $this->requestSignature->create($illuminateRequest);
-
-        $this->assertNotSame($this->getTestSignature(), $signature);
-    }
-
-    /** @test */
-    public function it_cannot_create_new_signature_with_invalid_post_parameters()
-    {
-        $illuminateRequest = $this->getIlluminateRequest([], $this->getHeaders());
-
-        $signature = $this->requestSignature->create($illuminateRequest);
-
-        $this->assertNotSame($this->getTestSignature(), $signature);
-    }
-
-    protected function getHeaders(): array
-    {
-        return [
-            'X-Slack-Request-Timestamp' => 1234,
-        ];
-    }
-
-    public function getIlluminateRequest($values, $headers = []): Request
-    {
-        $illuminateRequest = new Request($values);
-
-        $illuminateRequest->headers->add($headers);
-
-        return $illuminateRequest;
-    }
+    return [
+        'X-Slack-Request-Timestamp' => 1234,
+    ];
 }
+
+function getIlluminateRequest($values, $headers = []): Request
+{
+    $illuminateRequest = new Request($values);
+
+    $illuminateRequest->headers->add($headers);
+
+    return $illuminateRequest;
+}
+
+beforeEach(function () {
+    $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test-signing');
+
+    $this->requestSignature = new RequestSignature();
+});
+
+it('can create new signature', function () {
+    $illuminateRequest = getIlluminateRequest($this->getPostParametersForSignature(), getHeaders());
+
+    $signature = $this->requestSignature->create($illuminateRequest);
+
+    expect($signature)->toBe($this->getTestSignature());
+});
+
+it('cannot create new signature with invalid timestamp', function () {
+    $headers = [
+        'X-Slack-Request-Timestamp' => 1111,
+    ];
+
+    $illuminateRequest = getIlluminateRequest($this->getPostParametersForSignature(), $headers);
+
+    $signature = $this->requestSignature->create($illuminateRequest);
+
+    expect($signature)->not->toBe($this->getTestSignature());
+});
+
+it('cannot create new signature with invalid signing secret', function () {
+    $this->app['config']->set('laravel-slack-slash-command.signing_secret', 'test1-signing');
+
+    $illuminateRequest = getIlluminateRequest($this->getPostParametersForSignature(), getHeaders());
+
+    $signature = $this->requestSignature->create($illuminateRequest);
+
+    expect($signature)->not->toBe($this->getTestSignature());
+});
+
+it('cannot create new signature with invalid post parameters', function () {
+    $illuminateRequest = getIlluminateRequest([], getHeaders());
+
+    $signature = $this->requestSignature->create($illuminateRequest);
+
+    expect($signature)->not->toBe($this->getTestSignature());
+});

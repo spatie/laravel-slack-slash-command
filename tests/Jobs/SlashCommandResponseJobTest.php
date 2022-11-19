@@ -1,63 +1,46 @@
 <?php
 
-namespace Spatie\SlashCommand\Test\Handlers;
+namespace Spatie\SlashCommand\Test\Jobs;
 
 use Spatie\SlashCommand\Jobs\SlashCommandResponseJob;
 use Spatie\SlashCommand\Request;
 use Spatie\SlashCommand\Response;
-use Spatie\SlashCommand\Test\TestCase;
 
-class SlashCommandResponseJobTest extends TestCase
+function getPostParameters(array $mergeVariables = []): array
 {
-    /** @var \Spatie\SlashCommand\Request */
-    protected $request;
-
-    /** @var \Spatie\SlashCommand\Jobs\SlashCommandResponseJob */
-    protected $job;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $illuminateRequest = $this->getIlluminateRequest($this->getPostParameters());
-
-        $this->request = Request::createFromIlluminateRequest($illuminateRequest);
-
-        $this->job = new class() extends SlashCommandResponseJob {
-            public function handle()
-            {
-            }
-        };
-
-        $this->job->setRequest($this->request);
-    }
-
-    /** @test */
-    public function it_can_get_a_request()
-    {
-        $this->assertInstanceOf(Request::class, $this->request);
-        $this->assertInstanceOf(Request::class, $this->job->getRequest());
-    }
-
-    /** @test */
-    public function it_can_get_a_response()
-    {
-        $this->assertInstanceOf(Response::class, $this->job->getResponse());
-    }
-
-    protected function getPostParameters(array $mergeVariables = []): array
-    {
-        return array_merge([
-            'token' => 'test-token',
-            'team_id' => 'T123',
-            'team_domain' => 'Company',
-            'channel_id' => 'C123',
-            'channel_name' => 'General',
-            'user_id' => 'U123',
-            'user_name' => 'Bob',
-            'command' => 'command',
-            'text' => 'my-argument --option',
-            'response_url' => 'https://slack.com/respond',
-        ], $mergeVariables);
-    }
+    return array_merge([
+        'token' => 'test-token',
+        'team_id' => 'T123',
+        'team_domain' => 'Company',
+        'channel_id' => 'C123',
+        'channel_name' => 'General',
+        'user_id' => 'U123',
+        'user_name' => 'Bob',
+        'command' => 'command',
+        'text' => 'my-argument --option',
+        'response_url' => 'https://slack.com/respond',
+    ], $mergeVariables);
 }
+
+beforeEach(function () {
+    $illuminateRequest = $this->getIlluminateRequest(getPostParameters());
+
+    $this->request = Request::createFromIlluminateRequest($illuminateRequest);
+
+    $this->job = new class() extends SlashCommandResponseJob {
+        public function handle()
+        {
+        }
+    };
+
+    $this->job->setRequest($this->request);
+});
+
+it('can get a request', function () {
+    expect($this->request)->toBeInstanceOf(Request::class);
+    expect($this->job->getRequest())->toBeInstanceOf(Request::class);
+});
+
+it('can get a response', function () {
+    expect($this->job->getResponse())->toBeInstanceOf(Response::class);
+});

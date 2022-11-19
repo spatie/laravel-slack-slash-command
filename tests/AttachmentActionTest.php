@@ -4,46 +4,38 @@ namespace Spatie\SlashCommand\Test;
 
 use Spatie\SlashCommand\AttachmentAction;
 
-class AttachmentActionTest extends TestCase
-{
-    /** @test */
-    public function it_can_set_a_value()
-    {
-        $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
-                                            ->setValue('value');
+it('can set a value', function () {
+    $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
+                        ->setValue('value');
 
-        $action = $attachmentAction->toArray();
+    $action = $attachmentAction->toArray();
 
-        $this->assertSame('action', $action['name']);
-        $this->assertSame('an action', $action['text']);
-        $this->assertSame('button', $action['type']);
-        $this->assertSame('value', $action['value']);
-    }
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['value'])->toBe('value');
+});
 
-    /** @test */
-    public function it_can_set_a_style()
-    {
-        $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
-                                            ->setStyle(AttachmentAction::STYLE_PRIMARY);
+it('can set a style', function () {
+    $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
+                        ->setStyle(AttachmentAction::STYLE_PRIMARY);
 
-        $action = $attachmentAction->toArray();
+    $action = $attachmentAction->toArray();
 
-        $this->assertSame('action', $action['name']);
-        $this->assertSame('an action', $action['text']);
-        $this->assertSame('button', $action['type']);
-        $this->assertSame('primary', $action['style']);
-    }
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['style'])->toBe('primary');
+});
 
-    public function it_can_set_a_confirmation_hash()
-    {
-        $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
-                                            ->setConfirmation(['text' => 'are you sure you want to do that?']);
+it('can set a confirmation hash', function () {
+    $attachmentAction = AttachmentAction::create('action', 'an action', 'button')
+                        ->setConfirmation(['text' => 'are you sure you want to do that?']);
 
-        $action = $attachmentAction->toArray();
+    $action = $attachmentAction->toArray();
 
-        $this->assertSame('action', $action['name']);
-        $this->assertSame('an action', $action['text']);
-        $this->assertSame('button', $action['type']);
-        $this->assertSame(['text' => 'are you sure you want to do that?'], $action['confirm']);
-    }
-}
+    expect($action['name'])->toBe('action');
+    expect($action['text'])->toBe('an action');
+    expect($action['type'])->toBe('button');
+    expect($action['confirm'])->toBe(['text' => 'are you sure you want to do that?']);
+})->skip();
