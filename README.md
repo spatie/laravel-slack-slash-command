@@ -2,7 +2,7 @@
     <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-slack-slash-command">
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-slack-slash-command/html/dark.webp">
-        <img alt="Logo for laravel-slack-slash-command" src=" https://spatie.be/packages/header/laravel-slack-slash-command/html/light.webp" height="190">
+        <img alt="Logo for laravel-slack-slash-command" src="https://spatie.be/packages/header/laravel-slack-slash-command/html/light.webp" height="190">
       </picture>
     </a>
 
