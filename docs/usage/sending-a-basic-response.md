@@ -122,3 +122,12 @@ By default the response will be sent to the user who typed in the original messa
 ```
 
 There are a lot of ways to format your message. Take a look at the docs on [formatting responses](https://docs.spatie.be/laravel-slack-slash-command/v1/usage/making-your-response-look-good) to learn more.
+
+You can also avoid sending a response in text directly. This can be useful if you want to interact with Slack API directly or have another way of providing feedback to users. Do remember to give feedback to users.
+
+```php
+    public function handle(Request $request): Response
+    {
+        return $this->acknowledgeToSlack();
+    }
+```
