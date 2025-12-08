@@ -27,6 +27,11 @@ abstract class BaseHandler implements HandlesSlashCommand
         return Response::create($this->request)->withText($text);
     }
 
+    public function acknowledgeToSlack(): Response
+    {
+        return Response::create($this->request);
+    }
+
     protected function dispatch(SlashCommandResponseJob $job)
     {
         $job->setRequest($this->request);

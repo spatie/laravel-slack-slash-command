@@ -80,3 +80,23 @@ it('can respond with text', function () {
     expect($response->getContent())->toBeJson();
     expect(json_decode($response->getContent(), associative: true)['text'])->toBe('Testing 123');
 });
+
+it('can respond with an empty body', function () {
+    $baseHandler = new class($this->request) extends BaseHandler {
+        public function canHandle(Request $request): bool
+        {
+            return true;
+        }
+
+        public function handle(Request $request): Response
+        {
+            return $this->acknowledgeToSlack();
+        }
+    };
+
+    $response = $baseHandler->handle($this->request)->getIlluminateResponse();
+
+    expect($response->getStatusCode())->toBe(200);
+    expect($response->getContent())->toBeString();
+    expect($response->getContent())->toBeEmpty();
+});
