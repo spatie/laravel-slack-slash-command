@@ -72,3 +72,14 @@ class SlowApiJobJob extends SlashCommandResponseJob
 When a user types in `/your-command get me the info` a quick response `Looking that info for you...` will be displayed. After a little while, when `MyApi` has done it's job `Here is your response: ...` will be sent to the channel.
 
 Notice that, unlike in the `Handlers` you'll need to call `send()` after the `respondToSlack`-method. You may send up to five responses in a timespan of 30 minutes in this job.
+
+You can also avoid sending a response in the handler and rely on responses send in the job only. Do remember to give early feedback to users.
+
+```php
+    public function handle(Request $request): Response
+    {
+        $this->dispatch(new ComplexJob());
+    
+        return $this->acknowledgeToSlack();
+    }
+```

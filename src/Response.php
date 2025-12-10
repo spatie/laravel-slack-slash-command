@@ -161,6 +161,10 @@ class Response
 
     public function getIlluminateResponse(): IlluminateResponse
     {
+        if (isset($this->text) === false) {
+            return new IlluminateResponse();
+        }
+
         return new IlluminateResponse($this->getPayload());
     }
 
