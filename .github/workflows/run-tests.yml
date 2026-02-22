@@ -21,6 +21,10 @@ jobs:
             testbench: 10.*
           - laravel: 13.*
             testbench: 11.*
+            minimum-stability: dev
+        exclude:
+          - laravel: 13.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }}
 
@@ -34,6 +38,12 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
+
+      - name: Set minimum stability
+        if: matrix.minimum-stability != ''
+        run: |
+          composer config minimum-stability ${{ matrix.minimum-stability }}
+          composer config prefer-stable true
 
       - name: Install dependencies
         run: |
