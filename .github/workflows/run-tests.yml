@@ -20,9 +20,9 @@ jobs:
             laravel: '13.*'
         include:
           - laravel: '12.*'
-            testbench: '^10.0'
+            testbench: '10.*'
           - laravel: '13.*'
-            testbench: '^11.0'
+            testbench: '11.*'
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -33,7 +33,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, dom, pdo_sqlite
+          extensions: mbstring, dom, pdo_sqlite, fileinfo
           coverage: none
           tools: composer:v2
 
