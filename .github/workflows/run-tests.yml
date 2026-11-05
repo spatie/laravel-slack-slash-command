@@ -1,0 +1,55 @@
+name: run-tests
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        php: ['8.2', '8.3', '8.4', '8.5', '8.6']
+        laravel: ['12.*', '13.*']
+        dependency-version: [prefer-lowest, prefer-stable]
+        exclude:
+          - php: '8.2'
+            laravel: '13.*'
+        include:
+          - laravel: '12.*'
+            testbench: '^10.0'
+          - laravel: '13.*'
+            testbench: '^11.0'
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, dom, pdo_sqlite
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/support:${{ matrix.laravel }}" --no-update --no-interaction
+          composer require --dev "orchestra/testbench:${{ matrix.testbench }}" --no-update --no-interaction
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+
+      - name: Show runtime and test versions
+        run: |
+          php --version
+          composer --version
+          composer show laravel/framework
+          composer show phpunit/phpunit
+          composer show pestphp/pest
+
+      - name: Execute tests
+        run: vendor/bin/pest
